@@ -1,6 +1,7 @@
 from collections import defaultdict
 import psutil
 import os
+from psutil._common import bytes2human
 
 def secs2hours(secs):
     mm, ss = divmod(secs, 60)
@@ -15,30 +16,30 @@ cpu_percentage = psutil.cpu_percent(interval=4, percpu=True)
 # Memoria RAM
 psutil_ram_memory = psutil.virtual_memory()
 memory_ram = {
-    "total": psutil_ram_memory.total,
-    "available": psutil_ram_memory.available,
-    "percent": psutil_ram_memory.percent,
-    "used": psutil_ram_memory.used,
-    "free": psutil_ram_memory.free,
+    "total": bytes2human(psutil_ram_memory.total),
+    "available": bytes2human(psutil_ram_memory.available),
+    "percent": int(psutil_ram_memory.percent),
+    "used": bytes2human(psutil_ram_memory.used),
+    "free": bytes2human(psutil_ram_memory.free),
 }
 
 
 # Memoria SWAP
 psutil_swap_memory = psutil.swap_memory()
 swap_memory = {
-    "total": psutil_swap_memory.total,
-    "used": psutil_swap_memory.used,
-    "free": psutil_swap_memory.free,
-    "percent": psutil_swap_memory.percent,
+    "total": bytes2human(psutil_swap_memory.total),
+    "used": bytes2human(psutil_swap_memory.used),
+    "free": bytes2human(psutil_swap_memory.free),
+    "percent": int(psutil_swap_memory.percent),
 }
 
 # Partições
 psutil_disk = psutil.disk_usage('/')
 disk = {
-    "free": psutil_disk.free,
-    "percent": psutil_disk.percent,
-    "total": psutil_disk.total,
-    "used": psutil_disk.used,
+    "free": bytes2human(psutil_disk.free),
+    "percent": int(psutil_disk.percent),
+    "total": bytes2human(psutil_disk.total),
+    "used": bytes2human(psutil_disk.used),
 }
 
 # Network
