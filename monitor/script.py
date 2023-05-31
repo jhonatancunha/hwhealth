@@ -1,7 +1,6 @@
-from collections import defaultdict
 import psutil
-import os
 from psutil._common import bytes2human
+import json 
 
 def secs2hours(secs):
     mm, ss = divmod(secs, 60)
@@ -12,6 +11,10 @@ def secs2hours(secs):
 cpu_count = psutil.cpu_count()
 cpu_percentage = psutil.cpu_percent(interval=4, percpu=True)
 
+cpu = {
+    "cpu_count": cpu_count,
+    "cpu_percentage": cpu_percentage
+}
 
 # Memoria RAM
 psutil_ram_memory = psutil.virtual_memory()
@@ -75,4 +78,13 @@ else:
         "power_plugged": psutil_battery.power_plugged,
     }
 
-print("EXIT")
+body = json.dumps({
+    'cpu': cpu,
+    'memory_ram': memory_ram,
+    'swap_memory': swap_memory,
+    'disk': disk,
+    'network': network,
+    'battery': battery
+}, indent=4)
+
+print(body)
