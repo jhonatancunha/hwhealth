@@ -1,4 +1,4 @@
-# Sistema de monitoramento de computadores
+# 🔍️🚑️ HWHealth - Serviço de monitoramento de métricas
 
 ![Arquitetura](arq.png)
 
