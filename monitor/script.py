@@ -48,9 +48,11 @@ fans = {
 # CPU
 cpu_count = psutil.cpu_count()
 cpu_percentage = psutil.cpu_percent(interval=4, percpu=True)
+cpu_mean_percentage = np.mean(cpu_percentage)
 
 cpu = {
     "cpu_count": cpu_count,
+    "cpu_mean_percentage": cpu_mean_percentage,
     "cpu_percentage": cpu_percentage,
     "temperature_unit": "celsius",
     "cpu_mean_temperature": mean_temp,
