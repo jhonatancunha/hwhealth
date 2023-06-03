@@ -1,4 +1,3 @@
-import { Layout } from '@ui-kitten/components';
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { MachineCard } from '../../components/MachineCard';
@@ -64,7 +63,7 @@ const teste = [
 
 export const MachineScreen = () => {
     return (
-        <Layout style={styles.container}>
+        <View style={styles.container}>
             <FlatList
                 style={styles.flatListMachine}
                 data={teste}
@@ -72,7 +71,7 @@ export const MachineScreen = () => {
                 keyExtractor={item => item.uuid}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
             />
-        </Layout>
+        </View>
     );
 };
 

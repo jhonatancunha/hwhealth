@@ -1,7 +1,6 @@
-import { Card, Layout, Text } from '@ui-kitten/components';
 import React from 'react';
-import { StyleSheet, View, ViewProps } from 'react-native';
-import { Icon } from 'react-native-eva-icons';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 interface IMachineCard {
     so: string;
@@ -12,31 +11,6 @@ interface IMachineCard {
     uuid: string;
 }
 
-interface IFooter extends ViewProps {
-    lastUpdate: string;
-}
-
-interface IHeader extends ViewProps {
-    uuid: string;
-    name: string;
-}
-
-const Header = ({ uuid, name, ...props }: IHeader): React.ReactElement => (
-    <View {...props}>
-        <Text category="s2">#{uuid}</Text>
-        <Text category="h6">{name}</Text>
-    </View>
-);
-
-const Footer = ({ lastUpdate, ...props }: IFooter): React.ReactElement => (
-    <View {...props} style={props.style}>
-        <View style={styles.infoWrapper}>
-            <Text>Última atualização: </Text>
-            <Text style={styles.infoValue}>{lastUpdate}</Text>
-        </View>
-    </View>
-);
-
 export const MachineCard = ({
     so,
     release,
@@ -46,32 +20,45 @@ export const MachineCard = ({
     uuid,
 }: IMachineCard): React.ReactElement => {
     return (
-        <Layout style={styles.topContainer}>
-            <Card
-                style={styles.card}
-                header={props => <Header {...props} name={name} uuid={uuid} />}
-                footer={props => <Footer {...props} lastUpdate={lastUpdate} />}>
+        <TouchableOpacity style={styles.topContainer}>
+            <View style={styles.card}>
+                <View>
+                    <Text style={styles.text}>#{uuid}</Text>
+                    <Text style={styles.text}>{name}</Text>
+                </View>
                 <View style={styles.cardContentWrapper}>
                     <View style={styles.cardContentRight}>
                         <View style={styles.infoWrapper}>
-                            <Text>Sistema Operacional: </Text>
+                            <Text style={styles.text}>
+                                Sistema Operacional:{' '}
+                            </Text>
                             <Text style={styles.infoValue}>{so}</Text>
                         </View>
                         <View style={styles.infoWrapper}>
-                            <Text>Release: </Text>
+                            <Text style={styles.text}>Release: </Text>
                             <Text style={styles.infoValue}>{release}</Text>
                         </View>
                         <View style={styles.infoWrapper}>
-                            <Text>Arquitetura: </Text>
+                            <Text style={styles.text}>Arquitetura: </Text>
                             <Text style={styles.infoValue}>{arch}</Text>
                         </View>
                     </View>
                     <View style={styles.cardContentLeft}>
-                        <Icon style={styles.icon} name="arrow-right" />
+                        <FontAwesome
+                            name="chevron-right"
+                            color="black"
+                            size={25}
+                        />
                     </View>
                 </View>
-            </Card>
-        </Layout>
+                <View>
+                    <View style={styles.infoWrapper}>
+                        <Text style={styles.text}>Última atualização: </Text>
+                        <Text style={styles.infoValue}>{lastUpdate}</Text>
+                    </View>
+                </View>
+            </View>
+        </TouchableOpacity>
     );
 };
 
@@ -114,9 +101,13 @@ const styles = StyleSheet.create({
     },
     infoValue: {
         fontWeight: 'bold',
+        color: 'black',
     },
     icon: {
         width: 40,
         height: 40,
+    },
+    text: {
+        color: 'black',
     },
 });
