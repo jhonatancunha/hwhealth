@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingLeft: 20,
-        paddingRight: 20,
     },
     flatListMachine: {
+        paddingLeft: 20,
+        paddingRight: 20,
         flex: 1,
         width: '100%',
         gap: 20,
