@@ -46,38 +46,32 @@ export const MachineCard = ({
     uuid,
 }: IMachineCard): React.ReactElement => {
     return (
-        <>
-            <Layout style={styles.topContainer}>
-                <Card
-                    style={styles.card}
-                    header={props => (
-                        <Header {...props} name={name} uuid={uuid} />
-                    )}
-                    footer={props => (
-                        <Footer {...props} lastUpdate={lastUpdate} />
-                    )}>
-                    <View style={styles.cardContentWrapper}>
-                        <View style={styles.cardContentRight}>
-                            <View style={styles.infoWrapper}>
-                                <Text>Sistema Operacional: </Text>
-                                <Text style={styles.infoValue}>{so}</Text>
-                            </View>
-                            <View style={styles.infoWrapper}>
-                                <Text>Release: </Text>
-                                <Text style={styles.infoValue}>{release}</Text>
-                            </View>
-                            <View style={styles.infoWrapper}>
-                                <Text>Arquitetura: </Text>
-                                <Text style={styles.infoValue}>{arch}</Text>
-                            </View>
+        <Layout style={styles.topContainer}>
+            <Card
+                style={styles.card}
+                header={props => <Header {...props} name={name} uuid={uuid} />}
+                footer={props => <Footer {...props} lastUpdate={lastUpdate} />}>
+                <View style={styles.cardContentWrapper}>
+                    <View style={styles.cardContentRight}>
+                        <View style={styles.infoWrapper}>
+                            <Text>Sistema Operacional: </Text>
+                            <Text style={styles.infoValue}>{so}</Text>
                         </View>
-                        <View style={styles.cardContentLeft}>
-                            <Icon style={styles.icon} name="arrow-right" />
+                        <View style={styles.infoWrapper}>
+                            <Text>Release: </Text>
+                            <Text style={styles.infoValue}>{release}</Text>
+                        </View>
+                        <View style={styles.infoWrapper}>
+                            <Text>Arquitetura: </Text>
+                            <Text style={styles.infoValue}>{arch}</Text>
                         </View>
                     </View>
-                </Card>
-            </Layout>
-        </>
+                    <View style={styles.cardContentLeft}>
+                        <Icon style={styles.icon} name="arrow-right" />
+                    </View>
+                </View>
+            </Card>
+        </Layout>
     );
 };
 
