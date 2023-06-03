@@ -24,7 +24,14 @@ module.exports = {
     ],
     rules: {
         'no-console': 'warn',
-        'prettier/prettier': 'error',
+        'prettier/prettier': [
+            'error',
+            {
+                singleQuote: true,
+                parser: 'flow',
+                bracketSpacing: true,
+            },
+        ],
         'max-len': ['warn', 120],
         'import/prefer-default-export': 'off',
         'react/jsx-indent': ['error', 4],
