@@ -8,12 +8,12 @@
 import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { Bottomvigator } from './routes/bottomTabNavigator';
+import { AppStack } from './routes/AppStack';
 
 function App(): JSX.Element {
     return (
         <NavigationContainer>
-            <Bottomvigator />
+            <AppStack />
         </NavigationContainer>
     );
 }

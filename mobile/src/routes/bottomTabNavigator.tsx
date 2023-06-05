@@ -42,7 +42,9 @@ const SCREENS: IScreens[] = [
 
 const Tab = createBottomTabNavigator();
 
-const style: BottomTabNavigationOptions = {
+const screenOptions: BottomTabNavigationOptions = {
+    headerShown: true,
+    title: 'HWHealth',
     tabBarActiveTintColor: 'black',
     tabBarInactiveTintColor: 'gray',
     tabBarStyle: {
@@ -57,7 +59,7 @@ const style: BottomTabNavigationOptions = {
 };
 
 export const Bottomvigator = () => (
-    <Tab.Navigator screenOptions={style}>
+    <Tab.Navigator screenOptions={screenOptions}>
         {SCREENS.map((screen: IScreens) => (
             <Tab.Screen
                 key={screen.route}
