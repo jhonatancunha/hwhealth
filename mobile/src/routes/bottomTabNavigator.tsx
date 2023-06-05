@@ -56,7 +56,7 @@ const style: BottomTabNavigationOptions = {
     },
 };
 
-export const TabNavigator = () => (
+export const Bottomvigator = () => (
     <Tab.Navigator screenOptions={style}>
         {SCREENS.map((screen: IScreens) => (
             <Tab.Screen

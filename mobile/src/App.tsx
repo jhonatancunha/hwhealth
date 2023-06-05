@@ -8,12 +8,12 @@
 import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { TabNavigator } from './routes/bottomTabNavigator';
+import { Bottomvigator } from './routes/bottomTabNavigator';
 
 function App(): JSX.Element {
     return (
         <NavigationContainer>
-            <TabNavigator />
+            <Bottomvigator />
         </NavigationContainer>
     );
 }
