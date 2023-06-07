@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -19,8 +20,14 @@ export const MachineCard = ({
     name,
     uuid,
 }: IMachineCard): React.ReactElement => {
+    const navigation = useNavigation();
+
+    const goToMachineInfo = () => {
+        navigation.navigate('MachineInfo');
+    };
+
     return (
-        <TouchableOpacity style={styles.topContainer}>
+        <TouchableOpacity style={styles.topContainer} onPress={goToMachineInfo}>
             <View style={styles.card}>
                 <View>
                     <Text style={styles.text}>#{uuid}</Text>

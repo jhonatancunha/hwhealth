@@ -5,8 +5,8 @@ import {
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { MachineScreen } from '../screens/Machine';
 import { MachineLimiarScreen } from '../screens/MachineLimiar';
+import { MachineScreen } from '../screens/Machines';
 
 interface IPropsIcon {
     color: string;
