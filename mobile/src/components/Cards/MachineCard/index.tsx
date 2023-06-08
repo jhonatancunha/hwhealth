@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     topContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        flex: 1,
     },
     card: {
         flex: 1,
