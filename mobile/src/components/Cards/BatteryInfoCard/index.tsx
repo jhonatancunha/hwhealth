@@ -8,6 +8,7 @@ interface IBatteryInfoCard {
     historyCharge: number[];
     timeLeft: string;
     powerPlugged: boolean;
+    timeLabelsHistoryCharge: string[];
 }
 
 export const BatteryInfoCard = ({
@@ -15,6 +16,7 @@ export const BatteryInfoCard = ({
     historyCharge,
     timeLeft,
     powerPlugged,
+    timeLabelsHistoryCharge,
 }: IBatteryInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
@@ -60,6 +62,7 @@ export const BatteryInfoCard = ({
                         data={historyCharge}
                         legend="Carga da bateria (%)"
                         yAxisSuffix="%"
+                        labels={timeLabelsHistoryCharge}
                     />
                 </View>
             ) : null}
@@ -72,6 +75,7 @@ BatteryInfoCard.defaultProps = {
     historyCharge: [100, 50, 60, 40, 80, 30, 99, 50],
     timeLeft: '-1:59:59',
     powerPlugged: false,
+    timeLabelsHistoryCharge: [],
 };
 
 const styles = StyleSheet.create({

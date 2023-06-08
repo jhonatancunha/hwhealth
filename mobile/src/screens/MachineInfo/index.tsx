@@ -77,6 +77,9 @@ export const MachineInfo = () => {
                 historyCharge={info.battery.history_charge}
                 timeLeft={info.battery.time_left}
                 powerPlugged={Boolean(info.battery.power_plugged)}
+                timeLabelsHistoryCharge={
+                    info.battery.time_labels_history_charge
+                }
             />
         </ScrollView>
     );
