@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
     ActivityIndicator,
     LayoutChangeEvent,
@@ -28,11 +28,12 @@ const chartConfig: AbstractChartConfig = {
 };
 
 interface ILineGraph {
-    data: LineChartData;
+    data: number[];
     height: number;
     verticalLabelRotation: number;
     yAxisLabel: string;
     yAxisSuffix: string;
+    legend: string;
 }
 
 export const LineGraph = ({
@@ -41,6 +42,7 @@ export const LineGraph = ({
     verticalLabelRotation,
     yAxisLabel,
     yAxisSuffix,
+    legend,
 }: ILineGraph) => {
     const [width, setWidth] = useState(0);
 
@@ -49,11 +51,26 @@ export const LineGraph = ({
         setWidth(width);
     };
 
+    const formattedData: LineChartData = useMemo(
+        () => ({
+            labels: [],
+            datasets: [
+                {
+                    data,
+                    color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                    strokeWidth: 2, // optional
+                },
+            ],
+            legend: [legend],
+        }),
+        [data, legend],
+    );
+
     return (
         <View style={styles.cardContainer} onLayout={handleLayout}>
             {width ? (
                 <LineChart
-                    data={data}
+                    data={formattedData}
                     width={width}
                     height={height}
                     verticalLabelRotation={verticalLabelRotation}
@@ -70,21 +87,12 @@ export const LineGraph = ({
 };
 
 LineGraph.defaultProps = {
-    data: {
-        labels: [],
-        datasets: [
-            {
-                data: [54.0, 49.0, 50.0, 49.0, 49.0],
-                color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-                strokeWidth: 2, // optional
-            },
-        ],
-        legend: ['Historico Temperatura Processador'], // optional
-    },
+    data: [54.0, 49.0, 50.0, 49.0, 49.0],
     height: 256,
     verticalLabelRotation: 30,
     yAxisLabel: '',
     yAxisSuffix: '°C',
+    legend: 'Historico Temperatura Processador',
 };
 
 const styles = StyleSheet.create({

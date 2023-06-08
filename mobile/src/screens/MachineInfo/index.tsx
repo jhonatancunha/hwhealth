@@ -1,11 +1,15 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { CPUInfo } from '../../components/CPUInfo';
+import { MemoryRamInfo } from '../../components/MemoryRamInfo';
 import { UserInfoCard } from '../../components/UserInfoCard';
 
 export const MachineInfo = () => {
     return (
-        <View style={styles.container}>
+        <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.container}>
             <UserInfoCard
                 name={info.user_info.name}
                 uuid={info.user_info.uuid}
@@ -22,7 +26,14 @@ export const MachineInfo = () => {
                 cpuMeanTemperature={info.cpu.cpu_mean_temperature}
                 historyCpuTemperature={info.cpu.cpu_temperature}
             />
-        </View>
+            <MemoryRamInfo
+                total={info.memory_ram.total}
+                available={info.memory_ram.available}
+                percent={info.memory_ram.percent}
+                used={info.memory_ram.used}
+                historyPercent={info.memory_ram.history_percent}
+            />
+        </ScrollView>
     );
 };
 
@@ -53,18 +64,21 @@ const info = {
         percent: 41,
         used: '5.0G',
         free: '3.9G',
+        history_percent: [41, 20, 90, 60, 40, 20, 30, 40],
     },
     swap_memory: {
         total: '1.9G',
         used: '0.0B',
         free: '1.9G',
         percent: 0,
+        history_percent: [41, 20, 90, 60, 40, 20, 30, 40],
     },
     disk: {
         free: '27.7G',
         percent: 55,
         total: '64.9G',
         used: '33.9G',
+        history_percent: [41, 20, 90, 60, 40, 20, 30, 40],
     },
     network: {
         bytes_sent: '93.7M',
@@ -84,10 +98,13 @@ const info = {
 };
 
 const styles = StyleSheet.create({
-    container: {
+    scrollView: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         paddingHorizontal: 20,
+    },
+    container: {
+        alignItems: 'center',
+        paddingVertical: 20,
+        gap: 20,
     },
 });
