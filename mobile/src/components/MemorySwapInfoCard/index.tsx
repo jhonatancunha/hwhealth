@@ -54,7 +54,8 @@ export const MemorySwapInfoCard = ({
 
                     <LineGraph
                         data={historyPercent}
-                        legend="Uso da memória SWAP"
+                        legend="Uso da memória SWAP (%)"
+                        yAxisSuffix="%"
                     />
                 </View>
             ) : null}

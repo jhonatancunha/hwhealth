@@ -66,7 +66,8 @@ export const MemoryRamInfoCard = ({
 
                     <LineGraph
                         data={historyPercent}
-                        legend="Uso da memória RAM"
+                        legend="Uso da memória RAM (%)"
+                        yAxisSuffix="%"
                     />
                 </View>
             ) : null}

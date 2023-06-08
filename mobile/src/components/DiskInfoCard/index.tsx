@@ -54,7 +54,8 @@ export const DiskInfoCard = ({
 
                     <LineGraph
                         data={historyPercent}
-                        legend="Uso espaço do disco"
+                        legend="Uso espaço do disco (%)"
+                        yAxisSuffix="%"
                     />
                 </View>
             ) : null}

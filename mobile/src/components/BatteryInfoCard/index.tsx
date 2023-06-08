@@ -61,7 +61,11 @@ export const BatteryInfoCard = ({
                         </Text>
                     </View>
 
-                    <LineGraph data={historyCharge} legend="Carga da bateria" />
+                    <LineGraph
+                        data={historyCharge}
+                        legend="Carga da bateria (%)"
+                        yAxisSuffix="%"
+                    />
                 </View>
             ) : null}
         </View>

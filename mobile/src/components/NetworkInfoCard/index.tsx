@@ -56,11 +56,13 @@ export const NetworkInfoCard = ({
                     <LineGraph
                         data={historyPacketsSent}
                         legend="Quantidade pacotes enviados"
+                        yAxisSuffix=""
                     />
 
                     <LineGraph
                         data={historyPacketsReceived}
                         legend="Quantidade pacotes recebidos"
+                        yAxisSuffix=""
                     />
                 </View>
             ) : null}
