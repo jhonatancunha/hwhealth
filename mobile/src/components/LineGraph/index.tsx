@@ -95,18 +95,7 @@ LineGraph.defaultProps = {
     yAxisLabel: '',
     yAxisSuffix: '°C',
     legend: 'Historico Temperatura Processador',
-    labels: [
-        '14:14',
-        '15:20',
-        '15:60',
-        '17:60',
-        '18:20',
-        '14:14',
-        '15:20',
-        '15:60',
-        '17:60',
-        '18:20',
-    ],
+    labels: [],
 };
 
 const styles = StyleSheet.create({

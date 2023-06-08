@@ -38,6 +38,9 @@ export const MachineInfo = () => {
                 percent={info.memory_ram.percent}
                 used={info.memory_ram.used}
                 historyPercent={info.memory_ram.history_percent}
+                timeLabelsHistoryPercent={
+                    info.memory_ram.time_labels_history_percent
+                }
             />
 
             <MemorySwapInfoCard
@@ -116,21 +119,42 @@ const info = {
         percent: 41,
         used: '5.0G',
         free: '3.9G',
-        history_percent: [41, 20, 90, 60, 40, 20, 30, 40],
+        history_percent: [41, 20, 90, 60, 40],
+        time_labels_history_percent: [
+            '14:14',
+            '15:20',
+            '15:60',
+            '17:60',
+            '18:20',
+        ],
     },
     swap_memory: {
         total: '1.9G',
         used: '0.0B',
         free: '1.9G',
         percent: 0,
-        history_percent: [0, 1.9, 1.2, 0.2, 0, 0, 0.5, 0],
+        history_percent: [0, 1.9, 1.2, 0.2, 0],
+        time_labels_history_percent: [
+            '14:14',
+            '15:20',
+            '15:60',
+            '17:60',
+            '18:20',
+        ],
     },
     disk: {
         free: '27.7G',
         percent: 55,
         total: '64.9G',
         used: '33.9G',
-        history_percent: [41, 20, 90, 60, 40, 20, 30, 40],
+        history_percent: [41, 20, 90, 60, 40],
+        time_labels_history_percent: [
+            '14:14',
+            '15:20',
+            '15:60',
+            '17:60',
+            '18:20',
+        ],
     },
     network: {
         bytes_sent: '93.7M',
@@ -144,7 +168,14 @@ const info = {
     },
     battery: {
         charge: 99.92877492877493,
-        history_charge: [100, 50, 60, 40, 80, 30, 99, 50],
+        history_charge: [100, 50, 60, 40, 80],
+        time_labels_history_charge: [
+            '14:14',
+            '15:20',
+            '15:60',
+            '17:60',
+            '18:20',
+        ],
         time_left: '-1:59:59',
         power_plugged: null,
     },

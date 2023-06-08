@@ -9,6 +9,7 @@ interface IMemoryRamInfoCard {
     percent: number;
     used: string;
     historyPercent: number[];
+    timeLabelsHistoryPercent: string[];
 }
 
 export const MemoryRamInfoCard = ({
@@ -17,6 +18,7 @@ export const MemoryRamInfoCard = ({
     percent,
     used,
     historyPercent,
+    timeLabelsHistoryPercent,
 }: IMemoryRamInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
@@ -62,6 +64,7 @@ export const MemoryRamInfoCard = ({
                         data={historyPercent}
                         legend="Uso da memória RAM (%)"
                         yAxisSuffix="%"
+                        labels={timeLabelsHistoryPercent}
                     />
                 </View>
             ) : null}
@@ -75,6 +78,7 @@ MemoryRamInfoCard.defaultProps = {
     percent: 41,
     used: '5.0G',
     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
+    timeLabelsHistoryPercent: [],
 };
 
 const styles = StyleSheet.create({
