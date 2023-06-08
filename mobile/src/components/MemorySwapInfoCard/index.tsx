@@ -3,27 +3,19 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { LineGraph } from '../LineGraph';
 
-interface IMemoryRamInfo {
+interface IMemorySwapInfoCard {
     total: string;
-    available: string;
     percent: number;
     used: string;
     historyPercent: number[];
 }
 
-// total: '15.5G',
-//     available: '9.1G',
-//     percent: 41,
-//     used: '5.0G',
-//     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
-
-export const MemoryRamInfo = ({
+export const MemorySwapInfoCard = ({
     total,
-    available,
     percent,
     used,
     historyPercent,
-}: IMemoryRamInfo): React.ReactElement => {
+}: IMemorySwapInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -32,7 +24,7 @@ export const MemoryRamInfo = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Memória RAM</Text>
+                    <Text style={styles.title}>Memória SWAP</Text>
                 </View>
                 <View style={styles.titleCpuPercentage}>
                     <Text style={styles.percentage}>{used}</Text>
@@ -52,10 +44,6 @@ export const MemoryRamInfo = ({
                         <Text style={styles.infoValue}>{total}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Disponível: </Text>
-                        <Text style={styles.infoValue}>{available}</Text>
-                    </View>
-                    <View style={styles.infoWrapper}>
                         <Text style={styles.text}>Usado: </Text>
                         <Text style={styles.infoValue}>{used}</Text>
                     </View>
@@ -66,7 +54,7 @@ export const MemoryRamInfo = ({
 
                     <LineGraph
                         data={historyPercent}
-                        legend="Historico Uso Memória RAM"
+                        legend="Historico Uso Memória SWAP"
                     />
                 </View>
             ) : null}
@@ -74,9 +62,8 @@ export const MemoryRamInfo = ({
     );
 };
 
-MemoryRamInfo.defaultProps = {
+MemorySwapInfoCard.defaultProps = {
     total: '15.5G',
-    available: '9.1G',
     percent: 41,
     used: '5.0G',
     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],

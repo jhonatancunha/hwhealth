@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { CPUInfo } from '../../components/CPUInfo';
-import { MemoryRamInfo } from '../../components/MemoryRamInfo';
+import { CPUInfoCard } from '../../components/CPUInfoCard';
+import { DiskInfoCard } from '../../components/DiskInfoCard';
+import { MemoryRamInfoCard } from '../../components/MemoryRamInfoCard';
+import { MemorySwapInfoCard } from '../../components/MemorySwapInfoCard';
 import { UserInfoCard } from '../../components/UserInfoCard';
 
 export const MachineInfo = () => {
@@ -18,7 +20,7 @@ export const MachineInfo = () => {
                 osArchitecture={info.user_info.os_architecture}
                 osVersion={info.user_info.os_version}
             />
-            <CPUInfo
+            <CPUInfoCard
                 cpuCount={info.cpu.cpu_count}
                 cpuMeanPercentage={info.cpu.cpu_mean_percentage}
                 historyCpuPercentage={info.cpu.cpu_percentage}
@@ -26,12 +28,26 @@ export const MachineInfo = () => {
                 cpuMeanTemperature={info.cpu.cpu_mean_temperature}
                 historyCpuTemperature={info.cpu.cpu_temperature}
             />
-            <MemoryRamInfo
+            <MemoryRamInfoCard
                 total={info.memory_ram.total}
                 available={info.memory_ram.available}
                 percent={info.memory_ram.percent}
                 used={info.memory_ram.used}
                 historyPercent={info.memory_ram.history_percent}
+            />
+
+            <MemorySwapInfoCard
+                total={info.swap_memory.total}
+                percent={info.swap_memory.percent}
+                used={info.swap_memory.used}
+                historyPercent={info.swap_memory.history_percent}
+            />
+
+            <DiskInfoCard
+                total={info.disk.total}
+                percent={info.disk.percent}
+                used={info.disk.used}
+                historyPercent={info.disk.history_percent}
             />
         </ScrollView>
     );
@@ -71,7 +87,7 @@ const info = {
         used: '0.0B',
         free: '1.9G',
         percent: 0,
-        history_percent: [41, 20, 90, 60, 40, 20, 30, 40],
+        history_percent: [0, 1.9, 1.2, 0.2, 0, 0, 0.5, 0],
     },
     disk: {
         free: '27.7G',

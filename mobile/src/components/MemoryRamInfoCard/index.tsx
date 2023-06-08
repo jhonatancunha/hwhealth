@@ -3,23 +3,27 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { LineGraph } from '../LineGraph';
 
-interface IUserInfoCard {
-    cpuCount: number;
-    cpuMeanPercentage: number;
-    historyCpuPercentage: number[];
-    temperatureUnit: string;
-    cpuMeanTemperature: number;
-    historyCpuTemperature: number[];
+interface IMemoryRamInfoCard {
+    total: string;
+    available: string;
+    percent: number;
+    used: string;
+    historyPercent: number[];
 }
 
-export const CPUInfo = ({
-    cpuCount,
-    cpuMeanPercentage,
-    historyCpuPercentage,
-    temperatureUnit,
-    cpuMeanTemperature,
-    historyCpuTemperature,
-}: IUserInfoCard): React.ReactElement => {
+// total: '15.5G',
+//     available: '9.1G',
+//     percent: 41,
+//     used: '5.0G',
+//     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
+
+export const MemoryRamInfoCard = ({
+    total,
+    available,
+    percent,
+    used,
+    historyPercent,
+}: IMemoryRamInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -28,12 +32,10 @@ export const CPUInfo = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Processador</Text>
+                    <Text style={styles.title}>Memória RAM</Text>
                 </View>
                 <View style={styles.titleCpuPercentage}>
-                    <Text style={styles.percentage}>
-                        {cpuMeanTemperature} °C
-                    </Text>
+                    <Text style={styles.percentage}>{used}</Text>
                 </View>
                 <View style={styles.iconLeft}>
                     <FontAwesome
@@ -46,34 +48,38 @@ export const CPUInfo = ({
             {open ? (
                 <View style={styles.content}>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Temperatura média: </Text>
-                        <Text style={styles.infoValue}>
-                            {cpuMeanTemperature}°C
-                        </Text>
+                        <Text style={styles.text}>Total: </Text>
+                        <Text style={styles.infoValue}>{total}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Uso médio: </Text>
-                        <Text style={styles.infoValue}>
-                            {cpuMeanPercentage}%
-                        </Text>
+                        <Text style={styles.text}>Disponível: </Text>
+                        <Text style={styles.infoValue}>{available}</Text>
+                    </View>
+                    <View style={styles.infoWrapper}>
+                        <Text style={styles.text}>Usado: </Text>
+                        <Text style={styles.infoValue}>{used}</Text>
+                    </View>
+                    <View style={styles.infoWrapper}>
+                        <Text style={styles.text}>Porcentagem de uso: </Text>
+                        <Text style={styles.infoValue}>{percent}%</Text>
                     </View>
 
-                    <LineGraph />
+                    <LineGraph
+                        data={historyPercent}
+                        legend="Historico Uso Memória RAM"
+                    />
                 </View>
             ) : null}
         </View>
     );
 };
 
-CPUInfo.defaultProps = {
-    cpuCount: 8,
-    cpuMeanPercentage: 17.325,
-    historyCpuPercentagecpuCount: [
-        19.7, 17.5, 16.5, 17.8, 13.2, 21.2, 16.0, 16.7,
-    ],
-    temperatureUnit: 'celsius',
-    cpuMeanTemperature: 50.2,
-    historyCpuTemperaturecpuCount: [54.0, 49.0, 50.0, 49.0, 49.0],
+MemoryRamInfoCard.defaultProps = {
+    total: '15.5G',
+    available: '9.1G',
+    percent: 41,
+    used: '5.0G',
+    historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
 };
 
 const styles = StyleSheet.create({
