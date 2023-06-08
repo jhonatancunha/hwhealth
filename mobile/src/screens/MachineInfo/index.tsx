@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { BatteryInfoCard } from '../../components/BatteryInfoCard';
 import { CPUInfoCard } from '../../components/CPUInfoCard';
 import { DiskInfoCard } from '../../components/DiskInfoCard';
 import { MemoryRamInfoCard } from '../../components/MemoryRamInfoCard';
@@ -24,10 +25,10 @@ export const MachineInfo = () => {
             <CPUInfoCard
                 cpuCount={info.cpu.cpu_count}
                 cpuMeanPercentage={info.cpu.cpu_mean_percentage}
-                historyCpuPercentage={info.cpu.cpu_percentage}
+                historyCpuPercentage={info.cpu.history_cpu_percentage}
                 temperatureUnit={info.cpu.temperature_unit}
                 cpuMeanTemperature={info.cpu.cpu_mean_temperature}
-                historyCpuTemperature={info.cpu.cpu_temperature}
+                historyCpuTemperature={info.cpu.history_cpu_temperature}
             />
             <MemoryRamInfoCard
                 total={info.memory_ram.total}
@@ -61,6 +62,13 @@ export const MachineInfo = () => {
                 dropIn={info.network.drop_in}
                 dropOut={info.network.drop_out}
             />
+
+            <BatteryInfoCard
+                charge={info.battery.charge}
+                historyCharge={info.battery.history_charge}
+                timeLeft={info.battery.time_left}
+                powerPlugged={Boolean(info.battery.power_plugged)}
+            />
         </ScrollView>
     );
 };
@@ -81,10 +89,12 @@ const info = {
     cpu: {
         cpu_count: 8,
         cpu_mean_percentage: 17.325,
-        cpu_percentage: [19.7, 17.5, 16.5, 17.8, 13.2, 21.2, 16.0, 16.7],
+        history_cpu_percentage: [
+            19.7, 17.5, 16.5, 17.8, 13.2, 21.2, 16.0, 16.7,
+        ],
         temperature_unit: 'celsius',
         cpu_mean_temperature: 50.2,
-        cpu_temperature: [54.0, 49.0, 50.0, 49.0, 49.0],
+        history_cpu_temperature: [54.0, 49.0, 50.0, 49.0, 49.0],
     },
     memory_ram: {
         total: '15.5G',
@@ -120,6 +130,7 @@ const info = {
     },
     battery: {
         charge: 99.92877492877493,
+        history_charge: [100, 50, 60, 40, 80, 30, 99, 50],
         time_left: '-1:59:59',
         power_plugged: null,
     },
