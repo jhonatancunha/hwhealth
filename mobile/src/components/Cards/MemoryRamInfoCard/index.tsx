@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { LineGraph } from '../LineGraph';
+import { LineGraph } from '../../LineGraph';
 
-interface IDiskInfoCard {
+interface IMemoryRamInfoCard {
     total: string;
+    available: string;
     percent: number;
     used: string;
     historyPercent: number[];
 }
 
-export const DiskInfoCard = ({
+export const MemoryRamInfoCard = ({
     total,
+    available,
     percent,
     used,
     historyPercent,
-}: IDiskInfoCard): React.ReactElement => {
+}: IMemoryRamInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -24,7 +26,7 @@ export const DiskInfoCard = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Espaço de Disco</Text>
+                    <Text style={styles.title}>Memória RAM</Text>
                 </View>
                 <View style={styles.titleCpuPercentage}>
                     <Text style={styles.percentage}>{used}</Text>
@@ -44,6 +46,10 @@ export const DiskInfoCard = ({
                         <Text style={styles.infoValue}>{total}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
+                        <Text style={styles.text}>Disponível: </Text>
+                        <Text style={styles.infoValue}>{available}</Text>
+                    </View>
+                    <View style={styles.infoWrapper}>
                         <Text style={styles.text}>Usado: </Text>
                         <Text style={styles.infoValue}>{used}</Text>
                     </View>
@@ -54,7 +60,7 @@ export const DiskInfoCard = ({
 
                     <LineGraph
                         data={historyPercent}
-                        legend="Uso espaço do disco (%)"
+                        legend="Uso da memória RAM (%)"
                         yAxisSuffix="%"
                     />
                 </View>
@@ -63,8 +69,9 @@ export const DiskInfoCard = ({
     );
 };
 
-DiskInfoCard.defaultProps = {
+MemoryRamInfoCard.defaultProps = {
     total: '15.5G',
+    available: '9.1G',
     percent: 41,
     used: '5.0G',
     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],

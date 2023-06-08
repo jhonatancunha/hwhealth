@@ -1,29 +1,21 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { LineGraph } from '../LineGraph';
+import { LineGraph } from '../../LineGraph';
 
-interface INetworkInfoCard {
-    bytesSent: string;
-    bytesReceived: string;
-    historyPacketsSent: number[];
-    historyPacketsReceived: number[];
-    errorIn: number;
-    errorOut: number;
-    dropIn: number;
-    dropOut: number;
+interface IDiskInfoCard {
+    total: string;
+    percent: number;
+    used: string;
+    historyPercent: number[];
 }
 
-export const NetworkInfoCard = ({
-    bytesSent,
-    bytesReceived,
-    historyPacketsSent,
-    historyPacketsReceived,
-    errorIn,
-    errorOut,
-    dropIn,
-    dropOut,
-}: INetworkInfoCard): React.ReactElement => {
+export const DiskInfoCard = ({
+    total,
+    percent,
+    used,
+    historyPercent,
+}: IDiskInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -32,7 +24,10 @@ export const NetworkInfoCard = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Rede</Text>
+                    <Text style={styles.title}>Espaço de Disco</Text>
+                </View>
+                <View style={styles.titleCpuPercentage}>
+                    <Text style={styles.percentage}>{used}</Text>
                 </View>
                 <View style={styles.iconLeft}>
                     <FontAwesome
@@ -45,24 +40,22 @@ export const NetworkInfoCard = ({
             {open ? (
                 <View style={styles.content}>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Bytes enviados: </Text>
-                        <Text style={styles.infoValue}>{bytesSent}</Text>
+                        <Text style={styles.text}>Total: </Text>
+                        <Text style={styles.infoValue}>{total}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Bytes recebidos: </Text>
-                        <Text style={styles.infoValue}>{bytesReceived}</Text>
+                        <Text style={styles.text}>Usado: </Text>
+                        <Text style={styles.infoValue}>{used}</Text>
+                    </View>
+                    <View style={styles.infoWrapper}>
+                        <Text style={styles.text}>Porcentagem de uso: </Text>
+                        <Text style={styles.infoValue}>{percent}%</Text>
                     </View>
 
                     <LineGraph
-                        data={historyPacketsSent}
-                        legend="Quantidade pacotes enviados"
-                        yAxisSuffix=""
-                    />
-
-                    <LineGraph
-                        data={historyPacketsReceived}
-                        legend="Quantidade pacotes recebidos"
-                        yAxisSuffix=""
+                        data={historyPercent}
+                        legend="Uso espaço do disco (%)"
+                        yAxisSuffix="%"
                     />
                 </View>
             ) : null}
@@ -70,15 +63,11 @@ export const NetworkInfoCard = ({
     );
 };
 
-NetworkInfoCard.defaultProps = {
-    bytesSent: '93.7M',
-    bytesReceived: '335.1M',
-    historyPacketsSent: [100, 500, 600, 800, 10, 20],
-    historyPacketsReceived: [5, 6, 40, 900, 20, 10],
-    errorIn: 0,
-    errorOut: 0,
-    dropIn: 0,
-    dropOut: 0,
+DiskInfoCard.defaultProps = {
+    total: '15.5G',
+    percent: 41,
+    used: '5.0G',
+    historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
 };
 
 const styles = StyleSheet.create({

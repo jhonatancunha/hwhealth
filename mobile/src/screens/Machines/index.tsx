@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { MachineCard } from '../../components/MachineCard';
+import { MachineCard } from '../../components/Cards/MachineCard';
 
 const teste = [
     {

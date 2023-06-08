@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { LineGraph } from '../LineGraph';
+import { LineGraph } from '../../LineGraph';
 
-interface ICPUInfoCard {
-    cpuCount: number;
-    cpuMeanPercentage: number;
-    historyCpuPercentage: number[];
-    temperatureUnit: string;
-    cpuMeanTemperature: number;
-    historyCpuTemperature: number[];
+interface IMemorySwapInfoCard {
+    total: string;
+    percent: number;
+    used: string;
+    historyPercent: number[];
 }
 
-export const CPUInfoCard = ({
-    cpuCount,
-    cpuMeanPercentage,
-    historyCpuPercentage,
-    temperatureUnit,
-    cpuMeanTemperature,
-    historyCpuTemperature,
-}: ICPUInfoCard): React.ReactElement => {
+export const MemorySwapInfoCard = ({
+    total,
+    percent,
+    used,
+    historyPercent,
+}: IMemorySwapInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -28,12 +24,10 @@ export const CPUInfoCard = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Processador</Text>
+                    <Text style={styles.title}>Memória SWAP</Text>
                 </View>
                 <View style={styles.titleCpuPercentage}>
-                    <Text style={styles.percentage}>
-                        {cpuMeanTemperature} °C
-                    </Text>
+                    <Text style={styles.percentage}>{used}</Text>
                 </View>
                 <View style={styles.iconLeft}>
                     <FontAwesome
@@ -46,21 +40,22 @@ export const CPUInfoCard = ({
             {open ? (
                 <View style={styles.content}>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Temperatura média: </Text>
-                        <Text style={styles.infoValue}>
-                            {cpuMeanTemperature}°C
-                        </Text>
+                        <Text style={styles.text}>Total: </Text>
+                        <Text style={styles.infoValue}>{total}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Uso médio: </Text>
-                        <Text style={styles.infoValue}>
-                            {cpuMeanPercentage}%
-                        </Text>
+                        <Text style={styles.text}>Usado: </Text>
+                        <Text style={styles.infoValue}>{used}</Text>
+                    </View>
+                    <View style={styles.infoWrapper}>
+                        <Text style={styles.text}>Porcentagem de uso: </Text>
+                        <Text style={styles.infoValue}>{percent}%</Text>
                     </View>
 
                     <LineGraph
-                        legend="Temperatura processador (°C)"
-                        yAxisSuffix="°C"
+                        data={historyPercent}
+                        legend="Uso da memória SWAP (%)"
+                        yAxisSuffix="%"
                     />
                 </View>
             ) : null}
@@ -68,15 +63,11 @@ export const CPUInfoCard = ({
     );
 };
 
-CPUInfoCard.defaultProps = {
-    cpuCount: 8,
-    cpuMeanPercentage: 17.325,
-    historyCpuPercentagecpuCount: [
-        19.7, 17.5, 16.5, 17.8, 13.2, 21.2, 16.0, 16.7,
-    ],
-    temperatureUnit: 'celsius',
-    cpuMeanTemperature: 50.2,
-    historyCpuTemperaturecpuCount: [54.0, 49.0, 50.0, 49.0, 49.0],
+MemorySwapInfoCard.defaultProps = {
+    total: '15.5G',
+    percent: 41,
+    used: '5.0G',
+    historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
 };
 
 const styles = StyleSheet.create({

@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { LineGraph } from '../LineGraph';
+import { LineGraph } from '../../LineGraph';
 
-interface IBatteryInfoCard {
-    charge: number;
-    historyCharge: number[];
-    timeLeft: string;
-    powerPlugged: boolean;
+interface INetworkInfoCard {
+    bytesSent: string;
+    bytesReceived: string;
+    historyPacketsSent: number[];
+    historyPacketsReceived: number[];
+    errorIn: number;
+    errorOut: number;
+    dropIn: number;
+    dropOut: number;
 }
 
-// charge: 99.92877492877493,
-// historyCharge: [100, 50, 60, 40, 80, 30, 99, 50],
-// time_left: '-1:59:59',
-// power_plugged: null,
-
-export const BatteryInfoCard = ({
-    charge,
-    historyCharge,
-    timeLeft,
-    powerPlugged,
-}: IBatteryInfoCard): React.ReactElement => {
+export const NetworkInfoCard = ({
+    bytesSent,
+    bytesReceived,
+    historyPacketsSent,
+    historyPacketsReceived,
+    errorIn,
+    errorOut,
+    dropIn,
+    dropOut,
+}: INetworkInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -29,10 +32,7 @@ export const BatteryInfoCard = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Bateria</Text>
-                </View>
-                <View style={styles.titleCpuPercentage}>
-                    <Text style={styles.percentage}>{charge.toFixed(2)}%</Text>
+                    <Text style={styles.title}>Rede</Text>
                 </View>
                 <View style={styles.iconLeft}>
                     <FontAwesome
@@ -45,26 +45,24 @@ export const BatteryInfoCard = ({
             {open ? (
                 <View style={styles.content}>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Carga atual: </Text>
-                        <Text style={styles.infoValue}>
-                            {charge.toFixed(2)}%
-                        </Text>
+                        <Text style={styles.text}>Bytes enviados: </Text>
+                        <Text style={styles.infoValue}>{bytesSent}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Tempo restante: </Text>
-                        <Text style={styles.infoValue}>{timeLeft}</Text>
-                    </View>
-                    <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Carregando: </Text>
-                        <Text style={styles.infoValue}>
-                            {powerPlugged ? 'Sim' : 'Não'}
-                        </Text>
+                        <Text style={styles.text}>Bytes recebidos: </Text>
+                        <Text style={styles.infoValue}>{bytesReceived}</Text>
                     </View>
 
                     <LineGraph
-                        data={historyCharge}
-                        legend="Carga da bateria (%)"
-                        yAxisSuffix="%"
+                        data={historyPacketsSent}
+                        legend="Quantidade pacotes enviados"
+                        yAxisSuffix=""
+                    />
+
+                    <LineGraph
+                        data={historyPacketsReceived}
+                        legend="Quantidade pacotes recebidos"
+                        yAxisSuffix=""
                     />
                 </View>
             ) : null}
@@ -72,11 +70,15 @@ export const BatteryInfoCard = ({
     );
 };
 
-BatteryInfoCard.defaultProps = {
-    charge: 99.92877492877493,
-    historyCharge: [100, 50, 60, 40, 80, 30, 99, 50],
-    timeLeft: '-1:59:59',
-    powerPlugged: false,
+NetworkInfoCard.defaultProps = {
+    bytesSent: '93.7M',
+    bytesReceived: '335.1M',
+    historyPacketsSent: [100, 500, 600, 800, 10, 20],
+    historyPacketsReceived: [5, 6, 40, 900, 20, 10],
+    errorIn: 0,
+    errorOut: 0,
+    dropIn: 0,
+    dropOut: 0,
 };
 
 const styles = StyleSheet.create({

@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { LineGraph } from '../LineGraph';
+import { LineGraph } from '../../LineGraph';
 
-interface IMemorySwapInfoCard {
-    total: string;
-    percent: number;
-    used: string;
-    historyPercent: number[];
+interface IBatteryInfoCard {
+    charge: number;
+    historyCharge: number[];
+    timeLeft: string;
+    powerPlugged: boolean;
 }
 
-export const MemorySwapInfoCard = ({
-    total,
-    percent,
-    used,
-    historyPercent,
-}: IMemorySwapInfoCard): React.ReactElement => {
+export const BatteryInfoCard = ({
+    charge,
+    historyCharge,
+    timeLeft,
+    powerPlugged,
+}: IBatteryInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -24,10 +24,10 @@ export const MemorySwapInfoCard = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Memória SWAP</Text>
+                    <Text style={styles.title}>Bateria</Text>
                 </View>
                 <View style={styles.titleCpuPercentage}>
-                    <Text style={styles.percentage}>{used}</Text>
+                    <Text style={styles.percentage}>{charge.toFixed(2)}%</Text>
                 </View>
                 <View style={styles.iconLeft}>
                     <FontAwesome
@@ -40,21 +40,25 @@ export const MemorySwapInfoCard = ({
             {open ? (
                 <View style={styles.content}>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Total: </Text>
-                        <Text style={styles.infoValue}>{total}</Text>
+                        <Text style={styles.text}>Carga atual: </Text>
+                        <Text style={styles.infoValue}>
+                            {charge.toFixed(2)}%
+                        </Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Usado: </Text>
-                        <Text style={styles.infoValue}>{used}</Text>
+                        <Text style={styles.text}>Tempo restante: </Text>
+                        <Text style={styles.infoValue}>{timeLeft}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Porcentagem de uso: </Text>
-                        <Text style={styles.infoValue}>{percent}%</Text>
+                        <Text style={styles.text}>Carregando: </Text>
+                        <Text style={styles.infoValue}>
+                            {powerPlugged ? 'Sim' : 'Não'}
+                        </Text>
                     </View>
 
                     <LineGraph
-                        data={historyPercent}
-                        legend="Uso da memória SWAP (%)"
+                        data={historyCharge}
+                        legend="Carga da bateria (%)"
                         yAxisSuffix="%"
                     />
                 </View>
@@ -63,11 +67,11 @@ export const MemorySwapInfoCard = ({
     );
 };
 
-MemorySwapInfoCard.defaultProps = {
-    total: '15.5G',
-    percent: 41,
-    used: '5.0G',
-    historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
+BatteryInfoCard.defaultProps = {
+    charge: 99.92877492877493,
+    historyCharge: [100, 50, 60, 40, 80, 30, 99, 50],
+    timeLeft: '-1:59:59',
+    powerPlugged: false,
 };
 
 const styles = StyleSheet.create({

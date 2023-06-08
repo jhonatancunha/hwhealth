@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { BatteryInfoCard } from '../../components/BatteryInfoCard';
-import { CPUInfoCard } from '../../components/CPUInfoCard';
-import { DiskInfoCard } from '../../components/DiskInfoCard';
-import { MemoryRamInfoCard } from '../../components/MemoryRamInfoCard';
-import { MemorySwapInfoCard } from '../../components/MemorySwapInfoCard';
-import { NetworkInfoCard } from '../../components/NetworkInfoCard';
-import { UserInfoCard } from '../../components/UserInfoCard';
+import { BatteryInfoCard } from '../../components/Cards/BatteryInfoCard';
+import { CPUInfoCard } from '../../components/Cards/CPUInfoCard';
+import { DiskInfoCard } from '../../components/Cards/DiskInfoCard';
+import { MemoryRamInfoCard } from '../../components/Cards/MemoryRamInfoCard';
+import { MemorySwapInfoCard } from '../../components/Cards/MemorySwapInfoCard';
+import { NetworkInfoCard } from '../../components/Cards/NetworkInfoCard';
+import { UserInfoCard } from '../../components/Cards/UserInfoCard';
 
 export const MachineInfo = () => {
     return (

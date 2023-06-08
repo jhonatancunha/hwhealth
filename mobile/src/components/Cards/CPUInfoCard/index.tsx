@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { LineGraph } from '../LineGraph';
+import { LineGraph } from '../../LineGraph';
 
-interface IMemoryRamInfoCard {
-    total: string;
-    available: string;
-    percent: number;
-    used: string;
-    historyPercent: number[];
+interface ICPUInfoCard {
+    cpuCount: number;
+    cpuMeanPercentage: number;
+    historyCpuPercentage: number[];
+    temperatureUnit: string;
+    cpuMeanTemperature: number;
+    historyCpuTemperature: number[];
 }
 
-// total: '15.5G',
-//     available: '9.1G',
-//     percent: 41,
-//     used: '5.0G',
-//     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
-
-export const MemoryRamInfoCard = ({
-    total,
-    available,
-    percent,
-    used,
-    historyPercent,
-}: IMemoryRamInfoCard): React.ReactElement => {
+export const CPUInfoCard = ({
+    cpuCount,
+    cpuMeanPercentage,
+    historyCpuPercentage,
+    temperatureUnit,
+    cpuMeanTemperature,
+    historyCpuTemperature,
+}: ICPUInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -32,10 +28,12 @@ export const MemoryRamInfoCard = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Memória RAM</Text>
+                    <Text style={styles.title}>Processador</Text>
                 </View>
                 <View style={styles.titleCpuPercentage}>
-                    <Text style={styles.percentage}>{used}</Text>
+                    <Text style={styles.percentage}>
+                        {cpuMeanTemperature} °C
+                    </Text>
                 </View>
                 <View style={styles.iconLeft}>
                     <FontAwesome
@@ -48,26 +46,21 @@ export const MemoryRamInfoCard = ({
             {open ? (
                 <View style={styles.content}>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Total: </Text>
-                        <Text style={styles.infoValue}>{total}</Text>
+                        <Text style={styles.text}>Temperatura média: </Text>
+                        <Text style={styles.infoValue}>
+                            {cpuMeanTemperature}°C
+                        </Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Disponível: </Text>
-                        <Text style={styles.infoValue}>{available}</Text>
-                    </View>
-                    <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Usado: </Text>
-                        <Text style={styles.infoValue}>{used}</Text>
-                    </View>
-                    <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Porcentagem de uso: </Text>
-                        <Text style={styles.infoValue}>{percent}%</Text>
+                        <Text style={styles.text}>Uso médio: </Text>
+                        <Text style={styles.infoValue}>
+                            {cpuMeanPercentage}%
+                        </Text>
                     </View>
 
                     <LineGraph
-                        data={historyPercent}
-                        legend="Uso da memória RAM (%)"
-                        yAxisSuffix="%"
+                        legend="Temperatura processador (°C)"
+                        yAxisSuffix="°C"
                     />
                 </View>
             ) : null}
@@ -75,12 +68,15 @@ export const MemoryRamInfoCard = ({
     );
 };
 
-MemoryRamInfoCard.defaultProps = {
-    total: '15.5G',
-    available: '9.1G',
-    percent: 41,
-    used: '5.0G',
-    historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
+CPUInfoCard.defaultProps = {
+    cpuCount: 8,
+    cpuMeanPercentage: 17.325,
+    historyCpuPercentagecpuCount: [
+        19.7, 17.5, 16.5, 17.8, 13.2, 21.2, 16.0, 16.7,
+    ],
+    temperatureUnit: 'celsius',
+    cpuMeanTemperature: 50.2,
+    historyCpuTemperaturecpuCount: [54.0, 49.0, 50.0, 49.0, 49.0],
 };
 
 const styles = StyleSheet.create({
