@@ -3,27 +3,27 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { LineGraph } from '../LineGraph';
 
-interface IMemoryRamInfoCard {
-    total: string;
-    available: string;
-    percent: number;
-    used: string;
-    historyPercent: number[];
+interface INetworkInfoCard {
+    bytesSent: string;
+    bytesReceived: string;
+    historyPacketsSent: number[];
+    historyPacketsReceived: number[];
+    errorIn: number;
+    errorOut: number;
+    dropIn: number;
+    dropOut: number;
 }
 
-// total: '15.5G',
-//     available: '9.1G',
-//     percent: 41,
-//     used: '5.0G',
-//     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
-
-export const MemoryRamInfoCard = ({
-    total,
-    available,
-    percent,
-    used,
-    historyPercent,
-}: IMemoryRamInfoCard): React.ReactElement => {
+export const NetworkInfoCard = ({
+    bytesSent,
+    bytesReceived,
+    historyPacketsSent,
+    historyPacketsReceived,
+    errorIn,
+    errorOut,
+    dropIn,
+    dropOut,
+}: INetworkInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -32,10 +32,7 @@ export const MemoryRamInfoCard = ({
                 style={styles.header}
                 onPress={() => setOpen(prevState => !prevState)}>
                 <View style={styles.titleWrapper}>
-                    <Text style={styles.title}>Memória RAM</Text>
-                </View>
-                <View style={styles.titleCpuPercentage}>
-                    <Text style={styles.percentage}>{used}</Text>
+                    <Text style={styles.title}>Rede</Text>
                 </View>
                 <View style={styles.iconLeft}>
                     <FontAwesome
@@ -48,25 +45,22 @@ export const MemoryRamInfoCard = ({
             {open ? (
                 <View style={styles.content}>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Total: </Text>
-                        <Text style={styles.infoValue}>{total}</Text>
+                        <Text style={styles.text}>Bytes enviados: </Text>
+                        <Text style={styles.infoValue}>{bytesSent}</Text>
                     </View>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Disponível: </Text>
-                        <Text style={styles.infoValue}>{available}</Text>
-                    </View>
-                    <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Usado: </Text>
-                        <Text style={styles.infoValue}>{used}</Text>
-                    </View>
-                    <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Porcentagem de uso: </Text>
-                        <Text style={styles.infoValue}>{percent}%</Text>
+                        <Text style={styles.text}>Bytes recebidos: </Text>
+                        <Text style={styles.infoValue}>{bytesReceived}</Text>
                     </View>
 
                     <LineGraph
-                        data={historyPercent}
-                        legend="Uso da memória RAM"
+                        data={historyPacketsSent}
+                        legend="Quantidade pacotes enviados"
+                    />
+
+                    <LineGraph
+                        data={historyPacketsReceived}
+                        legend="Quantidade pacotes recebidos"
                     />
                 </View>
             ) : null}
@@ -74,12 +68,15 @@ export const MemoryRamInfoCard = ({
     );
 };
 
-MemoryRamInfoCard.defaultProps = {
-    total: '15.5G',
-    available: '9.1G',
-    percent: 41,
-    used: '5.0G',
-    historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
+NetworkInfoCard.defaultProps = {
+    bytesSent: '93.7M',
+    bytesReceived: '335.1M',
+    historyPacketsSent: [100, 500, 600, 800, 10, 20],
+    historyPacketsReceived: [5, 6, 40, 900, 20, 10],
+    errorIn: 0,
+    errorOut: 0,
+    dropIn: 0,
+    dropOut: 0,
 };
 
 const styles = StyleSheet.create({

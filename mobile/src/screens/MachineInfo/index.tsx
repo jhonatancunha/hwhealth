@@ -5,6 +5,7 @@ import { CPUInfoCard } from '../../components/CPUInfoCard';
 import { DiskInfoCard } from '../../components/DiskInfoCard';
 import { MemoryRamInfoCard } from '../../components/MemoryRamInfoCard';
 import { MemorySwapInfoCard } from '../../components/MemorySwapInfoCard';
+import { NetworkInfoCard } from '../../components/NetworkInfoCard';
 import { UserInfoCard } from '../../components/UserInfoCard';
 
 export const MachineInfo = () => {
@@ -48,6 +49,17 @@ export const MachineInfo = () => {
                 percent={info.disk.percent}
                 used={info.disk.used}
                 historyPercent={info.disk.history_percent}
+            />
+
+            <NetworkInfoCard
+                bytesSent={info.network.bytes_sent}
+                bytesReceived={info.network.bytes_received}
+                historyPacketsSent={info.network.history_packets_sent}
+                historyPacketsReceived={info.network.history_packets_received}
+                errorIn={info.network.error_in}
+                errorOut={info.network.error_out}
+                dropIn={info.network.drop_in}
+                dropOut={info.network.drop_out}
             />
         </ScrollView>
     );
@@ -99,8 +111,8 @@ const info = {
     network: {
         bytes_sent: '93.7M',
         bytes_received: '335.1M',
-        packets_sent: 271199,
-        packets_received: 388247,
+        history_packets_sent: [100, 500, 600, 800, 10, 20],
+        history_packets_received: [5, 6, 40, 900, 20, 10],
         error_in: 0,
         error_out: 0,
         drop_in: 0,

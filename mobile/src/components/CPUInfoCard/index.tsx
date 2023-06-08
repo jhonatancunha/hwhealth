@@ -58,7 +58,7 @@ export const CPUInfoCard = ({
                         </Text>
                     </View>
 
-                    <LineGraph />
+                    <LineGraph legend="Temperatura processador" />
                 </View>
             ) : null}
         </View>
