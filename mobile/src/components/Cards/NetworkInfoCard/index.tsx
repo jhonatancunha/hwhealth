@@ -12,6 +12,8 @@ interface INetworkInfoCard {
     errorOut: number;
     dropIn: number;
     dropOut: number;
+    timeLabelsHistoryPacketsSent: string[];
+    timeLabelsHistoryPacketsReceived: string[];
 }
 
 export const NetworkInfoCard = ({
@@ -23,6 +25,8 @@ export const NetworkInfoCard = ({
     errorOut,
     dropIn,
     dropOut,
+    timeLabelsHistoryPacketsSent,
+    timeLabelsHistoryPacketsReceived,
 }: INetworkInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
@@ -57,12 +61,14 @@ export const NetworkInfoCard = ({
                         data={historyPacketsSent}
                         legend="Quantidade pacotes enviados"
                         yAxisSuffix=""
+                        labels={timeLabelsHistoryPacketsSent}
                     />
 
                     <LineGraph
                         data={historyPacketsReceived}
                         legend="Quantidade pacotes recebidos"
                         yAxisSuffix=""
+                        labels={timeLabelsHistoryPacketsReceived}
                     />
                 </View>
             ) : null}
@@ -79,6 +85,8 @@ NetworkInfoCard.defaultProps = {
     errorOut: 0,
     dropIn: 0,
     dropOut: 0,
+    timeLabelsHistoryPacketsSent: [],
+    timeLabelsHistoryPacketsReceived: [],
 };
 
 const styles = StyleSheet.create({

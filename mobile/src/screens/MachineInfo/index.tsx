@@ -70,6 +70,12 @@ export const MachineInfo = () => {
                 errorOut={info.network.error_out}
                 dropIn={info.network.drop_in}
                 dropOut={info.network.drop_out}
+                timeLabelsHistoryPacketsSent={
+                    info.network.time_labels_history_packets_sent
+                }
+                timeLabelsHistoryPacketsReceived={
+                    info.network.time_labels_history_packets_received
+                }
             />
 
             <BatteryInfoCard
@@ -166,8 +172,22 @@ const info = {
     network: {
         bytes_sent: '93.7M',
         bytes_received: '335.1M',
-        history_packets_sent: [100, 500, 600, 800, 10, 20],
-        history_packets_received: [5, 6, 40, 900, 20, 10],
+        history_packets_sent: [100, 500, 600, 800, 10],
+        time_labels_history_packets_sent: [
+            '14:14',
+            '15:20',
+            '15:60',
+            '17:60',
+            '18:20',
+        ],
+        history_packets_received: [5, 6, 40, 900, 20],
+        time_labels_history_packets_received: [
+            '14:14',
+            '15:20',
+            '15:60',
+            '17:60',
+            '18:20',
+        ],
         error_in: 0,
         error_out: 0,
         drop_in: 0,
