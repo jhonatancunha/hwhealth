@@ -8,6 +8,7 @@ interface IDiskInfoCard {
     percent: number;
     used: string;
     historyPercent: number[];
+    timeLabelsHistoryPercent: string[];
 }
 
 export const DiskInfoCard = ({
@@ -15,6 +16,7 @@ export const DiskInfoCard = ({
     percent,
     used,
     historyPercent,
+    timeLabelsHistoryPercent,
 }: IDiskInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
@@ -56,6 +58,7 @@ export const DiskInfoCard = ({
                         data={historyPercent}
                         legend="Uso espaço do disco (%)"
                         yAxisSuffix="%"
+                        labels={timeLabelsHistoryPercent}
                     />
                 </View>
             ) : null}
@@ -68,6 +71,7 @@ DiskInfoCard.defaultProps = {
     percent: 41,
     used: '5.0G',
     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
+    timeLabelsHistoryPercent: [],
 };
 
 const styles = StyleSheet.create({

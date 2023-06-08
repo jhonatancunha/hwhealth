@@ -58,6 +58,7 @@ export const MachineInfo = () => {
                 percent={info.disk.percent}
                 used={info.disk.used}
                 historyPercent={info.disk.history_percent}
+                timeLabelsHistoryPercent={info.disk.time_labels_history_percent}
             />
 
             <NetworkInfoCard
