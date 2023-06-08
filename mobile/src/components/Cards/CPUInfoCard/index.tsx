@@ -10,6 +10,8 @@ interface ICPUInfoCard {
     temperatureUnit: string;
     cpuMeanTemperature: number;
     historyCpuTemperature: number[];
+    timeLabelsCpuTemperature: string[];
+    timeLabelsCpuPercentage: string[];
 }
 
 export const CPUInfoCard = ({
@@ -19,6 +21,8 @@ export const CPUInfoCard = ({
     temperatureUnit,
     cpuMeanTemperature,
     historyCpuTemperature,
+    timeLabelsCpuTemperature,
+    timeLabelsCpuPercentage,
 }: ICPUInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
@@ -59,8 +63,17 @@ export const CPUInfoCard = ({
                     </View>
 
                     <LineGraph
+                        data={historyCpuTemperature}
                         legend="Temperatura processador (°C)"
                         yAxisSuffix="°C"
+                        labels={timeLabelsCpuTemperature}
+                    />
+
+                    <LineGraph
+                        data={historyCpuPercentage}
+                        legend="Uso processador (%)"
+                        yAxisSuffix="%"
+                        labels={timeLabelsCpuPercentage}
                     />
                 </View>
             ) : null}
@@ -71,12 +84,36 @@ export const CPUInfoCard = ({
 CPUInfoCard.defaultProps = {
     cpuCount: 8,
     cpuMeanPercentage: 17.325,
-    historyCpuPercentagecpuCount: [
-        19.7, 17.5, 16.5, 17.8, 13.2, 21.2, 16.0, 16.7,
-    ],
+    historyCpuPercentage: [19.7, 17.5, 16.5, 17.8, 13.2, 21.2, 16.0, 16.7],
     temperatureUnit: 'celsius',
     cpuMeanTemperature: 50.2,
-    historyCpuTemperaturecpuCount: [54.0, 49.0, 50.0, 49.0, 49.0],
+    historyCpuTemperature: [
+        54.0, 49.0, 50.0, 49.0, 49.0, 49.0, 49.0, 49.0, 49.0, 49.0,
+    ],
+    timeLabelsCpuTemperature: [
+        '14:14',
+        '15:20',
+        '15:60',
+        '17:60',
+        '18:20',
+        '14:14',
+        '15:20',
+        '15:60',
+        '17:60',
+        '18:20',
+    ],
+    timeLabelsCpuPercentage: [
+        '14:14',
+        '15:20',
+        '15:60',
+        '17:60',
+        '18:20',
+        '14:14',
+        '15:20',
+        '15:60',
+        '17:60',
+        '18:20',
+    ],
 };
 
 const styles = StyleSheet.create({

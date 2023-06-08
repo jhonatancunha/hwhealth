@@ -29,6 +29,8 @@ export const MachineInfo = () => {
                 temperatureUnit={info.cpu.temperature_unit}
                 cpuMeanTemperature={info.cpu.cpu_mean_temperature}
                 historyCpuTemperature={info.cpu.history_cpu_temperature}
+                timeLabelsCpuTemperature={info.cpu.time_labels_cpu_temperature}
+                timeLabelsCpuPercentage={info.cpu.time_labels_cpu_percentage}
             />
             <MemoryRamInfoCard
                 total={info.memory_ram.total}
@@ -89,12 +91,24 @@ const info = {
     cpu: {
         cpu_count: 8,
         cpu_mean_percentage: 17.325,
-        history_cpu_percentage: [
-            19.7, 17.5, 16.5, 17.8, 13.2, 21.2, 16.0, 16.7,
+        history_cpu_percentage: [19.7, 17.5, 16.5, 17.8, 13.2],
+        time_labels_cpu_percentage: [
+            '14:14',
+            '15:20',
+            '15:60',
+            '17:60',
+            '18:20',
         ],
         temperature_unit: 'celsius',
         cpu_mean_temperature: 50.2,
         history_cpu_temperature: [54.0, 49.0, 50.0, 49.0, 49.0],
+        time_labels_cpu_temperature: [
+            '14:14',
+            '15:20',
+            '15:60',
+            '17:60',
+            '18:20',
+        ],
     },
     memory_ram: {
         total: '15.5G',

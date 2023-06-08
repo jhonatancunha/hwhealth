@@ -34,6 +34,7 @@ interface ILineGraph {
     yAxisLabel: string;
     yAxisSuffix: string;
     legend: string;
+    labels: string[];
 }
 
 export const LineGraph = ({
@@ -43,6 +44,7 @@ export const LineGraph = ({
     yAxisLabel,
     yAxisSuffix,
     legend,
+    labels,
 }: ILineGraph) => {
     const [width, setWidth] = useState(0);
 
@@ -53,7 +55,7 @@ export const LineGraph = ({
 
     const formattedData: LineChartData = useMemo(
         () => ({
-            labels: [],
+            labels: labels,
             datasets: [
                 {
                     data,
@@ -63,7 +65,7 @@ export const LineGraph = ({
             ],
             legend: [legend],
         }),
-        [data, legend],
+        [data, legend, labels],
     );
 
     return (
@@ -89,10 +91,22 @@ export const LineGraph = ({
 LineGraph.defaultProps = {
     data: [54.0, 49.0, 50.0, 49.0, 49.0],
     height: 256,
-    verticalLabelRotation: 30,
+    verticalLabelRotation: 0,
     yAxisLabel: '',
     yAxisSuffix: '°C',
     legend: 'Historico Temperatura Processador',
+    labels: [
+        '14:14',
+        '15:20',
+        '15:60',
+        '17:60',
+        '18:20',
+        '14:14',
+        '15:20',
+        '15:60',
+        '17:60',
+        '18:20',
+    ],
 };
 
 const styles = StyleSheet.create({
