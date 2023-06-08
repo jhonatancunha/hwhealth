@@ -8,6 +8,7 @@ interface IMemorySwapInfoCard {
     percent: number;
     used: string;
     historyPercent: number[];
+    timeLabelsHistoryPercent: string[];
 }
 
 export const MemorySwapInfoCard = ({
@@ -15,6 +16,7 @@ export const MemorySwapInfoCard = ({
     percent,
     used,
     historyPercent,
+    timeLabelsHistoryPercent,
 }: IMemorySwapInfoCard): React.ReactElement => {
     const [open, setOpen] = useState(false);
 
@@ -56,6 +58,7 @@ export const MemorySwapInfoCard = ({
                         data={historyPercent}
                         legend="Uso da memória SWAP (%)"
                         yAxisSuffix="%"
+                        labels={timeLabelsHistoryPercent}
                     />
                 </View>
             ) : null}
@@ -68,6 +71,7 @@ MemorySwapInfoCard.defaultProps = {
     percent: 41,
     used: '5.0G',
     historyPercent: [41, 20, 90, 60, 40, 20, 30, 40],
+    timeLabelsHistoryPercent: [],
 };
 
 const styles = StyleSheet.create({

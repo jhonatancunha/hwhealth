@@ -48,6 +48,9 @@ export const MachineInfo = () => {
                 percent={info.swap_memory.percent}
                 used={info.swap_memory.used}
                 historyPercent={info.swap_memory.history_percent}
+                timeLabelsHistoryPercent={
+                    info.swap_memory.time_labels_history_percent
+                }
             />
 
             <DiskInfoCard
