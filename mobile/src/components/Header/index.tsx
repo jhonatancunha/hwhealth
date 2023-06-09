@@ -1,22 +1,21 @@
-import { StackHeaderProps } from '@react-navigation/stack';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-interface IHeader extends StackHeaderProps {
+interface IHeader {
     title: string;
     goBackButton: boolean;
     configurationButton: boolean;
 }
 
-export function Header({
-    navigation,
-    title,
-    goBackButton,
-    configurationButton,
-}: IHeader) {
+export function Header({ title, goBackButton, configurationButton }: IHeader) {
+    const navigation = useNavigation();
+    const route = useRoute();
+    const { params } = route;
+
     const goToSettings = () => {
-        navigation.navigate('MachineConfiguration');
+        navigation.navigate('MachineConfiguration', params);
     };
 
     return (
@@ -57,6 +56,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        height: 60,
     },
     settingsButton: {},
     goBackButton: {},

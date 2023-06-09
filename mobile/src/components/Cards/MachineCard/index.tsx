@@ -23,7 +23,9 @@ export const MachineCard = ({
     const navigation = useNavigation();
 
     const goToMachineInfo = () => {
-        navigation.navigate('MachineInfo');
+        navigation.navigate('MachineInfo', {
+            uuid,
+        });
     };
 
     return (

@@ -1,10 +1,12 @@
 import {
+    BottomTabHeaderProps,
     BottomTabNavigationOptions,
     createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Header } from '../components/Header';
 import { MachineScreen } from '../screens/Machines';
 import { NotificationScreen } from '../screens/Notifications';
 
@@ -17,26 +19,33 @@ interface IPropsIcon {
 interface IScreens {
     route: string;
     title: string;
-    icon: (props: IPropsIcon) => React.ReactElement;
     component: React.FC;
+    icon: (props: IPropsIcon) => React.ReactElement;
+    header: (props: BottomTabHeaderProps) => React.ReactElement;
 }
 
 const SCREENS: IScreens[] = [
     {
         route: 'Machines',
         title: 'Máquinas',
+        component: MachineScreen,
         icon: ({ color, size }) => {
             return <Entypo name="laptop" color={color} size={size} />;
         },
-        component: MachineScreen,
+        header: (props: BottomTabHeaderProps) => (
+            <Header {...props} title="Minhas Máquinas" />
+        ),
     },
     {
         route: 'Notification',
-        title: 'Notificação',
+        title: 'Notificações',
+        component: NotificationScreen,
         icon: ({ color, size }) => {
             return <Ionicons name="notifications" color={color} size={size} />;
         },
-        component: NotificationScreen,
+        header: (props: BottomTabHeaderProps) => (
+            <Header {...props} title="Histórico de Notificações" />
+        ),
     },
 ];
 
@@ -69,6 +78,7 @@ export const Bottomvigator = () => (
                 options={{
                     tabBarLabel: screen.title,
                     tabBarIcon: screen.icon,
+                    header: screen.header,
                 }}
             />
         ))}
