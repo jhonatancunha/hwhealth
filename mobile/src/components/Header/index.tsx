@@ -1,0 +1,70 @@
+import { StackHeaderProps } from '@react-navigation/stack';
+import { StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+interface IHeader extends StackHeaderProps {
+    title: string;
+    goBackButton: boolean;
+    configurationButton: boolean;
+}
+
+export function Header({
+    navigation,
+    title,
+    goBackButton,
+    configurationButton,
+}: IHeader) {
+    const goToSettings = () => {
+        navigation.navigate('MachineConfiguration');
+    };
+
+    return (
+        <View style={styles.container}>
+            {goBackButton ? (
+                <TouchableOpacity
+                    onPress={navigation.goBack}
+                    style={styles.goBackButton}>
+                    <Ionicons
+                        name="arrow-back-circle"
+                        color="black"
+                        size={35}
+                    />
+                </TouchableOpacity>
+            ) : null}
+            <Text style={styles.title}>{title}</Text>
+            {configurationButton ? (
+                <TouchableOpacity
+                    onPress={goToSettings}
+                    style={styles.settingsButton}>
+                    <Ionicons name="settings" color="black" size={35} />
+                </TouchableOpacity>
+            ) : null}
+        </View>
+    );
+}
+
+Header.defaultProps = {
+    title: '',
+    goBackButton: false,
+    configurationButton: false,
+};
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'white',
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    settingsButton: {},
+    goBackButton: {},
+    title: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 20,
+        flex: 1,
+        textAlign: 'center',
+    },
+});

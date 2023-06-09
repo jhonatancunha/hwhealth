@@ -5,8 +5,8 @@ import {
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { MachineLimiarScreen } from '../screens/MachineLimiar';
 import { MachineScreen } from '../screens/Machines';
+import { NotificationScreen } from '../screens/Notifications';
 
 interface IPropsIcon {
     color: string;
@@ -31,12 +31,12 @@ const SCREENS: IScreens[] = [
         component: MachineScreen,
     },
     {
-        route: 'Configuration',
-        title: 'Configuração',
+        route: 'Notification',
+        title: 'Notificação',
         icon: ({ color, size }) => {
-            return <Ionicons name="settings" color={color} size={size} />;
+            return <Ionicons name="notifications" color={color} size={size} />;
         },
-        component: MachineLimiarScreen,
+        component: NotificationScreen,
     },
 ];
 
