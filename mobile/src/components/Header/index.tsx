@@ -7,9 +7,15 @@ interface IHeader {
     title: string;
     goBackButton: boolean;
     configurationButton: boolean;
+    rightButton: React.ReactElement;
 }
 
-export function Header({ title, goBackButton, configurationButton }: IHeader) {
+export function Header({
+    title,
+    goBackButton,
+    configurationButton,
+    rightButton,
+}: IHeader) {
     const navigation = useNavigation();
     const route = useRoute();
     const { params } = route;
@@ -39,6 +45,7 @@ export function Header({ title, goBackButton, configurationButton }: IHeader) {
                     <Ionicons name="settings" color="black" size={35} />
                 </TouchableOpacity>
             ) : null}
+            {rightButton ? rightButton : null}
         </View>
     );
 }
@@ -47,6 +54,7 @@ Header.defaultProps = {
     title: '',
     goBackButton: false,
     configurationButton: false,
+    rightButton: null,
 };
 
 const styles = StyleSheet.create({

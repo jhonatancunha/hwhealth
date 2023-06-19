@@ -4,6 +4,7 @@ import {
     createStackNavigator,
 } from '@react-navigation/stack';
 import { Header } from '../components/Header';
+import { HelpButton } from '../components/HelpButton';
 import { MachineConfigurationScreen } from '../screens/MachineConfiguration';
 import { MachineInfo } from '../screens/MachineInfo';
 import { Bottomvigator } from './BottomTabNavigator';
@@ -41,6 +42,7 @@ export function AppStack() {
                         <Header
                             {...props}
                             title="Configuração da Máquina"
+                            rightButton={<HelpButton />}
                             goBackButton
                         />
                     ),
