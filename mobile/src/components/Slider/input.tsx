@@ -1,30 +1,39 @@
 import { Slider } from '@miblanchard/react-native-slider';
 import { SliderOnChangeCallback } from '@miblanchard/react-native-slider/lib/types';
+import { forwardRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 interface IInputSlider {
     maximumValue: number;
     minimumValue: number;
     step: number;
-    onValueChange: SliderOnChangeCallback;
-    value: number;
+    onValueChange: (value: number) => void;
     label: string;
     sufix: string;
+    value: number;
 }
 
-export const InputSlider = ({
-    maximumValue,
-    minimumValue,
-    step,
-    onValueChange,
-    value,
-    label,
-    sufix,
-}: IInputSlider) => {
+// eslint-disable-next-line react/display-name
+export const InputSlider = forwardRef((props: IInputSlider, ref) => {
+    const {
+        maximumValue,
+        minimumValue,
+        step,
+        onValueChange,
+        label,
+        sufix,
+        value,
+        ...rest
+    } = props;
+
+    const handleOnChange: SliderOnChangeCallback = values => {
+        onValueChange(values[0]);
+    };
     return (
         <View style={styles.inputContainer}>
             <Text style={styles.label}>{label}</Text>
             <Slider
+                {...rest}
                 animateTransitions
                 thumbTintColor="#1a9274"
                 maximumTrackTintColor="#d3d3d3"
@@ -33,7 +42,7 @@ export const InputSlider = ({
                 minimumValue={minimumValue}
                 step={step}
                 value={value}
-                onValueChange={onValueChange}
+                onValueChange={handleOnChange}
             />
             <Text style={styles.value}>
                 {value}
@@ -41,7 +50,7 @@ export const InputSlider = ({
             </Text>
         </View>
     );
-};
+});
 
 InputSlider.defaultProps = {
     label: 'Label',
