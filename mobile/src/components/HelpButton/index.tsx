@@ -1,5 +1,6 @@
 import { Alert, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { colors } from '../../theme/colors';
 
 interface IHelpButton {
     title: string;
@@ -13,7 +14,11 @@ export const HelpButton = ({ title, message }: IHelpButton) => {
 
     return (
         <TouchableOpacity onPress={showInformation}>
-            <MaterialCommunityIcons name="help-box" color="black" size={35} />
+            <MaterialCommunityIcons
+                name="help-box"
+                color={colors.white}
+                size={35}
+            />
         </TouchableOpacity>
     );
 };

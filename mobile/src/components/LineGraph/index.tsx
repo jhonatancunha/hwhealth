@@ -8,11 +8,12 @@ import {
 import { LineChart } from 'react-native-chart-kit';
 import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart';
 import { LineChartData } from 'react-native-chart-kit/dist/line-chart/LineChart';
+import { colors } from '../../theme/colors';
 
 const chartConfig: AbstractChartConfig = {
-    backgroundColor: '#e26a00',
-    backgroundGradientFrom: '#fb8c00',
-    backgroundGradientTo: '#ffa726',
+    backgroundColor: colors.black,
+    backgroundGradientFrom: colors.black,
+    backgroundGradientTo: colors.black,
     decimalPlaces: 2, // optional, defaults to 2dp
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -20,10 +21,8 @@ const chartConfig: AbstractChartConfig = {
         borderRadius: 16,
     },
     propsForDots: {
-        r: '6',
-        strokeWidth: '2',
-        fill: '#ffa726',
-        stroke: '#e26a00',
+        r: '7',
+        fill: colors.pinkRGBA(0.8),
     },
 };
 
@@ -59,7 +58,7 @@ export const LineGraph = ({
             datasets: [
                 {
                     data,
-                    color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+                    color: () => colors.pinkRGBA(0.8), // optional
                     strokeWidth: 2, // optional
                 },
             ],

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../../theme/colors';
 
 interface IUserInfoCard {
     name: string;
@@ -82,20 +83,20 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 10,
         borderBottomWidth: 2,
-        barderColor: 'black',
+        barderColor: colors.black,
     },
     title: {
-        color: 'black',
+        color: colors.black,
     },
     infoWrapper: {
         flexDirection: 'row',
     },
     infoValue: {
         fontWeight: 'bold',
-        color: 'black',
+        color: colors.black,
         flex: 1,
     },
     text: {
-        color: 'black',
+        color: colors.black,
     },
 });

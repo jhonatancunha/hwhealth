@@ -4,6 +4,7 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native';
+import { colors } from '../../theme/colors';
 
 interface IButton {
     onPress: (e: GestureResponderEvent) => void;
@@ -30,10 +31,10 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 20,
         borderRadius: 8,
-        backgroundColor: 'red',
+        backgroundColor: colors.pink,
     },
     label: {
-        color: 'white',
+        color: colors.white,
         textAlign: 'center',
         fontWeight: 'bold',
     },

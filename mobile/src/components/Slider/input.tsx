@@ -2,6 +2,7 @@ import { Slider } from '@miblanchard/react-native-slider';
 import { SliderOnChangeCallback } from '@miblanchard/react-native-slider/lib/types';
 import { forwardRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../theme/colors';
 
 interface IInputSlider {
     maximumValue: number;
@@ -14,7 +15,7 @@ interface IInputSlider {
 }
 
 // eslint-disable-next-line react/display-name
-export const InputSlider = forwardRef((props: IInputSlider, ref) => {
+export const InputSlider = forwardRef((props: IInputSlider, _) => {
     const {
         maximumValue,
         minimumValue,
@@ -35,9 +36,9 @@ export const InputSlider = forwardRef((props: IInputSlider, ref) => {
             <Slider
                 {...rest}
                 animateTransitions
-                thumbTintColor="#1a9274"
-                maximumTrackTintColor="#d3d3d3"
-                minimumTrackTintColor="#1fb28a"
+                thumbTintColor={colors.pink}
+                maximumTrackTintColor={colors.white}
+                minimumTrackTintColor={colors.pink}
                 maximumValue={maximumValue}
                 minimumValue={minimumValue}
                 step={step}
@@ -64,10 +65,10 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     label: {
-        color: 'black',
+        color: colors.black,
     },
     value: {
-        color: 'black',
+        color: colors.black,
         textAlign: 'right',
     },
 });

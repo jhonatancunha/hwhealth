@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Header } from '../components/Header';
 import { MachineScreen } from '../screens/Machines';
 import { NotificationScreen } from '../screens/Notifications';
+import { colors } from '../theme/colors';
 
 interface IPropsIcon {
     color: string;
@@ -29,8 +30,8 @@ const SCREENS: IScreens[] = [
         route: 'Machines',
         title: 'Máquinas',
         component: MachineScreen,
-        icon: ({ color, size }) => {
-            return <Entypo name="laptop" color={color} size={size} />;
+        icon: ({ size }) => {
+            return <Entypo name="laptop" color="white" size={size} />;
         },
         header: (props: BottomTabHeaderProps) => (
             <Header {...props} title="Minhas Máquinas" />
@@ -40,8 +41,14 @@ const SCREENS: IScreens[] = [
         route: 'Notification',
         title: 'Notificações',
         component: NotificationScreen,
-        icon: ({ color, size }) => {
-            return <Ionicons name="notifications" color={color} size={size} />;
+        icon: ({ size }) => {
+            return (
+                <Ionicons
+                    name="notifications"
+                    color={colors.white}
+                    size={size}
+                />
+            );
         },
         header: (props: BottomTabHeaderProps) => (
             <Header {...props} title="Histórico de Notificações" />
@@ -54,11 +61,11 @@ const Tab = createBottomTabNavigator();
 const screenOptions: BottomTabNavigationOptions = {
     headerShown: true,
     title: 'HWHealth',
-    tabBarActiveTintColor: 'black',
+    tabBarActiveTintColor: colors.white,
     tabBarInactiveTintColor: 'gray',
     tabBarStyle: {
         paddingVertical: 5,
-        backgroundColor: 'white',
+        backgroundColor: colors.black,
         position: 'absolute',
         height: 60,
     },

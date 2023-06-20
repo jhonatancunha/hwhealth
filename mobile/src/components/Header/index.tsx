@@ -2,6 +2,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { colors } from '../../theme/colors';
 
 interface IHeader {
     title: string;
@@ -32,7 +33,7 @@ export function Header({
                     style={styles.goBackButton}>
                     <Ionicons
                         name="arrow-back-circle"
-                        color="black"
+                        color={colors.white}
                         size={35}
                     />
                 </TouchableOpacity>
@@ -42,7 +43,7 @@ export function Header({
                 <TouchableOpacity
                     onPress={goToSettings}
                     style={styles.settingsButton}>
-                    <Ionicons name="settings" color="black" size={35} />
+                    <Ionicons name="settings" color={colors.white} size={35} />
                 </TouchableOpacity>
             ) : null}
             {rightButton ? rightButton : null}
@@ -59,17 +60,17 @@ Header.defaultProps = {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         height: 60,
+        backgroundColor: colors.black,
     },
     settingsButton: {},
     goBackButton: {},
     title: {
-        color: 'black',
+        color: colors.white,
         fontWeight: 'bold',
         fontSize: 20,
         flex: 1,

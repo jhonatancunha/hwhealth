@@ -2,6 +2,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React, { useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { MachineCard } from '../../components/Cards/MachineCard';
+import { colors } from '../../theme/colors';
 
 export const MachineScreen = () => {
     const tabBarHeight = useBottomTabBarHeight();
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: colors.white,
     },
     flatListMachine: {
         width: '100%',

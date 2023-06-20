@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { colors } from '../../../theme/colors';
 
 interface IMachineCard {
     so: string;
@@ -31,9 +32,19 @@ export const MachineCard = ({
     return (
         <TouchableOpacity style={styles.topContainer} onPress={goToMachineInfo}>
             <View style={styles.card}>
-                <View>
-                    <Text style={styles.text}>#{uuid}</Text>
-                    <Text style={styles.text}>{name}</Text>
+                <View style={styles.cardHeader}>
+                    <Text
+                        style={styles.text}
+                        ellipsizeMode="tail"
+                        numberOfLines={1}>
+                        #{uuid} -{' '}
+                    </Text>
+                    <Text
+                        style={styles.text}
+                        ellipsizeMode="tail"
+                        numberOfLines={1}>
+                        {name}
+                    </Text>
                 </View>
                 <View style={styles.cardContentWrapper}>
                     <View style={styles.cardContentRight}>
@@ -85,9 +96,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         flex: 1,
+        borderWidth: 3,
+        borderColor: colors.black,
+        padding: 10,
+        borderRadius: 6,
     },
     card: {
         flex: 1,
+    },
+    cardHeader: {
+        flexDirection: 'row',
+        paddingVertical: 5,
+        width: '80%',
     },
     cardContentWrapper: {
         flexDirection: 'row',
@@ -111,13 +131,13 @@ const styles = StyleSheet.create({
     },
     infoValue: {
         fontWeight: 'bold',
-        color: 'black',
+        color: colors.black,
     },
     icon: {
         width: 40,
         height: 40,
     },
     text: {
-        color: 'black',
+        color: colors.black,
     },
 });

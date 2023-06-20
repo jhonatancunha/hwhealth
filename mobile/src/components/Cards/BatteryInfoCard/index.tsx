@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { colors } from '../../../theme/colors';
 import { LineGraph } from '../../LineGraph';
 
 interface IBatteryInfoCard {
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        color: 'black',
+        color: colors.black,
     },
     titleCpuPercentage: {
         flex: 1,
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     percentage: {
-        color: 'black',
+        color: colors.black,
     },
     iconLeft: {
         justifyContent: 'center',
@@ -120,9 +121,9 @@ const styles = StyleSheet.create({
     },
     infoValue: {
         fontWeight: 'bold',
-        color: 'black',
+        color: colors.black,
     },
     text: {
-        color: 'black',
+        color: colors.black,
     },
 });
