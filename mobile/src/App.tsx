@@ -10,7 +10,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { PermissionsAndroid } from 'react-native';
 import { AuthProvider } from './context/auth';
-import { AppStack } from './routes/AppStack';
+import { RootRoutes } from './routes';
 
 function App(): JSX.Element {
     const requestCameraPermission = async () => {
@@ -39,7 +39,7 @@ function App(): JSX.Element {
     return (
         <AuthProvider>
             <NavigationContainer>
-                <AppStack />
+                <RootRoutes />
             </NavigationContainer>
         </AuthProvider>
     );

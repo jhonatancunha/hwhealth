@@ -5,10 +5,8 @@ import {
 } from '@react-navigation/stack';
 import { Header } from '../components/Header';
 import { HelpButton } from '../components/HelpButton';
-import { LoginScreen } from '../screens/Login';
 import { MachineConfigurationScreen } from '../screens/MachineConfiguration';
 import { MachineInfo } from '../screens/MachineInfo';
-import { RegisterScreen } from '../screens/Register';
 import { Bottomvigator } from './BottomTabNavigator';
 
 const Stack = createStackNavigator();
@@ -17,7 +15,7 @@ const screenOptions: StackNavigationOptions = {
     headerShown: false,
 };
 
-export function AppStack() {
+export function TokenRequiredStack() {
     return (
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen name="BottomTab" component={Bottomvigator} />
@@ -56,8 +54,6 @@ export function AppStack() {
                     headerShown: true,
                 }}
             />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
         </Stack.Navigator>
     );
 }

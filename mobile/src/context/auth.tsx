@@ -4,7 +4,7 @@ interface IAuthContext {
     info: boolean;
 }
 
-export const AuthContext = createContext<IAuthContext | null>(null);
+export const AuthContext = createContext<IAuthContext>({ info: false });
 
 interface IAuth {
     children: React.ReactElement;
