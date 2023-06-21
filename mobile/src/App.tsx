@@ -9,6 +9,7 @@ import React, { useEffect } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { PermissionsAndroid } from 'react-native';
+import { AuthProvider } from './context/auth';
 import { AppStack } from './routes/AppStack';
 
 function App(): JSX.Element {
@@ -36,9 +37,11 @@ function App(): JSX.Element {
     }, []);
 
     return (
-        <NavigationContainer>
-            <AppStack />
-        </NavigationContainer>
+        <AuthProvider>
+            <NavigationContainer>
+                <AppStack />
+            </NavigationContainer>
+        </AuthProvider>
     );
 }
 
