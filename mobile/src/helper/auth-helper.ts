@@ -2,8 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthHelperKey = __DEV__ ? '@AuthHelper_dev:' : '@AuthHelper:';
 
-export const APP_INFO_KEY = 'app_info';
-
 export const AuthHelper = {
     /**
      * Armazena a chave e valor no AsyncStorage.
