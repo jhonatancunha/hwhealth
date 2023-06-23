@@ -6,7 +6,6 @@
 logs
 *.log
 npm-debug.log*
-pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
@@ -14,6 +13,7 @@ lerna-debug.log*
 # OS
 .DS_Store
 
+.env
 # Tests
 /coverage
 /.nyc_output
@@ -29,6 +29,7 @@ lerna-debug.log*
 
 # IDE - VSCode
 .vscode/*
+.history
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
