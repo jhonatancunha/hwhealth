@@ -1,13 +1,12 @@
 /**
  * @format
  */
-import OneSignal from 'react-native-onesignal';
-
 import { ONESIGN_APPID } from '@env';
 import { AppRegistry } from 'react-native';
 import 'react-native-gesture-handler';
+import OneSignal from 'react-native-onesignal';
 import { name as appName } from './app.json';
-import App from './src/App';
+import { App } from './src/App';
 
 // OneSignal Initialization
 OneSignal.setAppId(ONESIGN_APPID);

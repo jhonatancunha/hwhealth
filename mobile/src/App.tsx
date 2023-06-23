@@ -7,12 +7,11 @@
 
 import React, { useEffect } from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
 import { PermissionsAndroid } from 'react-native';
 import { AuthProvider } from './context/auth';
 import { RootRoutes } from './routes';
 
-function App(): JSX.Element {
+export function App(): JSX.Element {
     const requestCameraPermission = async () => {
         try {
             const teste = await PermissionsAndroid.request(
@@ -38,11 +37,7 @@ function App(): JSX.Element {
 
     return (
         <AuthProvider>
-            <NavigationContainer>
-                <RootRoutes />
-            </NavigationContainer>
+            <RootRoutes />
         </AuthProvider>
     );
 }
-
-export default App;

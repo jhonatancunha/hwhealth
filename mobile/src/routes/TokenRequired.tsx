@@ -7,7 +7,7 @@ import { Header } from '../components/Header';
 import { HelpButton } from '../components/HelpButton';
 import { MachineConfigurationScreen } from '../screens/MachineConfiguration';
 import { MachineInfo } from '../screens/MachineInfo';
-import { Bottomvigator } from './BottomTabNavigator';
+import { DrawerNavigator } from './DrawerNavigator';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +18,7 @@ const screenOptions: StackNavigationOptions = {
 export function TokenRequiredStack() {
     return (
         <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen name="BottomTab" component={Bottomvigator} />
+            <Stack.Screen name="Drawer" component={DrawerNavigator} />
             <Stack.Screen
                 name="MachineInfo"
                 component={MachineInfo}
