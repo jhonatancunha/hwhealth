@@ -101,15 +101,18 @@ const styles = StyleSheet.create({
     },
     title: {
         color: colors.black,
+        fontFamily: 'Inter-Black',
     },
     titleCpuPercentage: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'flex-end',
         marginRight: 10,
+        fontFamily: 'Inter-Black',
     },
     percentage: {
         color: colors.black,
+        fontFamily: 'Inter-Black',
     },
     iconLeft: {
         justifyContent: 'center',
@@ -122,8 +125,10 @@ const styles = StyleSheet.create({
     infoValue: {
         fontWeight: 'bold',
         color: colors.black,
+        fontFamily: 'Inter-Bold',
     },
     text: {
         color: colors.black,
+        fontFamily: 'Inter-Regular',
     },
 });

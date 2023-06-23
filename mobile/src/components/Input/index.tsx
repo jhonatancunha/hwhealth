@@ -54,9 +54,11 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 0,
         color: colors.black,
+        fontFamily: 'Inter-Regular',
     },
     label: {
         marginLeft: 8,
         marginBottom: 5,
+        fontFamily: 'Inter-Medium',
     },
 });

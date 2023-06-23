@@ -130,8 +130,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     infoValue: {
-        fontWeight: 'bold',
         color: colors.black,
+        fontFamily: 'Inter-Bold',
     },
     icon: {
         width: 40,
@@ -139,5 +139,6 @@ const styles = StyleSheet.create({
     },
     text: {
         color: colors.black,
+        fontFamily: 'Inter-Regular',
     },
 });

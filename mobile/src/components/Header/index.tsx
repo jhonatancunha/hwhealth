@@ -71,9 +71,9 @@ const styles = StyleSheet.create({
     goBackButton: {},
     title: {
         color: colors.white,
-        fontWeight: 'bold',
         fontSize: 20,
         flex: 1,
         textAlign: 'center',
+        fontFamily: 'Inter-Bold',
     },
 });

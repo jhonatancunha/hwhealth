@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
     label: {
         color: colors.white,
         textAlign: 'center',
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Black',
     },
 });

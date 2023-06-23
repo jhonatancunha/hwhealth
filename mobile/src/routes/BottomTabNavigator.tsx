@@ -71,6 +71,7 @@ const screenOptions: BottomTabNavigationOptions = {
     },
     tabBarLabelStyle: {
         paddingBottom: 8,
+        fontFamily: 'Inter-Medium',
     },
 };
 

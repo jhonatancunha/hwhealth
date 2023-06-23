@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useCallback, useEffect } from 'react';
 import OneSignal from 'react-native-onesignal';
 import { useAuth } from '../hooks/useAuth';
-import { TokenNotRequiredStack } from './TokenNotRequired';
 import { TokenRequiredStack } from './TokenRequired';
 
 export const RootRoutes = () => {
@@ -16,7 +15,7 @@ export const RootRoutes = () => {
         } catch (error) {
             console.log('error', error);
         }
-    }, []);
+    }, [updateUserOneSignalInfo]);
 
     useEffect(() => {
         getOneSignalUserID();
@@ -26,7 +25,8 @@ export const RootRoutes = () => {
 
     return (
         <NavigationContainer>
-            {!info ? <TokenNotRequiredStack /> : <TokenRequiredStack />}
+            <TokenRequiredStack />
+            {/* {!info ? <TokenNotRequiredStack /> : <TokenRequiredStack />} */}
         </NavigationContainer>
     );
 };

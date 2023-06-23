@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         gap: 30,
     },
     title: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 25,
+        fontFamily: 'Inter-Bold',
     },
 });
