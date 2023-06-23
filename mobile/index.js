@@ -36,4 +36,15 @@ OneSignal.setNotificationOpenedHandler(notification => {
     console.log('OneSignal: notification opened:', notification);
 });
 
+OneSignal.setInAppMessageClickHandler(event => {
+    console.log('OneSignal IAM clicked:', event);
+});
+
+OneSignal.addSubscriptionObserver(event => {
+    console.log('OneSignal: subscription changed:', event);
+});
+OneSignal.addPermissionObserver(event => {
+    console.log('OneSignal: permission changed:', event);
+});
+
 AppRegistry.registerComponent(appName, () => App);
