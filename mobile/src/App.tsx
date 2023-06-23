@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { PermissionsAndroid } from 'react-native';
 import { AuthProvider } from './context/auth';

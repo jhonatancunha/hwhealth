@@ -1,23 +1,28 @@
 import { NavigationContainer } from '@react-navigation/native';
 
+import { useCallback, useEffect } from 'react';
+import OneSignal from 'react-native-onesignal';
 import { useAuth } from '../hooks/useAuth';
 import { TokenNotRequiredStack } from './TokenNotRequired';
 import { TokenRequiredStack } from './TokenRequired';
 
 export const RootRoutes = () => {
-    const { info } = useAuth();
+    const { info, updateUserOneSignalInfo, userOneSignalInfo } = useAuth();
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const studentData = await getOnLocalStorage(studentStorageItem);
-    //         if (studentData) {
-    //             setStudentInfo(studentData);
-    //             setLoggedIn(true);
-    //         }
-    //     };
+    const getOneSignalUserID = useCallback(async () => {
+        try {
+            const data = await OneSignal.getDeviceState();
+            updateUserOneSignalInfo(data);
+        } catch (error) {
+            console.log('error', error);
+        }
+    }, []);
 
-    //     fetchData();
-    // }, [isLoggedIn]);
+    useEffect(() => {
+        getOneSignalUserID();
+    }, [getOneSignalUserID]);
+
+    console.log('userOneSignalInfo', userOneSignalInfo);
 
     return (
         <NavigationContainer>
