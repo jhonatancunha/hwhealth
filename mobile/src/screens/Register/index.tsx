@@ -31,7 +31,7 @@ export const RegisterScreen = () => {
                     <Input
                         label="E-mail"
                         placeholder="Digite seu e-mail"
-                        {...field}
+                        field={field}
                     />
                 )}
             />
@@ -43,7 +43,7 @@ export const RegisterScreen = () => {
                     <Input
                         label="Senha"
                         placeholder="Digite sua senha"
-                        {...field}
+                        field={field}
                     />
                 )}
             />

@@ -40,7 +40,7 @@ export const LoginScreen = () => {
                     <Input
                         label="E-mail"
                         placeholder="Digite seu e-mail"
-                        {...field}
+                        field={field}
                     />
                 )}
             />
@@ -52,7 +52,7 @@ export const LoginScreen = () => {
                     <Input
                         label="Senha"
                         placeholder="Digite sua senha"
-                        {...field}
+                        field={field}
                     />
                 )}
             />
