@@ -2,6 +2,9 @@ import React, { createContext, useCallback, useMemo, useState } from 'react';
 import { DeviceState } from 'react-native-onesignal';
 
 interface IAuthContext {
+    logout: () => void;
+    register: (email: string, password: string) => void;
+    login: (email: string, password: string) => void;
     info: boolean;
     userOneSignalInfo: DeviceState | null;
     updateUserOneSignalInfo: (data: DeviceState | null) => void;
@@ -12,6 +15,15 @@ export const AuthContext = createContext<IAuthContext>({
     userOneSignalInfo: null,
     updateUserOneSignalInfo: function (data: DeviceState | null): void {
         throw new Error(`Function not implemented. Data: ${data}`);
+    },
+    logout: function (): void {
+        throw new Error(`Function not implemented.`);
+    },
+    register: function (email: string, password: string): void {
+        throw new Error(`Function not implemented.`);
+    },
+    login: function (email: string, password: string): void {
+        throw new Error(`Function not implemented.`);
     },
 });
 
@@ -49,6 +61,8 @@ export const AuthProvider = ({ children }: IAuth) => {
 
     const logout = async () => {
         try {
+            console.log('logout');
+
             setInfo(false);
             // await AsyncStorage.clear();
         } catch (error) {

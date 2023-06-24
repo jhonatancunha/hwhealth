@@ -5,6 +5,7 @@ import {
     DrawerNavigationOptions,
     createDrawerNavigator,
 } from '@react-navigation/drawer';
+import { useAuth } from '../hooks/useAuth';
 import { colors } from '../theme/colors';
 import { Bottomvigator } from './BottomTabNavigator';
 
@@ -20,13 +21,12 @@ const screenOptions: DrawerNavigationOptions = {
 };
 
 function CustomDrawerContent(props) {
+    const auth = useAuth();
+
     return (
         <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem
-                label="Sair"
-                onPress={() => console.log('Saindo da conta')}
-            />
+            <DrawerItem label="Sair" onPress={auth?.logout} />
         </DrawerContentScrollView>
     );
 }

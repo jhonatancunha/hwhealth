@@ -4,10 +4,11 @@ import { useCallback, useEffect } from 'react';
 import OneSignal from 'react-native-onesignal';
 import { NotificationHelper } from '../helper/notification-helper';
 import { useAuth } from '../hooks/useAuth';
+import { TokenNotRequiredStack } from './TokenNotRequired';
 import { TokenRequiredStack } from './TokenRequired';
 
 export const RootRoutes = () => {
-    const { updateUserOneSignalInfo } = useAuth();
+    const { info, updateUserOneSignalInfo } = useAuth();
 
     const getOneSignalUserID = useCallback(async () => {
         try {
@@ -38,8 +39,7 @@ export const RootRoutes = () => {
 
     return (
         <NavigationContainer>
-            <TokenRequiredStack />
-            {/* {!info ? <TokenNotRequiredStack /> : <TokenRequiredStack />} */}
+            {!info ? <TokenNotRequiredStack /> : <TokenRequiredStack />}
         </NavigationContainer>
     );
 };

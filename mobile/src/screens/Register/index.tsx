@@ -47,7 +47,7 @@ export const RegisterScreen = () => {
                     />
                 )}
             />
-            <Button label="Criar conta" onPress={handleSubmit(onSubmit)} />
+            <Button label="Confirmar" onPress={handleSubmit(onSubmit)} />
         </View>
     );
 };
