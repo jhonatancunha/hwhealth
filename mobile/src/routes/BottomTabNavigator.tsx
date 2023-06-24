@@ -6,8 +6,9 @@ import {
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { DeleteNotificationIconButton } from '../components/DeleteNotificationIconButton';
 import { Header } from '../components/Header';
+import { DeleteNotificationIconButton } from '../components/IconButton/DeleteNotification';
+import { OpenDrawerIconButton } from '../components/IconButton/OpenDrawer';
 import { MachineScreen } from '../screens/Machines';
 import { NotificationScreen } from '../screens/Notifications';
 import { colors } from '../theme/colors';
@@ -48,7 +49,9 @@ const SCREENS: IScreens[] = [
             return <Entypo name="laptop" color="white" size={size} />;
         },
         header: (props: BottomTabHeaderProps) => (
-            <Header {...props} title="Minhas Máquinas" />
+            <Header {...props} title="Minhas Máquinas" 
+                leftButton={<OpenDrawerIconButton />} 
+            />
         ),
     },
     {

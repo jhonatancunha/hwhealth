@@ -1,6 +1,6 @@
 import { Alert, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors } from '../../theme/colors';
+import { colors } from '../../../theme/colors';
 
 interface IHelpIconButton {
     title: string;

@@ -4,7 +4,7 @@ import {
     createStackNavigator,
 } from '@react-navigation/stack';
 import { Header } from '../components/Header';
-import { HelpIconButton } from '../components/HelpIconButton';
+import { HelpIconButton } from '../components/IconButton/Help';
 import { MachineConfigurationScreen } from '../screens/MachineConfiguration';
 import { MachineInfo } from '../screens/MachineInfo';
 import { DrawerNavigator } from './DrawerNavigator';

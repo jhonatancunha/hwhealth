@@ -1,8 +1,8 @@
 import { useRoute } from '@react-navigation/native';
 import { Alert, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NotificationHelper } from '../../helper/notification-helper';
-import { colors } from '../../theme/colors';
+import { NotificationHelper } from '../../../helper/notification-helper';
+import { colors } from '../../../theme/colors';
 
 interface IDeleteNotificationIconButton {
     title: string;
