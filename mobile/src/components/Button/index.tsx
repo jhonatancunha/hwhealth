@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         padding: 20,
-        borderRadius: 8,
+        borderRadius: 2,
     },
     label: {
         textAlign: 'center',

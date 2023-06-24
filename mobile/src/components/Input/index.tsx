@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: colors.white,
-        borderRadius: 8,
+        borderRadius: 2,
         borderWidth: 0,
         color: colors.black,
         fontFamily: 'Inter-Regular',
