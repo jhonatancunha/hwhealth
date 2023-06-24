@@ -2,12 +2,12 @@ import { Alert, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors } from '../../theme/colors';
 
-interface IHelpButton {
+interface IHelpIconButton {
     title: string;
     message: string;
 }
 
-export const HelpButton = ({ title, message }: IHelpButton) => {
+export const HelpIconButton = ({ title, message }: IHelpIconButton) => {
     const showInformation = () => {
         Alert.alert(title, message);
     };
@@ -23,7 +23,7 @@ export const HelpButton = ({ title, message }: IHelpButton) => {
     );
 };
 
-HelpButton.defaultProps = {
+HelpIconButton.defaultProps = {
     title: 'Título',
     message: 'Descrição',
 };

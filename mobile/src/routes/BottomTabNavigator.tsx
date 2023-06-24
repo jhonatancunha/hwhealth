@@ -6,6 +6,7 @@ import {
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { DeleteNotificationIconButton } from '../components/DeleteNotificationIconButton';
 import { Header } from '../components/Header';
 import { MachineScreen } from '../screens/Machines';
 import { NotificationScreen } from '../screens/Notifications';
@@ -17,13 +18,26 @@ interface IPropsIcon {
     focused: boolean;
 }
 
+type TabBottomParamList = {
+    Notification: {
+        getNotifications: () => void,
+    },
+    Machines: undefined,
+};
+
+// eslint-disable-next-line prettier/prettier
+type TabBottomParamListKeys = keyof TabBottomParamList;
+
+
 interface IScreens {
-    route: string;
+    route: TabBottomParamListKeys;
     title: string;
     component: React.FC;
     icon: (props: IPropsIcon) => React.ReactElement;
     header: (props: BottomTabHeaderProps) => React.ReactElement;
 }
+
+const Tab = createBottomTabNavigator<TabBottomParamList>();
 
 const SCREENS: IScreens[] = [
     {
@@ -51,12 +65,22 @@ const SCREENS: IScreens[] = [
             );
         },
         header: (props: BottomTabHeaderProps) => (
-            <Header {...props} title="Histórico de Notificações" />
+            <Header
+                {...props}
+                title="Histórico de Notificações"
+                rightButton={
+                    <DeleteNotificationIconButton
+                        title="Deseja apagar todas as noticações?"
+                        message='Antes de excluir permanentemente suas notificações, revise com cuidado o conteúdo. 
+                        Essa ação não pode ser desfeita, e todas as notificações serão removidas definitivamente. 
+                        Perderá acesso a todas as informações e mensagens associadas. 
+                        Clique em "Confirmar" para excluir ou em "Cancelar" para interromper a ação.'
+                    />
+                }
+            />
         ),
     },
 ];
-
-const Tab = createBottomTabNavigator();
 
 const screenOptions: BottomTabNavigationOptions = {
     headerShown: true,

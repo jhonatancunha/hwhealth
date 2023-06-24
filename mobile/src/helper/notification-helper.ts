@@ -56,12 +56,12 @@ export const NotificationHelper = {
     removeItem: (key: string): Promise<void> =>
         AsyncStorage.removeItem(NotificationHelperKey + key),
 
-    clear: () => {
-        return AsyncStorage.getAllKeys().then(keys => {
-            const keysToClear = keys.filter((key: string) =>
-                key.startsWith(NotificationHelperKey),
-            );
-            return AsyncStorage.multiRemove(keysToClear);
-        });
+    /**
+     * Remove o valor da chave armazenado no AsyncStorage.
+     * @param {string} key id do usuário
+     * @return {Promise}
+     */
+    clear: async (key: string) => {
+        AsyncStorage.removeItem(NotificationHelperKey + key);
     },
 };
