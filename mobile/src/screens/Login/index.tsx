@@ -1,7 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { useAuth } from '../../hooks/useAuth';
 import { colors } from '../../theme/colors';
 
 interface IForm {
@@ -10,6 +12,9 @@ interface IForm {
 }
 
 export const LoginScreen = () => {
+    const navigation = useNavigation();
+    const { login } = useAuth();
+
     const { control, handleSubmit } = useForm<IForm>({
         defaultValues: {
             email: '',
@@ -18,7 +23,11 @@ export const LoginScreen = () => {
     });
 
     const onSubmit: SubmitHandler<IForm> = (data: IForm) => {
-        console.log(data);
+        login(data.email, data.password);
+    };
+
+    const goRegister = () => {
+        navigation.navigate('Register');
     };
 
     return (
@@ -31,7 +40,7 @@ export const LoginScreen = () => {
                     <Input
                         label="E-mail"
                         placeholder="Digite seu e-mail"
-                        {...field}
+                        field={field}
                     />
                 )}
             />
@@ -43,11 +52,22 @@ export const LoginScreen = () => {
                     <Input
                         label="Senha"
                         placeholder="Digite sua senha"
-                        {...field}
+                        field={field}
                     />
                 )}
             />
-            <Button label="Entrar" onPress={handleSubmit(onSubmit)} />
+            <Button
+                label="Entrar"
+                onPress={handleSubmit(onSubmit)}
+                backgroundColor={colors.green}
+                labelColor={colors.white}
+            />
+            <Button
+                label="Registrar-se"
+                onPress={goRegister}
+                backgroundColor={colors.pink}
+                labelColor={colors.white}
+            />
         </View>
     );
 };
@@ -62,7 +82,7 @@ const styles = StyleSheet.create({
         gap: 30,
     },
     title: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 25,
+        fontFamily: 'Inter-Bold',
     },
 });

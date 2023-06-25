@@ -31,7 +31,7 @@ export const RegisterScreen = () => {
                     <Input
                         label="E-mail"
                         placeholder="Digite seu e-mail"
-                        {...field}
+                        field={field}
                     />
                 )}
             />
@@ -43,11 +43,11 @@ export const RegisterScreen = () => {
                     <Input
                         label="Senha"
                         placeholder="Digite sua senha"
-                        {...field}
+                        field={field}
                     />
                 )}
             />
-            <Button label="Criar conta" onPress={handleSubmit(onSubmit)} />
+            <Button label="Confirmar" onPress={handleSubmit(onSubmit)} />
         </View>
     );
 };
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Black',
     },
 });

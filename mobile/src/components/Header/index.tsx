@@ -9,6 +9,7 @@ interface IHeader {
     goBackButton: boolean;
     configurationButton: boolean;
     rightButton: React.ReactElement;
+    leftButton: React.ReactElement;
 }
 
 export function Header({
@@ -16,6 +17,7 @@ export function Header({
     goBackButton,
     configurationButton,
     rightButton,
+    leftButton,
 }: IHeader) {
     const navigation = useNavigation();
     const route = useRoute();
@@ -27,6 +29,7 @@ export function Header({
 
     return (
         <View style={styles.container}>
+            {leftButton ? leftButton : null}
             {goBackButton ? (
                 <TouchableOpacity
                     onPress={navigation.goBack}
@@ -56,6 +59,7 @@ Header.defaultProps = {
     goBackButton: false,
     configurationButton: false,
     rightButton: null,
+    leftButton: null,
 };
 
 const styles = StyleSheet.create({
@@ -71,9 +75,9 @@ const styles = StyleSheet.create({
     goBackButton: {},
     title: {
         color: colors.white,
-        fontWeight: 'bold',
         fontSize: 20,
         flex: 1,
         textAlign: 'center',
+        fontFamily: 'Inter-Bold',
     },
 });

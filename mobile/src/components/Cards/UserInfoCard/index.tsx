@@ -87,16 +87,18 @@ const styles = StyleSheet.create({
     },
     title: {
         color: colors.black,
+        fontFamily: 'Inter-Black',
     },
     infoWrapper: {
         flexDirection: 'row',
     },
     infoValue: {
-        fontWeight: 'bold',
         color: colors.black,
         flex: 1,
+        fontFamily: 'Inter-Bold',
     },
     text: {
         color: colors.black,
+        fontFamily: 'Inter-Regular',
     },
 });

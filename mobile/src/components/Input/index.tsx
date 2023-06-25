@@ -1,28 +1,26 @@
 import { forwardRef } from 'react';
+import { ControllerRenderProps } from 'react-hook-form';
 import {
-    NativeSyntheticEvent,
     ReturnKeyTypeOptions,
     StyleSheet,
     Text,
     TextInput,
-    TextInputChangeEventData,
     View,
 } from 'react-native';
 import { colors } from '../../theme/colors';
 
 interface IInput {
-    onChange:
-        | ((e: NativeSyntheticEvent<TextInputChangeEventData>) => void)
-        | undefined;
     placeholder: string;
     secureTextEntry?: boolean;
     returnKeyType?: ReturnKeyTypeOptions | undefined;
     label: string;
+    field: ControllerRenderProps<any, any>;
 }
 // eslint-disable-next-line react/display-name
-export const Input = forwardRef((props: IInput, _) => {
-    const { label, placeholder, secureTextEntry, returnKeyType, ...rest } =
-        props;
+export const Input = forwardRef((props: IInput, ref) => {
+    const { label, placeholder, secureTextEntry, returnKeyType, field } = props;
+
+    const { onChange, ...rest } = field;
 
     return (
         <View style={styles.container}>
@@ -34,6 +32,7 @@ export const Input = forwardRef((props: IInput, _) => {
                 placeholder={placeholder}
                 secureTextEntry={secureTextEntry}
                 returnKeyType={returnKeyType}
+                onChangeText={onChange}
                 {...rest}
             />
         </View>
@@ -51,12 +50,14 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: colors.white,
-        borderRadius: 8,
+        borderRadius: 2,
         borderWidth: 0,
         color: colors.black,
+        fontFamily: 'Inter-Regular',
     },
     label: {
         marginLeft: 8,
         marginBottom: 5,
+        fontFamily: 'Inter-Medium',
     },
 });

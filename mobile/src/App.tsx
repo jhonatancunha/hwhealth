@@ -1,21 +1,13 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { useEffect } from 'react';
 
-import React, { useEffect } from 'react';
-
-import { NavigationContainer } from '@react-navigation/native';
 import { PermissionsAndroid } from 'react-native';
 import { AuthProvider } from './context/auth';
 import { RootRoutes } from './routes';
 
-function App(): JSX.Element {
+export function App(): JSX.Element {
     const requestCameraPermission = async () => {
         try {
-            const teste = await PermissionsAndroid.request(
+            await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
                 {
                     title: 'Permissões de notificações',
@@ -26,7 +18,6 @@ function App(): JSX.Element {
                     buttonPositive: 'Aceitar',
                 },
             );
-            console.log('PermissionsAndroid POST_NOTIFICATIONS', teste);
         } catch (err) {
             console.warn(err);
         }
@@ -38,11 +29,7 @@ function App(): JSX.Element {
 
     return (
         <AuthProvider>
-            <NavigationContainer>
-                <RootRoutes />
-            </NavigationContainer>
+            <RootRoutes />
         </AuthProvider>
     );
 }
-
-export default App;

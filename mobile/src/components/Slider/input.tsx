@@ -66,9 +66,11 @@ const styles = StyleSheet.create({
     },
     label: {
         color: colors.black,
+        fontFamily: 'Inter-Bold',
     },
     value: {
         color: colors.black,
         textAlign: 'right',
+        fontFamily: 'Inter-Regular',
     },
 });

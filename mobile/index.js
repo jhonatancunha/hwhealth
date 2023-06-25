@@ -1,13 +1,12 @@
 /**
  * @format
  */
-import OneSignal from 'react-native-onesignal';
-
 import { ONESIGN_APPID } from '@env';
 import { AppRegistry } from 'react-native';
 import 'react-native-gesture-handler';
+import OneSignal from 'react-native-onesignal';
 import { name as appName } from './app.json';
-import App from './src/App';
+import { App } from './src/App';
 
 // OneSignal Initialization
 OneSignal.setAppId(ONESIGN_APPID);
@@ -16,25 +15,15 @@ OneSignal.setAppId(ONESIGN_APPID);
 // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 8)
 OneSignal.promptForPushNotificationsWithUserResponse();
 
-//Method for handling notifications received while app in foreground
-OneSignal.setNotificationWillShowInForegroundHandler(
-    notificationReceivedEvent => {
-        console.log(
-            'OneSignal: notification will show in foreground:',
-            notificationReceivedEvent,
-        );
-        let notification = notificationReceivedEvent.getNotification();
-        console.log('notification: ', notification);
-        const data = notification.additionalData;
-        console.log('additionalData: ', data);
-        // Complete with null means don't show a notification.
-        notificationReceivedEvent.complete(notification);
-    },
-);
+OneSignal.setInAppMessageClickHandler(event => {
+    console.log('OneSignal IAM clicked:', event);
+});
 
-//Method for handling notifications opened
-OneSignal.setNotificationOpenedHandler(notification => {
-    console.log('OneSignal: notification opened:', notification);
+OneSignal.addSubscriptionObserver(event => {
+    console.log('OneSignal: subscription changed:', event);
+});
+OneSignal.addPermissionObserver(event => {
+    console.log('OneSignal: permission changed:', event);
 });
 
 AppRegistry.registerComponent(appName, () => App);
