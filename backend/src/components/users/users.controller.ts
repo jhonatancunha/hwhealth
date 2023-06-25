@@ -14,9 +14,9 @@ import {
 } from '@nestjs/swagger';
 import JwtAuthGuard from '@guards/jwtAuth.guard';
 import ParseObjectIdPipe from '@pipes/parseObjectId.pipe';
+import * as mongoose from 'mongoose';
 import UsersService from './users.service';
 import { User } from './schema/user.schema';
-import * as mongoose from 'mongoose';
 
 @ApiTags('Users')
 @ApiBearerAuth()

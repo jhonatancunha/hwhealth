@@ -20,6 +20,7 @@ import {
   ApiUnauthorizedResponse,
   ApiBearerAuth,
   ApiNotFoundResponse,
+  ApiBadRequestResponse,
 } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 
@@ -49,16 +50,18 @@ export default class AuthController {
   @ApiBody({ type: SignInDto })
   @ApiOkResponse({ description: 'Returns jwt tokens' })
   @ApiInternalServerErrorResponse({ description: '500. InternalServerError' })
-  @ApiBearerAuth()
+  @ApiNotFoundResponse({ description: '404. User does not exists' })
   @HttpCode(200)
-  @UseGuards(LocalAuthGuard)
   @Post('sign-in')
   async signIn(@Request() req) {
-    return this.authService.login(req.user);
+    const res = this.authService.login(req.body);
+
+    return res;
   }
 
   @ApiBody({ type: SignUpDto })
   @ApiOkResponse({ description: '200, Success' })
+  @ApiBadRequestResponse({ description: '400. User already exists' })
   @ApiInternalServerErrorResponse({ description: '500. InternalServerError' })
   @Post('sign-up')
   async signUp(@Body() user: SignUpDto): Promise<OkResponseDto> {

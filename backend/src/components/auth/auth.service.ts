@@ -29,7 +29,7 @@ export default class AuthService {
     email: string,
     password: string,
   ): Promise<null | IAuthValidateUserOutput> {
-    const user = await this.usersService.getByEmail(email);
+    const user = await this.usersService.getByEmail(email, false);
 
     if (!user) {
       throw new NotFoundException('The item does not exist');
@@ -65,9 +65,15 @@ export default class AuthService {
 
   async login(data: IAuthLoginInput): Promise<IAuthLoginOutput> {
     const payload = {
-      id: data._id,
       email: data.email,
+      password: data.password,
     };
+
+    const foundedUser = await this.validateUser(payload.email, payload.password);
+
+    if (!foundedUser) {
+      throw new NotFoundException('User does not exist');
+    }
 
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: jwtConstants.accessTokenExpirationTime,

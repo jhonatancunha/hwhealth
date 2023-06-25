@@ -16,7 +16,7 @@ export class User {
     _id: ObjectId;
 
   @ApiProperty({ type: String })
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
     email: string;
 
   @ApiProperty({ type: String })
