@@ -24,6 +24,8 @@ export function Header({
     const { params } = route;
 
     const goToSettings = () => {
+        console.log('params', params);
+
         navigation.navigate('MachineConfiguration', params);
     };
 

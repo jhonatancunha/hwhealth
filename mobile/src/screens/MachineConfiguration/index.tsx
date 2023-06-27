@@ -14,8 +14,10 @@ interface ILimiar {
     limiarBattery: number;
 }
 
-export const MachineConfigurationScreen = () => {
+export const MachineConfigurationScreen = ({ route }) => {
     const navigation = useNavigation();
+    const { params } = route;
+    const { machine_id: machineId } = params;
 
     const { control, handleSubmit, setValue } = useForm<ILimiar>({
         defaultValues: {
@@ -28,10 +30,8 @@ export const MachineConfigurationScreen = () => {
     });
 
     const onSubmit: SubmitHandler<ILimiar> = async (data: ILimiar) => {
-        console.log(data);
-
         try {
-            await api.patch('/limiar/649b4a8682cc9a2c13f9508e', {
+            await api.patch(`/limiar/${machineId}`, {
                 cpu_temperature: data.limiarCPU,
                 ram_memory_use: data.limiarRam,
                 disk_storage: data.limiarDisk,
@@ -52,7 +52,7 @@ export const MachineConfigurationScreen = () => {
 
     const getMachineConfiguration = useCallback(async () => {
         try {
-            const { data } = await api.get('/limiar/649b4a8682cc9a2c13f9508e');
+            const { data } = await api.get(`/limiar/${machineId}-id`);
 
             setValue('limiarCPU', data.cpu_temperature);
             setValue('limiarRam', data.ram_memory_use);
@@ -60,9 +60,9 @@ export const MachineConfigurationScreen = () => {
             setValue('limiarDisk', data.disk_storage);
             setValue('limiarBattery', data.battery_percentage);
         } catch (error) {
-            console.log('error', error);
+            console.log('error getMachineConfiguration', error);
         }
-    }, [setValue]);
+    }, [machineId, setValue]);
 
     useFocusEffect(
         useCallback(() => {

@@ -8,9 +8,19 @@ import { DiskInfoCard } from '../../components/Cards/DiskInfoCard';
 import { MemoryRamInfoCard } from '../../components/Cards/MemoryRamInfoCard';
 import { MemorySwapInfoCard } from '../../components/Cards/MemorySwapInfoCard';
 import { NetworkInfoCard } from '../../components/Cards/NetworkInfoCard';
+import { UserInfoCard } from '../../components/Cards/UserInfoCard';
 import { api } from '../../services/axios';
 
 interface IMachineInfo {
+    user_info: {
+        uuid: number,
+        username: string,
+        os_name: string,
+        os_release: string,
+        os_architecture: string,
+        os_version: string,
+        _id: string,
+    };
     fans: {
         size_fans: number,
         array_fans: number[],
@@ -81,12 +91,12 @@ export const MachineInfo = ({ route }) => {
     const getMachineInfo = useCallback(async () => {
         try {
             const { data } = await api.get(`/machine/${machine_id}`);
-            setMachineInfo(data[0]);
+
+            setMachineInfo(data);
         } catch (error) {
             Alert.alert(
                 'Erro',
-                `Ocorreu algum problema ao buscar informações sobre a máquina. 
-                Por favor, contate o administrador do sistema.`,
+                'Ocorreu algum problema ao buscar informações sobre a máquina. Por favor, contate o administrador do sistema.',
             );
         }
     }, [machine_id]);
@@ -105,14 +115,14 @@ export const MachineInfo = ({ route }) => {
         <ScrollView
             style={styles.scrollView}
             contentContainerStyle={styles.container}>
-            {/* <UserInfoCard
-                name={machineInfo.user_info.name}
+            <UserInfoCard
+                name={machineInfo.user_info.username}
                 uuid={machineInfo.user_info.uuid}
                 osName={machineInfo.user_info.os_name}
                 osRelease={machineInfo.user_info.os_release}
                 osArchitecture={machineInfo.user_info.os_architecture}
                 osVersion={machineInfo.user_info.os_version}
-            /> */}
+            />
             <CPUInfoCard
                 cpuCount={machineInfo.cpu.cpu_count}
                 cpuMeanPercentage={machineInfo.cpu.cpu_mean_percentage}

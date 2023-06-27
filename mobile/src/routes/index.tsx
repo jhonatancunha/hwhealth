@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import OneSignal from 'react-native-onesignal';
 import { AuthHelper } from '../helper/auth-helper';
 import { NotificationHelper } from '../helper/notification-helper';
@@ -10,6 +11,7 @@ import { TokenRequiredStack } from './TokenRequired';
 
 export const RootRoutes = () => {
     const { info, updateUserOneSignalInfo, updateInfo, logout } = useAuth();
+    const [checkedToken, setCheckedToken] = useState(false);
 
     const getOneSignalUserID = useCallback(async () => {
         try {
@@ -21,6 +23,7 @@ export const RootRoutes = () => {
     }, [updateUserOneSignalInfo]);
 
     const handleCheckToken = useCallback(async () => {
+        setCheckedToken(false);
         try {
             const token = await AuthHelper.getItem('@token');
             const refreshToken = await AuthHelper.getItem('@refreshToken');
@@ -28,6 +31,8 @@ export const RootRoutes = () => {
             updateInfo(token, refreshToken);
         } catch (error) {
             logout();
+        } finally {
+            setCheckedToken(true);
         }
     }, [logout, updateInfo]);
 
@@ -51,6 +56,14 @@ export const RootRoutes = () => {
         handleCheckToken();
     }, [handleCheckToken]);
 
+    if (!checkedToken) {
+        return (
+            <View style={styles.spinner}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
+
     return (
         <NavigationContainer>
             {!info.accessToken ? (
@@ -61,3 +74,11 @@ export const RootRoutes = () => {
         </NavigationContainer>
     );
 };
+
+const styles = StyleSheet.create({
+    spinner: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
