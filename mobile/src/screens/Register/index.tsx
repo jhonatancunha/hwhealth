@@ -1,7 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { useAuth } from '../../hooks/useAuth';
 import { colors } from '../../theme/colors';
 
 interface IForm {
@@ -10,6 +12,9 @@ interface IForm {
 }
 
 export const RegisterScreen = () => {
+    const navigation = useNavigation();
+    const { register } = useAuth();
+
     const { control, handleSubmit } = useForm<IForm>({
         defaultValues: {
             email: '',
@@ -17,8 +22,17 @@ export const RegisterScreen = () => {
         },
     });
 
-    const onSubmit: SubmitHandler<IForm> = (data: IForm) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<IForm> = async ({
+        email,
+        password,
+    }: IForm) => {
+        try {
+            register(email, password);
+
+            navigation.popToTop();
+        } catch (error) {
+            console.log('error', error);
+        }
     };
 
     return (

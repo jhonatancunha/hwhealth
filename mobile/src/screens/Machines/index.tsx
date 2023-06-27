@@ -1,10 +1,23 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { useMemo } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { MachineCard } from '../../components/Cards/MachineCard';
+import { api } from '../../services/axios';
+
+interface IMachine {
+    uuid: number;
+    os_name: string;
+    os_release: string;
+    os_architecture: string;
+    os_version: string;
+    username: string;
+    last_update: string;
+}
 
 export const MachineScreen = () => {
     const tabBarHeight = useBottomTabBarHeight();
+    const [machines, setMachines] = useState<IMachine[]>([]);
 
     const customFlatListStyle = useMemo(
         () => [
@@ -16,11 +29,31 @@ export const MachineScreen = () => {
         [tabBarHeight],
     );
 
+    const fetchMachines = async () => {
+        try {
+            const { data } = await api.get('/machine');
+            setMachines(
+                data.map(item => ({
+                    ...item.user_info,
+                    machine_id: item._id,
+                })),
+            );
+        } catch (error) {
+            console.log('error', error);
+        }
+    };
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchMachines();
+        }, []),
+    );
+
     return (
         <View style={styles.container}>
             <FlatList
                 style={customFlatListStyle}
-                data={teste}
+                data={machines}
                 renderItem={({ item }) => <MachineCard {...item} />}
                 keyExtractor={item => item.uuid}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
