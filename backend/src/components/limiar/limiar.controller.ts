@@ -35,9 +35,9 @@ export default class LimiarController {
     description: '401. UnauthorizedException.',
   })
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.limiarService.findOne(id);
+  @Get(':machine-id')
+  findOne(@Param('machine-id') machineId: string) {
+    return this.limiarService.findOne(machineId);
   }
 
   @ApiOkResponse({ type: Limiar, description: '200. Returns the updated limiar' })
@@ -45,8 +45,8 @@ export default class LimiarController {
   @ApiUnauthorizedResponse({ description: '401. UnauthorizedException' })
   @ApiInternalServerErrorResponse({ description: '500. Internal Server Error' })
   @UseGuards(JwtAuthGuard)
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLimiarDto: UpdateLimiarDto) {
-    return this.limiarService.update(id, updateLimiarDto);
+  @Patch(':machine-id')
+  update(@Param('machine-id') machineId: string, @Body() updateLimiarDto: UpdateLimiarDto) {
+    return this.limiarService.update(machineId, updateLimiarDto);
   }
 }

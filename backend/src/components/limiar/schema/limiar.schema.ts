@@ -22,6 +22,10 @@ export default class Limiar {
 
   @ApiProperty({ type: Number })
   @Prop({ required: Number })
+    swap_memory_use: number;
+
+  @ApiProperty({ type: Number })
+  @Prop({ required: Number })
     disk_storage: number;
 
   @ApiProperty({ type: Number })

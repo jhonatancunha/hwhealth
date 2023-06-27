@@ -4,12 +4,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import jwtConstants from '@components/auth/constants';
 import { PassportModule } from '@nestjs/passport';
-import LocalStrategy from '@components/auth/strategies/local.strategy';
 import JwtStrategy from '@components/auth/strategies/jwt.strategy';
+import LimiarModule from '@components/limiar/limiar.module';
+import LimiarService from '@components/limiar/limiar.service';
 import { MachineInfo, MachineInfoSchema } from './schema/machine.schema';
 import MachineController from './machine.controller';
 import MachineService from './machine.service';
-import BatteryDto from './dto/battery.dto';
 
 @Module({
   imports: [
@@ -20,6 +20,7 @@ import BatteryDto from './dto/battery.dto';
     JwtModule.register({
       secret: jwtConstants.secret,
     }),
+    LimiarModule,
   ],
   controllers: [MachineController],
   providers: [MachineService, JwtStrategy],
