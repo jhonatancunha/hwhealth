@@ -1,4 +1,3 @@
-import { useRoute } from '@react-navigation/native';
 import { Alert, TouchableOpacity } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NotificationHelper } from '../../../helper/notification-helper';
@@ -13,12 +12,9 @@ export const DeleteNotificationIconButton = ({
     title,
     message,
 }: IDeleteNotificationIconButton) => {
-    const { params } = useRoute();
-
     const handleDeleteNotifications = async () => {
         try {
             await NotificationHelper.clear('1');
-            params?.getNotifications();
         } catch (error) {
             console.log('error', error);
         }

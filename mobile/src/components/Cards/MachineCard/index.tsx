@@ -5,27 +5,29 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../../theme/colors';
 
 interface IMachineCard {
-    so: string;
-    release: string;
-    arch: string;
-    lastUpdate: string;
-    name: string;
-    uuid: string;
+    os_name: string;
+    os_release: string;
+    os_architecture: string;
+    last_update: string;
+    username: string;
+    uuid: number;
+    machine_id: string;
 }
 
 export const MachineCard = ({
-    so,
-    release,
-    arch,
-    lastUpdate,
-    name,
+    os_name,
+    os_release,
+    os_architecture,
+    last_update,
+    username,
     uuid,
+    machine_id,
 }: IMachineCard): React.ReactElement => {
     const navigation = useNavigation();
 
     const goToMachineInfo = () => {
         navigation.navigate('MachineInfo', {
-            uuid,
+            machine_id,
         });
     };
 
@@ -43,7 +45,7 @@ export const MachineCard = ({
                         style={styles.text}
                         ellipsizeMode="tail"
                         numberOfLines={1}>
-                        {name}
+                        {username}
                     </Text>
                 </View>
                 <View style={styles.cardContentWrapper}>
@@ -52,15 +54,17 @@ export const MachineCard = ({
                             <Text style={styles.text}>
                                 Sistema Operacional:{' '}
                             </Text>
-                            <Text style={styles.infoValue}>{so}</Text>
+                            <Text style={styles.infoValue}>{os_name}</Text>
                         </View>
                         <View style={styles.infoWrapper}>
                             <Text style={styles.text}>Release: </Text>
-                            <Text style={styles.infoValue}>{release}</Text>
+                            <Text style={styles.infoValue}>{os_release}</Text>
                         </View>
                         <View style={styles.infoWrapper}>
                             <Text style={styles.text}>Arquitetura: </Text>
-                            <Text style={styles.infoValue}>{arch}</Text>
+                            <Text style={styles.infoValue}>
+                                {os_architecture}
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.cardContentLeft}>
@@ -74,7 +78,7 @@ export const MachineCard = ({
                 <View>
                     <View style={styles.infoWrapper}>
                         <Text style={styles.text}>Última atualização: </Text>
-                        <Text style={styles.infoValue}>{lastUpdate}</Text>
+                        <Text style={styles.infoValue}>{last_update}</Text>
                     </View>
                 </View>
             </View>

@@ -21,13 +21,16 @@ export const AuthHelper = {
     /**
      * Recupera o valor da chave armazenado no AsyncStorage.
      * @param {string} key
-     * @return {Promise<object | null>}
+     * @return {Promise<string | null>}
      */
-    getItem: async (key: string): Promise<object | null> => {
+    getItem: async (key: string): Promise<string | null> => {
         const strValue = await AsyncStorage.getItem(AuthHelperKey + key);
+
         if (!strValue) return null;
         try {
-            return JSON.parse(strValue);
+            return typeof strValue === 'string'
+                ? strValue
+                : JSON.stringify(strValue);
         } catch (ex) {
             return null;
         }

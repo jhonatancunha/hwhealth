@@ -2,13 +2,14 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { useCallback, useEffect } from 'react';
 import OneSignal from 'react-native-onesignal';
+import { AuthHelper } from '../helper/auth-helper';
 import { NotificationHelper } from '../helper/notification-helper';
 import { useAuth } from '../hooks/useAuth';
 import { TokenNotRequiredStack } from './TokenNotRequired';
 import { TokenRequiredStack } from './TokenRequired';
 
 export const RootRoutes = () => {
-    const { info, updateUserOneSignalInfo } = useAuth();
+    const { info, updateUserOneSignalInfo, updateInfo, logout } = useAuth();
 
     const getOneSignalUserID = useCallback(async () => {
         try {
@@ -19,7 +20,17 @@ export const RootRoutes = () => {
         }
     }, [updateUserOneSignalInfo]);
 
-    //Method for handling notifications received while app in foreground
+    const handleCheckToken = useCallback(async () => {
+        try {
+            const token = await AuthHelper.getItem('@token');
+            const refreshToken = await AuthHelper.getItem('@refreshToken');
+
+            updateInfo(token, refreshToken);
+        } catch (error) {
+            logout();
+        }
+    }, [logout, updateInfo]);
+
     OneSignal.setNotificationWillShowInForegroundHandler(
         async notificationReceivedEvent => {
             const notification = notificationReceivedEvent.getNotification();
@@ -28,7 +39,6 @@ export const RootRoutes = () => {
         },
     );
 
-    //Method for handling notifications opened
     OneSignal.setNotificationOpenedHandler(async ({ notification }) => {
         await NotificationHelper.setItem('1', notification);
     });
@@ -37,9 +47,17 @@ export const RootRoutes = () => {
         getOneSignalUserID();
     }, [getOneSignalUserID]);
 
+    useEffect(() => {
+        handleCheckToken();
+    }, [handleCheckToken]);
+
     return (
         <NavigationContainer>
-            {!info ? <TokenNotRequiredStack /> : <TokenRequiredStack />}
+            {!info.accessToken ? (
+                <TokenNotRequiredStack />
+            ) : (
+                <TokenRequiredStack />
+            )}
         </NavigationContainer>
     );
 };

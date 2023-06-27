@@ -1,5 +1,6 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useState } from 'react';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { BatteryInfoCard } from '../../components/Cards/BatteryInfoCard';
 import { CPUInfoCard } from '../../components/Cards/CPUInfoCard';
@@ -7,84 +8,178 @@ import { DiskInfoCard } from '../../components/Cards/DiskInfoCard';
 import { MemoryRamInfoCard } from '../../components/Cards/MemoryRamInfoCard';
 import { MemorySwapInfoCard } from '../../components/Cards/MemorySwapInfoCard';
 import { NetworkInfoCard } from '../../components/Cards/NetworkInfoCard';
-import { UserInfoCard } from '../../components/Cards/UserInfoCard';
+import { api } from '../../services/axios';
 
-export const MachineInfo = () => {
+interface IMachineInfo {
+    fans: {
+        size_fans: number,
+        array_fans: number[],
+    };
+    cpu: {
+        cpu_count: number,
+        cpu_mean_percentage: number,
+        history_cpu_percentage: number[],
+        time_labels_cpu_percentage: string[],
+        temperature_unit: string,
+        cpu_mean_temperature: number,
+        history_cpu_temperature: number[],
+        time_labels_cpu_temperature: string[],
+    };
+    memory_ram: {
+        total: string,
+        available: string,
+        percent: number,
+        used: string,
+        free: string,
+        history_percent: number[],
+        time_labels_history_percent: string[],
+    };
+    swap_memory: {
+        total: string,
+        used: string,
+        free: string,
+        percent: number,
+        history_percent: number[],
+        time_labels_history_percent: string[],
+    };
+    disk: {
+        free: string,
+        percent: number,
+        total: string,
+        used: string,
+        history_percent: number[],
+        time_labels_history_percent: string[],
+    };
+    network: {
+        bytes_sent: string,
+        bytes_received: string,
+        history_packets_sent: number[],
+        time_labels_history_packets_sent: string[],
+        history_packets_received: number[],
+        time_labels_history_packets_received: string[],
+        error_in: number,
+        error_out: number,
+        drop_in: number,
+        drop_out: number,
+    };
+    battery: {
+        charge: number,
+        history_charge: number[],
+        time_labels_history_charge: string[],
+        time_left: string,
+        power_plugged: boolean | null,
+    };
+    created_at: string;
+}
+
+export const MachineInfo = ({ route }) => {
+    const { params } = route;
+    const { machine_id } = params;
+
+    const [machineInfo, setMachineInfo] = useState<IMachineInfo | null>(null);
+
+    const getMachineInfo = useCallback(async () => {
+        try {
+            const { data } = await api.get(`/machine/${machine_id}`);
+            setMachineInfo(data[0]);
+        } catch (error) {
+            console.log('error', error);
+        }
+    }, [machine_id]);
+
+    useFocusEffect(
+        useCallback(() => {
+            getMachineInfo();
+        }, [getMachineInfo]),
+    );
+
+    if (!machineInfo) {
+        return <ActivityIndicator />;
+    }
+
     return (
         <ScrollView
             style={styles.scrollView}
             contentContainerStyle={styles.container}>
-            <UserInfoCard
-                name={info.user_info.name}
-                uuid={info.user_info.uuid}
-                osName={info.user_info.os_name}
-                osRelease={info.user_info.os_release}
-                osArchitecture={info.user_info.os_architecture}
-                osVersion={info.user_info.os_version}
-            />
+            {/* <UserInfoCard
+                name={machineInfo.user_info.name}
+                uuid={machineInfo.user_info.uuid}
+                osName={machineInfo.user_info.os_name}
+                osRelease={machineInfo.user_info.os_release}
+                osArchitecture={machineInfo.user_info.os_architecture}
+                osVersion={machineInfo.user_info.os_version}
+            /> */}
             <CPUInfoCard
-                cpuCount={info.cpu.cpu_count}
-                cpuMeanPercentage={info.cpu.cpu_mean_percentage}
-                historyCpuPercentage={info.cpu.history_cpu_percentage}
-                temperatureUnit={info.cpu.temperature_unit}
-                cpuMeanTemperature={info.cpu.cpu_mean_temperature}
-                historyCpuTemperature={info.cpu.history_cpu_temperature}
-                timeLabelsCpuTemperature={info.cpu.time_labels_cpu_temperature}
-                timeLabelsCpuPercentage={info.cpu.time_labels_cpu_percentage}
+                cpuCount={machineInfo.cpu.cpu_count}
+                cpuMeanPercentage={machineInfo.cpu.cpu_mean_percentage}
+                historyCpuPercentage={machineInfo.cpu.history_cpu_percentage}
+                temperatureUnit={machineInfo.cpu.temperature_unit}
+                cpuMeanTemperature={machineInfo.cpu.cpu_mean_temperature}
+                historyCpuTemperature={machineInfo.cpu.history_cpu_temperature}
+                timeLabelsCpuTemperature={
+                    machineInfo.cpu.time_labels_cpu_temperature
+                }
+                timeLabelsCpuPercentage={
+                    machineInfo.cpu.time_labels_cpu_percentage
+                }
             />
             <MemoryRamInfoCard
-                total={info.memory_ram.total}
-                available={info.memory_ram.available}
-                percent={info.memory_ram.percent}
-                used={info.memory_ram.used}
-                historyPercent={info.memory_ram.history_percent}
+                total={machineInfo.memory_ram.total}
+                available={machineInfo.memory_ram.available}
+                percent={machineInfo.memory_ram.percent}
+                used={machineInfo.memory_ram.used}
+                historyPercent={machineInfo.memory_ram.history_percent}
                 timeLabelsHistoryPercent={
-                    info.memory_ram.time_labels_history_percent
+                    machineInfo.memory_ram.time_labels_history_percent
                 }
             />
 
             <MemorySwapInfoCard
-                total={info.swap_memory.total}
-                percent={info.swap_memory.percent}
-                used={info.swap_memory.used}
-                historyPercent={info.swap_memory.history_percent}
+                total={machineInfo.swap_memory.total}
+                percent={machineInfo.swap_memory.percent}
+                used={machineInfo.swap_memory.used}
+                historyPercent={machineInfo.swap_memory.history_percent}
                 timeLabelsHistoryPercent={
-                    info.swap_memory.time_labels_history_percent
+                    machineInfo.swap_memory.time_labels_history_percent
                 }
             />
 
             <DiskInfoCard
-                total={info.disk.total}
-                percent={info.disk.percent}
-                used={info.disk.used}
-                historyPercent={info.disk.history_percent}
-                timeLabelsHistoryPercent={info.disk.time_labels_history_percent}
+                total={machineInfo.disk.total}
+                percent={machineInfo.disk.percent}
+                used={machineInfo.disk.used}
+                historyPercent={machineInfo.disk.history_percent}
+                timeLabelsHistoryPercent={
+                    machineInfo.disk.time_labels_history_percent
+                }
             />
 
             <NetworkInfoCard
-                bytesSent={info.network.bytes_sent}
-                bytesReceived={info.network.bytes_received}
-                historyPacketsSent={info.network.history_packets_sent}
-                historyPacketsReceived={info.network.history_packets_received}
-                errorIn={info.network.error_in}
-                errorOut={info.network.error_out}
-                dropIn={info.network.drop_in}
-                dropOut={info.network.drop_out}
+                bytesSent={machineInfo.network.bytes_sent}
+                bytesReceived={machineInfo.network.bytes_received}
+                historyPacketsSent={machineInfo.network.history_packets_sent}
+                historyPacketsReceived={
+                    machineInfo.network.history_packets_received
+                }
+                errorIn={machineInfo.network.error_in}
+                errorOut={machineInfo.network.error_out}
+                dropIn={machineInfo.network.drop_in}
+                dropOut={machineInfo.network.drop_out}
                 timeLabelsHistoryPacketsSent={
-                    info.network.time_labels_history_packets_sent
+                    machineInfo.network.time_labels_history_packets_sent
                 }
                 timeLabelsHistoryPacketsReceived={
-                    info.network.time_labels_history_packets_received
+                    machineInfo.network.time_labels_history_packets_received
                 }
             />
 
             <BatteryInfoCard
-                charge={info.battery.charge}
-                historyCharge={info.battery.history_charge}
-                timeLeft={info.battery.time_left}
-                powerPlugged={Boolean(info.battery.power_plugged)}
+                charge={machineInfo.battery.charge}
+                historyCharge={machineInfo.battery.history_charge}
+                timeLeft={machineInfo.battery.time_left}
+                powerPlugged={Boolean(machineInfo.battery.power_plugged)}
                 timeLabelsHistoryCharge={
-                    info.battery.time_labels_history_charge
+                    machineInfo.battery.time_labels_history_charge
                 }
             />
         </ScrollView>

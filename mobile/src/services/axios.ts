@@ -1,17 +1,19 @@
+import { API_URL } from '@env';
 import axios from 'axios';
+import { AuthHelper } from '../helper/auth-helper';
 
 export const api = axios.create({
-    baseURL: '',
+    baseURL: API_URL,
 });
 
 api.interceptors.request.use(async config => {
-    console.log('inserir token');
+    const token = await AuthHelper.getItem('@token');
 
-    // const data = await AsyncStorage.getItem('@TOKEN');
-    // if (data) {
-    //     // const token = data != null ? JSON.parse(data) : null;
-    //     config.headers.common.Authorization = data ? `Bearer ${data}` : '';
-    // }
+    console.log('token', token);
+
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
 
     return config;
 });
@@ -19,7 +21,7 @@ api.interceptors.request.use(async config => {
 api.interceptors.response.use(
     response => response,
     async error => {
-        console.log('deslogar usuario');
+        console.log('erro', error);
 
         return Promise.reject(error);
     },
