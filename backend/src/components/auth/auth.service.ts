@@ -64,12 +64,13 @@ export default class AuthService {
   }
 
   async login(data: IAuthLoginInput): Promise<IAuthLoginOutput> {
-    const payload = {
-      email: data.email,
-      password: data.password,
-    };
+    const foundedUser = await this.validateUser(data.email, data.password);
 
-    const foundedUser = await this.validateUser(payload.email, payload.password);
+    const payload = {
+      email: foundedUser.email,
+      password: data.password,
+      id: foundedUser.id,
+    };
 
     if (!foundedUser) {
       throw new NotFoundException('User does not exist');

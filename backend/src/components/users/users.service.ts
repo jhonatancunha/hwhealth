@@ -13,8 +13,7 @@ export default class UsersService {
     private UserModel: Model<User>,
   ) { }
 
-  // async create(user: CreateUserDto): Promise<User> {
-  async create(user: CreateUserDto) {
+  async create(user: CreateUserDto): Promise<User> {
     const hashedPassword = await bcrypt.hash(user.password, 0);
 
     const foundedUser = await this.UserModel.findOne({ email: user.email });

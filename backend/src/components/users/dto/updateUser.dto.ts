@@ -9,5 +9,5 @@ export default class UpdateUserDto extends PartialType(CreateUserDto) {
   })
   @IsOptional()
   @IsBoolean()
-  readonly verified: boolean
+  readonly verified: boolean;
 }
