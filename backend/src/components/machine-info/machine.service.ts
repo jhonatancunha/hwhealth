@@ -55,7 +55,7 @@ export default class MachineService {
       .exec();
 
     if (!machineInfo) {
-      throw new Error('Registro não encontrado');
+      throw new Error('Machine not founded');
     }
 
     const sortedData = machineInfo.data.sort(

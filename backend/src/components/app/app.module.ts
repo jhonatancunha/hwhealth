@@ -6,6 +6,7 @@ import UsersModule from '@components/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import MachineModule from '@components/machine-info/machine.module';
+import LimiarModule from '@components/limiar/limiar.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import MachineModule from '@components/machine-info/machine.module';
     AuthModule,
     UsersModule,
     MachineModule,
+    LimiarModule,
   ],
   controllers: [],
   providers: [],
