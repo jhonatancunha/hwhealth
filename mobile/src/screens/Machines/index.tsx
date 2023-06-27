@@ -1,7 +1,7 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useMemo, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, View } from 'react-native';
 import { MachineCard } from '../../components/Cards/MachineCard';
 import { api } from '../../services/axios';
 
@@ -39,7 +39,10 @@ export const MachineScreen = () => {
                 })),
             );
         } catch (error) {
-            console.log('error', error);
+            Alert.alert(
+                'Erro',
+                'Ocorreu algum problema ao buscar máquinas. Por favor, contate o administrador do sistema.',
+            );
         }
     };
 

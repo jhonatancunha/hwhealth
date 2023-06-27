@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { BatteryInfoCard } from '../../components/Cards/BatteryInfoCard';
 import { CPUInfoCard } from '../../components/Cards/CPUInfoCard';
@@ -83,7 +83,11 @@ export const MachineInfo = ({ route }) => {
             const { data } = await api.get(`/machine/${machine_id}`);
             setMachineInfo(data[0]);
         } catch (error) {
-            console.log('error', error);
+            Alert.alert(
+                'Erro',
+                `Ocorreu algum problema ao buscar informações sobre a máquina. 
+                Por favor, contate o administrador do sistema.`,
+            );
         }
     }, [machine_id]);
 

@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { ControllerRenderProps } from 'react-hook-form';
+import { ControllerFieldState, ControllerRenderProps } from 'react-hook-form';
 import {
     ReturnKeyTypeOptions,
     StyleSheet,
@@ -15,10 +15,18 @@ interface IInput {
     returnKeyType?: ReturnKeyTypeOptions | undefined;
     label: string;
     field: ControllerRenderProps<any, any>;
+    fieldState: ControllerFieldState;
 }
 // eslint-disable-next-line react/display-name
 export const Input = forwardRef((props: IInput, ref) => {
-    const { label, placeholder, secureTextEntry, returnKeyType, field } = props;
+    const {
+        label,
+        placeholder,
+        secureTextEntry,
+        returnKeyType,
+        field,
+        fieldState,
+    } = props;
 
     const { onChange, ...rest } = field;
 
@@ -35,6 +43,9 @@ export const Input = forwardRef((props: IInput, ref) => {
                 onChangeText={onChange}
                 {...rest}
             />
+            {fieldState?.error ? (
+                <Text style={styles.error}>*{fieldState.error.message}</Text>
+            ) : null}
         </View>
     );
 });
@@ -59,5 +70,11 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         marginBottom: 5,
         fontFamily: 'Inter-Medium',
+    },
+    error: {
+        fontFamily: 'Inter-Regular',
+        fontSize: 12,
+        marginTop: 5,
+        color: colors.white,
     },
 });
