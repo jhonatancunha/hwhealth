@@ -49,6 +49,7 @@ export default class MachineService {
       const createdMachine = new this.MachineInfoModel({
         user_info,
         user_id: userId,
+        updated_at: new Date(),
         data: [
           {
             fans,

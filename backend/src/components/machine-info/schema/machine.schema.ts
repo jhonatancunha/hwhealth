@@ -118,6 +118,9 @@ export class MachineInfo {
 
   @Prop({ type: [{ type: SchemaTypes.Mixed }] })
     data: MachineData[];
+
+  @Prop({ type: Date })
+    updated_at: Date;
 }
 
 export type MachineInfoDocument = MachineInfo & Document;
