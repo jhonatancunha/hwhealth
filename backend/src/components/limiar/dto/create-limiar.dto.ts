@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ObjectId } from 'mongoose';
 
 export default class CreateLimiarDto {
   @ApiProperty()
@@ -9,6 +10,9 @@ export default class CreateLimiarDto {
 
   @ApiProperty()
     ram_memory_use: number;
+
+  @ApiProperty()
+    swap_memory_use: number;
 
   @ApiProperty()
     disk_storage: number;

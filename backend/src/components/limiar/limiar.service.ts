@@ -18,18 +18,18 @@ export default class LimiarService {
     return createdLimiar.save();
   }
 
-  async findOne(id: string) {
-    return this.LimiarModel.findById(id);
+  async findOne(machineId: string) {
+    return this.LimiarModel.findOne({ machine_id: machineId });
   }
 
-  async update(id: string, updateLimiar: UpdateLimiarDto) {
-    const foundedLimiar = await this.findOne(id);
+  async update(machineId: string, updateLimiar: UpdateLimiarDto) {
+    const foundedLimiar = await this.LimiarModel.findOne({ machine_id: machineId });
 
     if (!foundedLimiar) {
       throw new BadGatewayException('Limiar not founded');
     }
 
-    const createdObjectId = new mongoose.Schema.Types.ObjectId(id);
+    const createdObjectId = new mongoose.Schema.Types.ObjectId(foundedLimiar._id.toString());
 
     return this.LimiarModel.updateOne(createdObjectId, updateLimiar, { new: true }).exec();
   }

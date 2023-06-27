@@ -19,5 +19,6 @@ import Limiar, { LimiarSchema } from './schema/limiar.schema';
   ],
   controllers: [LimiarController],
   providers: [LimiarService],
+  exports: [LimiarService],
 })
 export default class LimiarModule {}

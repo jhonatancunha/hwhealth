@@ -1,4 +1,18 @@
-import { PartialType } from '@nestjs/swagger';
-import CreateLimiarDto from './create-limiar.dto';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 
-export default class UpdateLimiarDto extends PartialType(CreateLimiarDto) {}
+export default class UpdateLimiarDto {
+  @ApiProperty()
+    cpu_temperature: number;
+
+  @ApiProperty()
+    ram_memory_use: number;
+
+  @ApiProperty()
+    swap_memory_use: number;
+
+  @ApiProperty()
+    disk_storage: number;
+
+  @ApiProperty()
+    battery_percentage: number;
+}
