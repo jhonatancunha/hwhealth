@@ -4,7 +4,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import LimiarService from '@components/limiar/limiar.service';
 import { ObjectId } from 'mongodb';
-import { MachineInfo, Battery, MachineData } from './schema/machine.schema';
+import {
+  MachineInfo, Battery, MachineData, UserInfo,
+} from './schema/machine.schema';
 import CreateMachineDto from './dto/create-machine.dto';
 import UpdateMachineDto from './dto/update-machine.dto';
 
@@ -81,7 +83,7 @@ export default class MachineService {
     return this.MachineInfoModel.find().exec();
   }
 
-  async getMachineInfo(machine_id: String): Promise<MachineData[]> {
+  async getMachineInfo(machine_id: String) {
     const machineInfo = await this.MachineInfoModel.findById(machine_id).exec();
 
     if (!machineInfo) {
@@ -92,7 +94,9 @@ export default class MachineService {
       (a, b) => b.created_at.getTime() - a.created_at.getTime(),
     );
 
-    return sortedData.slice(0, 5);
+    const userInfo = machineInfo.user_info;
+
+    return { userInfo, data: sortedData.slice(0, 5) };
   }
 
   async findOne(id: string) {
