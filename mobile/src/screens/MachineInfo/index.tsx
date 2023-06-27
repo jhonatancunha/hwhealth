@@ -11,6 +11,15 @@ import { NetworkInfoCard } from '../../components/Cards/NetworkInfoCard';
 import { api } from '../../services/axios';
 
 interface IMachineInfo {
+    user_info: {
+        uuid: number,
+        username: string,
+        os_name: string,
+        os_release: string,
+        os_architecture: string,
+        os_version: string,
+        _id: string,
+    };
     fans: {
         size_fans: number,
         array_fans: number[],
@@ -76,17 +85,19 @@ export const MachineInfo = ({ route }) => {
     const { params } = route;
     const { machine_id } = params;
 
+    console.log('machine_id', machine_id);
+
     const [machineInfo, setMachineInfo] = useState<IMachineInfo | null>(null);
 
     const getMachineInfo = useCallback(async () => {
         try {
             const { data } = await api.get(`/machine/${machine_id}`);
-            setMachineInfo(data[0]);
+
+            setMachineInfo(data.data[0]);
         } catch (error) {
             Alert.alert(
                 'Erro',
-                `Ocorreu algum problema ao buscar informações sobre a máquina. 
-                Por favor, contate o administrador do sistema.`,
+                'Ocorreu algum problema ao buscar informações sobre a máquina. Por favor, contate o administrador do sistema.',
             );
         }
     }, [machine_id]);
@@ -106,7 +117,7 @@ export const MachineInfo = ({ route }) => {
             style={styles.scrollView}
             contentContainerStyle={styles.container}>
             {/* <UserInfoCard
-                name={machineInfo.user_info.name}
+                name={machineInfo.user_info.username}
                 uuid={machineInfo.user_info.uuid}
                 osName={machineInfo.user_info.os_name}
                 osRelease={machineInfo.user_info.os_release}
