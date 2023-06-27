@@ -1,9 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useCallback } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { Button } from '../../components/Button';
 import { InputSlider } from '../../components/Slider/input';
+import { api } from '../../services/axios';
 
 interface ILimiar {
     limiarCPU: number;
@@ -26,17 +27,48 @@ export const MachineConfigurationScreen = () => {
         },
     });
 
-    const onSubmit: SubmitHandler<ILimiar> = (data: ILimiar) => {
+    const onSubmit: SubmitHandler<ILimiar> = async (data: ILimiar) => {
         console.log(data);
 
-        // Show success message
-        Alert.alert('Sucesso', 'Limiares atualizados.', [
-            {
-                text: 'OK',
-                onPress: navigation.goBack,
-            },
-        ]);
+        try {
+            await api.patch('/limiar/649b4a8682cc9a2c13f9508e', {
+                cpu_temperature: data.limiarCPU,
+                ram_memory_use: data.limiarRam,
+                disk_storage: data.limiarDisk,
+                battery_percentage: data.limiarBattery,
+                swap_memory_use: data.limiarSwap,
+            });
+
+            Alert.alert('Sucesso', 'Limiares atualizados.', [
+                {
+                    text: 'OK',
+                    onPress: navigation.goBack,
+                },
+            ]);
+        } catch (error) {
+            console.log('error', error);
+        }
     };
+
+    const getMachineConfiguration = useCallback(async () => {
+        try {
+            const { data } = await api.get('/limiar/649b4a8682cc9a2c13f9508e');
+
+            setValue('limiarCPU', data.cpu_temperature);
+            setValue('limiarRam', data.ram_memory_use);
+            setValue('limiarSwap', data.swap_memory_use);
+            setValue('limiarDisk', data.disk_storage);
+            setValue('limiarBattery', data.battery_percentage);
+        } catch (error) {
+            console.log('error', error);
+        }
+    }, [setValue]);
+
+    useFocusEffect(
+        useCallback(() => {
+            getMachineConfiguration();
+        }, [getMachineConfiguration]),
+    );
 
     return (
         <View style={styles.wrapper}>
@@ -49,7 +81,7 @@ export const MachineConfigurationScreen = () => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={60}
+                            minimumValue={0}
                             maximumValue={100}
                             label="Limiar temperatura CPU (°C)"
                             sufix="°C"
@@ -68,7 +100,7 @@ export const MachineConfigurationScreen = () => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={60}
+                            minimumValue={0}
                             maximumValue={100}
                             label="Limiar uso memória RAM (%)"
                             sufix="%"
@@ -87,7 +119,7 @@ export const MachineConfigurationScreen = () => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={60}
+                            minimumValue={0}
                             maximumValue={100}
                             label="Limiar uso memória SWAP (%)"
                             sufix="%"
@@ -106,7 +138,7 @@ export const MachineConfigurationScreen = () => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={60}
+                            minimumValue={0}
                             maximumValue={100}
                             label="Limiar uso armazenamento de disco (%)"
                             sufix="%"
@@ -125,7 +157,7 @@ export const MachineConfigurationScreen = () => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={60}
+                            minimumValue={0}
                             maximumValue={100}
                             label="Limiar bateria (%)"
                             sufix="%"

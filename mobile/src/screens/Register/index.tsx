@@ -1,6 +1,8 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, Text, View } from 'react-native';
+import { z } from 'zod';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { useAuth } from '../../hooks/useAuth';
@@ -11,11 +13,21 @@ interface IForm {
     password: string;
 }
 
+const validationSchema = z.object({
+    email: z.string().email('E-mail inválido'),
+    password: z
+        .string()
+        .min(6, { message: 'Senha deve conter pelo menos 6 caracteres.' }),
+});
+
+type ValidationSchema = z.infer<typeof validationSchema>;
+
 export const RegisterScreen = () => {
     const navigation = useNavigation();
     const { register } = useAuth();
 
-    const { control, handleSubmit } = useForm<IForm>({
+    const { control, handleSubmit } = useForm<ValidationSchema>({
+        resolver: zodResolver(validationSchema),
         defaultValues: {
             email: '',
             password: '',
@@ -27,7 +39,7 @@ export const RegisterScreen = () => {
         password,
     }: IForm) => {
         try {
-            register(email, password);
+            await register(email, password);
 
             navigation.popToTop();
         } catch (error) {
@@ -41,11 +53,12 @@ export const RegisterScreen = () => {
             <Controller
                 name="email"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                     <Input
                         label="E-mail"
                         placeholder="Digite seu e-mail"
                         field={field}
+                        fieldState={fieldState}
                     />
                 )}
             />
@@ -53,11 +66,12 @@ export const RegisterScreen = () => {
             <Controller
                 name="password"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                     <Input
                         label="Senha"
                         placeholder="Digite sua senha"
                         field={field}
+                        fieldState={fieldState}
                     />
                 )}
             />

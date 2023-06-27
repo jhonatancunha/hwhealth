@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react';
+import { Alert } from 'react-native';
 import { DeviceState } from 'react-native-onesignal';
 import { AuthHelper } from '../helper/auth-helper';
 import { api } from '../services/axios';
@@ -13,9 +14,9 @@ interface IInfo {
 }
 
 interface IAuthContext {
-    logout: () => void;
-    register: (email: string, password: string) => void;
-    login: (email: string, password: string) => void;
+    logout: () => Promise<void>;
+    register: (email: string, password: string) => Promise<void>;
+    login: (email: string, password: string) => Promise<void>;
     info: IInfo;
     userOneSignalInfo: DeviceState | null;
     updateUserOneSignalInfo: (data: DeviceState | null) => void;
@@ -34,13 +35,13 @@ export const AuthContext = createContext<IAuthContext>({
     updateUserOneSignalInfo: function (data: DeviceState | null): void {
         throw new Error(`Function not implemented. Data: ${data}`);
     },
-    logout: function (): void {
+    logout: async function (): Promise<void> {
         throw new Error(`Function not implemented.`);
     },
-    register: function (email: string, password: string): void {
+    register: async function (email: string, password: string): Promise<void> {
         throw new Error(`Function not implemented.`);
     },
-    login: function (email: string, password: string): void {
+    login: async function (email: string, password: string): Promise<void> {
         throw new Error(`Function not implemented.`);
     },
     updateInfo: function (
@@ -83,7 +84,14 @@ export const AuthProvider = ({ children }: IAuth) => {
 
                 // setInfo({accessToken});
             } catch (error) {
+                if (error?.response?.data.statusCode === 404) {
+                    Alert.alert(
+                        'Credenciais inválidas.',
+                        'Por favor, confira seu e-mail e senha e tente novamente.',
+                    );
+                }
                 updateInfo(null, null);
+                throw error;
             }
         },
         [updateInfo],
@@ -103,7 +111,15 @@ export const AuthProvider = ({ children }: IAuth) => {
                 AuthHelper.setItem('@refreshToken', refreshToken);
                 updateInfo(accessToken, refreshToken);
             } catch (error) {
+                if (error?.response?.data.statusCode === 404) {
+                    Alert.alert(
+                        'Credenciais inválidas.',
+                        'Por favor, confira seu e-mail e senha e tente novamente.',
+                    );
+                }
+
                 updateInfo(null, null);
+                throw error;
             }
         },
         [updateInfo],
