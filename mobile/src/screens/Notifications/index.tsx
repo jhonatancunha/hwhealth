@@ -1,5 +1,5 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { OSNotification } from 'react-native-onesignal';
@@ -8,8 +8,6 @@ import { NotificationModalComponent } from '../../components/Modal/notification'
 import { NotificationHelper } from '../../helper/notification-helper';
 
 export const NotificationScreen = () => {
-    const navigation = useNavigation();
-
     const [notifications, setNotifications] = useState<OSNotification[] | []>(
         [],
     );
@@ -53,9 +51,8 @@ export const NotificationScreen = () => {
 
     useFocusEffect(
         useCallback(() => {
-            navigation.setParams({ getNotifications });
             getNotifications();
-        }, [navigation]),
+        }, []),
     );
 
     return (
