@@ -18,7 +18,7 @@ export default class MachineController {
 
   @ApiOkResponse({
     type: MachineInfo,
-    description: '200. OK',
+    description: '200. Returns the created machine',
   })
   @ApiUnauthorizedResponse({
     description: '401. UnauthorizedException.',
@@ -32,6 +32,14 @@ export default class MachineController {
     return this.machineService.create(id, createMachineDto);
   }
 
+  @ApiOkResponse({
+    type: MachineInfo,
+    description: '200. Returns all machines',
+  })
+  @ApiUnauthorizedResponse({
+    description: '401. UnauthorizedException.',
+  })
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.machineService.findAll();
