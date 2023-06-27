@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { MachineInfo, MachineInfoDocument } from './schema/machine.schema';
+import { MachineInfo, Battery, MachineData } from './schema/machine.schema';
 import CreateMachineDto from './dto/create-machine.dto';
 import UpdateMachineDto from './dto/update-machine.dto';
 
@@ -29,14 +29,14 @@ export default class MachineService {
 
     if (foundedMachine) {
       foundedMachine.data.push({
-        fans, cpu, memory_ram, swap_memory, disk, network, battery,
+        fans, cpu, memory_ram, swap_memory, disk, network, battery, created_at: new Date(),
       });
     } else {
       const createdMachine = new this.MachineInfoModel({
         user_info,
         user_id: userId,
         data: [{
-          fans, cpu, memory_ram, swap_memory, disk, network, battery,
+          fans, cpu, memory_ram, swap_memory, disk, network, battery, created_at: new Date(),
         }],
       });
       return createdMachine.save();
@@ -47,6 +47,22 @@ export default class MachineService {
 
   async findAll() {
     return this.MachineInfoModel.find().exec();
+  }
+
+  async getMachineInfo(machine_id: String): Promise<MachineData[]> {
+    const machineInfo = await this.MachineInfoModel
+      .findById(machine_id)
+      .exec();
+
+    if (!machineInfo) {
+      throw new Error('Registro não encontrado');
+    }
+
+    const sortedData = machineInfo.data.sort(
+      (a, b) => b.created_at.getTime() - a.created_at.getTime(),
+    );
+
+    return sortedData.slice(0, 5);
   }
 
   async findOne(id: string) {

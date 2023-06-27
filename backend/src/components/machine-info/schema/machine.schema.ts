@@ -82,7 +82,7 @@ interface Network {
   drop_out: number;
 }
 
-interface Battery {
+export interface Battery {
   charge: number;
   history_charge: number[];
   time_labels_history_charge: string[];
@@ -90,7 +90,7 @@ interface Battery {
   power_plugged: string;
 }
 
-class MachineData {
+export class MachineData {
   fans: Fans;
 
   cpu: Cpu;
@@ -104,6 +104,8 @@ class MachineData {
   network: Network;
 
   battery: Battery;
+
+  created_at: Date;
 }
 
 @Schema()

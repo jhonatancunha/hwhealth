@@ -5,7 +5,7 @@ import AuthModule from '@components/auth/auth.module';
 import UsersModule from '@components/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import MachineInfoModule from '@components/machine-info/machine-info.module';
+import MachineModule from '@components/machine-info/machine.module';
 
 @Module({
   imports: [
@@ -21,7 +21,7 @@ import MachineInfoModule from '@components/machine-info/machine-info.module';
     }),
     AuthModule,
     UsersModule,
-    MachineInfoModule,
+    MachineModule,
   ],
   controllers: [],
   providers: [],

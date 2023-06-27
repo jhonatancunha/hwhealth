@@ -45,9 +45,17 @@ export default class MachineController {
     return this.machineService.findAll();
   }
 
+  @ApiOkResponse({
+    type: MachineInfo,
+    description: '200. Returns all machines',
+  })
+  @ApiUnauthorizedResponse({
+    description: '401. UnauthorizedException.',
+  })
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.machineService.findOne(id);
+  getMachineInfo(@Param('id') id: string) {
+    return this.machineService.getMachineInfo(id);
   }
 
   @Put(':id')
