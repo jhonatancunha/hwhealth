@@ -35,6 +35,7 @@ export default class MachineService {
     });
 
     if (foundedMachine) {
+      foundedMachine.updated_at = new Date();
       foundedMachine.data.push({
         fans,
         cpu,
