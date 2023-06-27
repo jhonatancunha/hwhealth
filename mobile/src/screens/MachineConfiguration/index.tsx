@@ -46,13 +46,13 @@ export const MachineConfigurationScreen = ({ route }) => {
                 },
             ]);
         } catch (error) {
-            console.log('error', error);
+            console.log('error onSubmit', error);
         }
     };
 
     const getMachineConfiguration = useCallback(async () => {
         try {
-            const { data } = await api.get(`/limiar/${machineId}-id`);
+            const { data } = await api.get(`/limiar/${machineId}`);
 
             setValue('limiarCPU', data.cpu_temperature);
             setValue('limiarRam', data.ram_memory_use);

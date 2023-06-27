@@ -8,7 +8,6 @@ import { DiskInfoCard } from '../../components/Cards/DiskInfoCard';
 import { MemoryRamInfoCard } from '../../components/Cards/MemoryRamInfoCard';
 import { MemorySwapInfoCard } from '../../components/Cards/MemorySwapInfoCard';
 import { NetworkInfoCard } from '../../components/Cards/NetworkInfoCard';
-import { UserInfoCard } from '../../components/Cards/UserInfoCard';
 import { api } from '../../services/axios';
 
 interface IMachineInfo {
@@ -86,13 +85,15 @@ export const MachineInfo = ({ route }) => {
     const { params } = route;
     const { machine_id } = params;
 
+    console.log('machine_id', machine_id);
+
     const [machineInfo, setMachineInfo] = useState<IMachineInfo | null>(null);
 
     const getMachineInfo = useCallback(async () => {
         try {
             const { data } = await api.get(`/machine/${machine_id}`);
 
-            setMachineInfo(data);
+            setMachineInfo(data.data[0]);
         } catch (error) {
             Alert.alert(
                 'Erro',
@@ -115,14 +116,14 @@ export const MachineInfo = ({ route }) => {
         <ScrollView
             style={styles.scrollView}
             contentContainerStyle={styles.container}>
-            <UserInfoCard
+            {/* <UserInfoCard
                 name={machineInfo.user_info.username}
                 uuid={machineInfo.user_info.uuid}
                 osName={machineInfo.user_info.os_name}
                 osRelease={machineInfo.user_info.os_release}
                 osArchitecture={machineInfo.user_info.os_architecture}
                 osVersion={machineInfo.user_info.os_version}
-            />
+            /> */}
             <CPUInfoCard
                 cpuCount={machineInfo.cpu.cpu_count}
                 cpuMeanPercentage={machineInfo.cpu.cpu_mean_percentage}
