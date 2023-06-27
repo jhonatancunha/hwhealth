@@ -33,12 +33,12 @@ interface Fans {
 interface Cpu {
   cpu_count: number;
   cpu_mean_percentage: number;
-  history_cpu_percentage: number[];
-  time_labels_cpu_percentage: string[];
+  history_cpu_percentage: number[][];
+  time_labels_cpu_percentage: Date[];
   temperature_unit: string;
   cpu_mean_temperature: number;
   history_cpu_temperature: number[];
-  time_labels_cpu_temperature: string[];
+  time_labels_cpu_temperature: Date[];
 }
 
 interface MemoryRAM {
@@ -48,7 +48,7 @@ interface MemoryRAM {
   used: string;
   free: string;
   history_percent: number[];
-  time_labels_history_percent: string[];
+  time_labels_history_percent: Date[];
 }
 
 interface SwapMemory {
@@ -57,7 +57,7 @@ interface SwapMemory {
   free: string;
   percent: number;
   history_percent: number[];
-  time_labels_history_percent: string[];
+  time_labels_history_percent: Date[];
 }
 
 interface Disk {
@@ -66,16 +66,16 @@ interface Disk {
   total: string;
   used: string;
   history_percent: number[];
-  time_labels_history_percent: string[];
+  time_labels_history_percent: Date[];
 }
 
 interface Network {
   bytes_sent: string;
   bytes_received: string;
   history_packets_sent: number[];
-  time_labels_history_packets_sent: string[];
+  time_labels_history_packets_sent: Date[];
   history_packets_received: number[];
-  time_labels_history_packets_received: string[];
+  time_labels_history_packets_received: Date[];
   error_in: number;
   error_out: number;
   drop_in: number;
@@ -85,27 +85,9 @@ interface Network {
 export interface Battery {
   charge: number;
   history_charge: number[];
-  time_labels_history_charge: string[];
+  time_labels_history_charge: Date[];
   time_left: string;
   power_plugged: string;
-}
-
-export class MachineData {
-  fans: Fans;
-
-  cpu: Cpu;
-
-  memory_ram: MemoryRAM;
-
-  swap_memory: SwapMemory;
-
-  disk: Disk;
-
-  network: Network;
-
-  battery: Battery;
-
-  created_at: Date;
 }
 
 @Schema()
@@ -117,10 +99,25 @@ export class MachineInfo {
     user_info: UserInfo;
 
   @Prop({ type: [{ type: SchemaTypes.Mixed }] })
-    data: MachineData[];
+    fans: Fans;
 
-  @Prop({ type: Date })
-    updated_at: Date;
+  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+    cpu: Cpu;
+
+  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+    memory_ram: MemoryRAM;
+
+  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+    swap_memory: SwapMemory;
+
+  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+    disk: Disk;
+
+  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+    network: Network;
+
+  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+    battery: Battery;
 }
 
 export type MachineInfoDocument = MachineInfo & Document;

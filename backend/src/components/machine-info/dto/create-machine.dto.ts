@@ -1,41 +1,108 @@
 import { ApiProperty } from '@nestjs/swagger';
-import FansDto from './fans.dto';
-import CpuDto from './cpu.dto';
-import MemoryRamDto from './memory_ram.dto';
-import SwapMemoryDto from './swap_memory.dto';
-import DiskDto from './disk.dto';
-import NetworkDto from './network.dto';
-import BatteryDto from './battery.dto';
 
-export default class CreateMachineDto {
+export default class MachineDataDto {
   @ApiProperty({ type: String })
-    user_info: {
     username: string;
-    uuid: string;
+
+  @ApiProperty({ type: String })
+    user_uuid: string;
+
+  @ApiProperty({ type: String })
     os_name: string;
+
+  @ApiProperty({ type: String })
     os_release: string;
+
+  @ApiProperty({ type: String })
     os_architecture: string;
+
+  @ApiProperty({ type: String })
     os_version: string;
-  };
 
-  @ApiProperty({ type: FansDto })
-    fans: FansDto;
+  @ApiProperty({ type: Number })
+    cpu_count: number;
 
-  @ApiProperty({ type: CpuDto })
-    cpu: CpuDto;
+  @ApiProperty({ type: [Number] })
+    cpu_percentage: number[];
 
-  @ApiProperty({ type: MemoryRamDto })
-    memory_ram: MemoryRamDto;
+  @ApiProperty({ type: String })
+    temperature_unit: string;
 
-  @ApiProperty({ type: SwapMemoryDto })
-    swap_memory: SwapMemoryDto;
+  @ApiProperty({ type: Number })
+    cpu_mean_temperature:number;
 
-  @ApiProperty({ type: DiskDto })
-    disk: DiskDto;
+  @ApiProperty({ type: [Number] })
+    cpu_temperature: number[];
 
-  @ApiProperty({ type: NetworkDto })
-    network: NetworkDto;
+  @ApiProperty({ type: String })
+    total_ram: string;
 
-  @ApiProperty({ type: BatteryDto })
-    battery: BatteryDto;
+  @ApiProperty({ type: String })
+    available_ram: string;
+
+  @ApiProperty({ type: Number })
+    ram_percent: number;
+
+  @ApiProperty({ type: String })
+    used_ram: string;
+
+  @ApiProperty({ type: String })
+    free_ram: string;
+
+  @ApiProperty({ type: String })
+    total_swap: string;
+
+  @ApiProperty({ type: String })
+    used_swap: string;
+
+  @ApiProperty({ type: String })
+    free_swap: string;
+
+  @ApiProperty({ type: Number })
+    swap_percent: number;
+
+  @ApiProperty({ type: String })
+    total_disk: string;
+
+  @ApiProperty({ type: String })
+    used_disk: string;
+
+  @ApiProperty({ type: String })
+    free_disk: string;
+
+  @ApiProperty({ type: Number })
+    disk_percent: number;
+
+  @ApiProperty({ type: Number })
+    bytes_sent: number;
+
+  @ApiProperty({ type: Number })
+    bytes_received: number;
+
+  @ApiProperty({ type: Number })
+    packets_sent: number;
+
+  @ApiProperty({ type: Number })
+    packets_received: number;
+
+  @ApiProperty({ type: Number })
+    error_in: number;
+
+  @ApiProperty({ type: Number })
+    error_out: number;
+
+  @ApiProperty({ type: Number })
+    drop_in: number;
+
+  @ApiProperty({ type: Number })
+    drop_out: number;
+
+  @ApiProperty({ type: Number })
+    battery_charge: number;
+
+  @ApiProperty({ type: String })
+    battery_time_left: string;
+
+  @ApiProperty({ type: Boolean })
+    battery_power_plugged: boolean;
 }

@@ -54,7 +54,7 @@ export default class MachineController {
   })
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  getMachineInfo(@Param('id') id: string) {
+  getMachineInfo(@Param('id') id: string): Promise<MachineInfo> {
     return this.machineService.getMachineInfo(id);
   }
 
