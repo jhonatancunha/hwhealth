@@ -80,6 +80,7 @@ export const AuthProvider = ({ children }: IAuth) => {
                 await api.post('/auth/sign-up', {
                     email,
                     password,
+                    user_one_signal_id: userOneSignalInfo,
                 });
 
                 // setInfo({accessToken});
