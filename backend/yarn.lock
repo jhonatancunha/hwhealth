@@ -946,9 +946,9 @@
     pluralize "8.0.0"
 
 "@nestjs/swagger@^7.0.6":
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-7.0.6.tgz#5f6108cefb25ecc409ad34804d142186da9f3fc6"
-  integrity sha512-srSOYRD0oCV5kzgClAXqCYeJmxZtp1kGefNGjhBQObNan/B69vvrSkjJFDceP4s3y7OYl3Klu2nepcmAl4vFrA==
+  version "7.0.10"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-7.0.10.tgz#0ed9ff6ff7b8f5b4f4a476685e8525f49ebb362e"
+  integrity sha512-3tA3c6ZrrQ/DucIef8Sg1rnYDviWv7acs7Zj0m4DfNJsVSTxcJ9u47a0AK7saGlDlCqXMbS0DcG9jOKTNdfKfg==
   dependencies:
     "@nestjs/mapped-types" "2.0.2"
     js-yaml "4.1.0"
@@ -3163,9 +3163,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.431:
-  version "1.4.441"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.441.tgz#94dd9c1cbf081d83f032a4f1cd9f787e21fc24ce"
-  integrity sha512-LlCgQ8zgYZPymf5H4aE9itwiIWH4YlCiv1HFLmmcBeFYi5E+3eaIFnjHzYtcFQbaKfAW+CqZ9pgxo33DZuoqPg==
+  version "1.4.442"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.442.tgz#455f4c5bd6ae73afb634dcffee6f356c26c8e294"
+  integrity sha512-RkrZF//Ya+0aJq2NM3OdisNh5ZodZq1rdXOS96G8DdDgpDKqKE81yTbbQ3F/4CKm1JBPsGu1Lp/akkna2xO06Q==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -8389,9 +8389,9 @@ terser-webpack-plugin@^5.3.7:
     terser "^5.16.8"
 
 terser@^5.16.8:
-  version "5.18.1"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-5.18.1.tgz#6d8642508ae9fb7b48768e48f16d675c89a78460"
-  integrity sha512-j1n0Ao919h/Ai5r43VAnfV/7azUYW43GPxK7qSATzrsERfW7+y2QW9Cp9ufnRF5CQUWbnLSo7UJokSWCqg4tsQ==
+  version "5.18.2"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.18.2.tgz#ff3072a0faf21ffd38f99acc9a0ddf7b5f07b948"
+  integrity sha512-Ah19JS86ypbJzTzvUCX7KOsEIhDaRONungA4aYBjEP3JZRf4ocuDzTg4QWZnPn9DEMiMYGJPiSOy7aykoCc70w==
   dependencies:
     "@jridgewell/source-map" "^0.3.3"
     acorn "^8.8.2"

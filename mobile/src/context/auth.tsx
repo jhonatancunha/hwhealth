@@ -84,10 +84,10 @@ export const AuthProvider = ({ children }: IAuth) => {
 
                 // setInfo({accessToken});
             } catch (error) {
-                if (error?.response?.data.statusCode === 404) {
+                if (error?.response?.data.statusCode === 400) {
                     Alert.alert(
-                        'Credenciais inválidas.',
-                        'Por favor, confira seu e-mail e senha e tente novamente.',
+                        'E-mail já utilizado.',
+                        'Por favor, informe outro e-mail e tente novamente.',
                     );
                 }
                 updateInfo(null, null);

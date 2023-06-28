@@ -67,6 +67,7 @@ export const LoginScreen = () => {
                         placeholder="Digite sua senha"
                         field={field}
                         fieldState={fieldState}
+                        secureTextEntry
                     />
                 )}
             />

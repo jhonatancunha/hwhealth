@@ -72,6 +72,7 @@ export const RegisterScreen = () => {
                         placeholder="Digite sua senha"
                         field={field}
                         fieldState={fieldState}
+                        secureTextEntry
                     />
                 )}
             />
