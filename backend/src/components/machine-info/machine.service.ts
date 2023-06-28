@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import LimiarService from '@components/limiar/limiar.service';
+import { InjectRedis, RedisService } from '@liaoliaots/nestjs-redis';
+import { Redis, RedisKey } from 'ioredis';
 import {
   MachineInfo,
 } from './schema/machine.schema';
@@ -15,17 +17,16 @@ export default class MachineService {
     @InjectModel(MachineInfo.name)
     private MachineInfoModel: Model<MachineInfo>,
     private readonly limiarService: LimiarService,
+    @InjectRedis() private readonly redisClient: Redis,
   ) {}
 
   async create(userId: string, createMachineDto: CreateMachineDto): Promise<MachineInfo> {
     const {
-      cpu, memory_ram, swap_memory, disk, network, battery,
+      user_info, cpu, memory_ram, swap_memory, disk, network, battery,
     } = createMachineDto;
 
-    // await this.MachineInfoModel.deleteMany({});
-
     let machine = await this.MachineInfoModel.findOne({
-      user_id: userId,
+      'user_info.uuid': user_info.uuid,
     });
 
     if (machine) {
@@ -166,6 +167,8 @@ export default class MachineService {
     createdLimiar.save();
 
     machine.user_id = userId;
+
+    await this.redisClient.del(machine._id.toString() as RedisKey);
     return machine.save();
   }
 
@@ -174,11 +177,20 @@ export default class MachineService {
   }
 
   async getMachineInfo(machine_id: String) {
+    const cachedData = await this.redisClient.get(machine_id as RedisKey);
+
+    if (cachedData) {
+      const parsedData = JSON.parse(cachedData);
+      return parsedData;
+    }
+
     const machineInfo = await this.MachineInfoModel.findById(machine_id);
 
     if (!machineInfo) {
       throw new Error('Machine not founded');
     }
+
+    await this.redisClient.set(machine_id as RedisKey, JSON.stringify(machineInfo));
 
     return machineInfo;
   }
