@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -9,7 +10,7 @@ interface IMachineCard {
     os_release: string;
     os_architecture: string;
     last_update: string;
-    username: string;
+    name: string;
     uuid: number;
     machine_id: string;
 }
@@ -19,7 +20,7 @@ export const MachineCard = ({
     os_release,
     os_architecture,
     last_update,
-    username,
+    name,
     uuid,
     machine_id,
 }: IMachineCard): React.ReactElement => {
@@ -30,6 +31,10 @@ export const MachineCard = ({
             machine_id,
         });
     };
+
+    const brazilDate = last_update
+        ? moment(last_update).utcOffset(-3).format('DD/MM/YYYY [às] HH:mm')
+        : '';
 
     return (
         <TouchableOpacity style={styles.topContainer} onPress={goToMachineInfo}>
@@ -45,7 +50,7 @@ export const MachineCard = ({
                         style={styles.text}
                         ellipsizeMode="tail"
                         numberOfLines={1}>
-                        {username}
+                        {name}
                     </Text>
                 </View>
                 <View style={styles.cardContentWrapper}>
@@ -78,7 +83,7 @@ export const MachineCard = ({
                 <View>
                     <View style={styles.infoWrapper}>
                         <Text style={styles.text}>Última atualização: </Text>
-                        <Text style={styles.infoValue}>{last_update}</Text>
+                        <Text style={styles.infoValue}>{brazilDate}</Text>
                     </View>
                 </View>
             </View>

@@ -6,13 +6,13 @@ import { MachineCard } from '../../components/Cards/MachineCard';
 import { api } from '../../services/axios';
 
 interface IMachine {
-    uuid: number;
     os_name: string;
     os_release: string;
     os_architecture: string;
     os_version: string;
     username: string;
     last_update: string;
+    machine_id: string;
 }
 
 export const MachineScreen = () => {
@@ -32,6 +32,7 @@ export const MachineScreen = () => {
     const fetchMachines = async () => {
         try {
             const { data } = await api.get('/machine');
+
             setMachines(
                 data.map(item => ({
                     ...item.user_info,
@@ -58,7 +59,7 @@ export const MachineScreen = () => {
                 style={customFlatListStyle}
                 data={machines}
                 renderItem={({ item }) => <MachineCard {...item} />}
-                keyExtractor={item => item.uuid}
+                keyExtractor={item => item.machine_id}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
                 ListHeaderComponent={() => <View style={styles.separator} />}
                 ListFooterComponent={() => <View style={styles.separator} />}

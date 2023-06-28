@@ -89,6 +89,11 @@ export default class MachineService {
       minute: '2-digit',
     });
 
+    machine.user_info = {
+      ...machine.user_info,
+      last_update: new Date(),
+    };
+
     machine.cpu = {
       ...machine.cpu,
       history_cpu_percentage: [...machine.cpu.history_cpu_percentage, cpu.cpu_mean_percentage],

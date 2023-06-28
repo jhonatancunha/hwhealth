@@ -19,6 +19,9 @@ class UserInfoDto {
 
   @ApiProperty({ type: String })
     os_version: string;
+
+  @ApiProperty({ type: Date })
+    last_update: Date;
 }
 
 class FansDto {

@@ -81,8 +81,8 @@ export const MachineConfigurationScreen = ({ route }) => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={0}
-                            maximumValue={100}
+                            minimumValue={50}
+                            maximumValue={130}
                             label="Limiar temperatura CPU (°C)"
                             sufix="°C"
                             onValueChange={value => {
@@ -100,7 +100,7 @@ export const MachineConfigurationScreen = ({ route }) => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={0}
+                            minimumValue={50}
                             maximumValue={100}
                             label="Limiar uso memória RAM (%)"
                             sufix="%"
@@ -119,7 +119,7 @@ export const MachineConfigurationScreen = ({ route }) => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={0}
+                            minimumValue={50}
                             maximumValue={100}
                             label="Limiar uso memória SWAP (%)"
                             sufix="%"
@@ -138,7 +138,7 @@ export const MachineConfigurationScreen = ({ route }) => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={0}
+                            minimumValue={50}
                             maximumValue={100}
                             label="Limiar uso armazenamento de disco (%)"
                             sufix="%"
@@ -157,7 +157,7 @@ export const MachineConfigurationScreen = ({ route }) => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={0}
+                            minimumValue={50}
                             maximumValue={100}
                             label="Limiar bateria (%)"
                             sufix="%"

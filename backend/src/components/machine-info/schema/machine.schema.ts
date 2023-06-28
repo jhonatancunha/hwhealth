@@ -9,6 +9,7 @@ interface UserInfo {
   os_release: string;
   os_architecture: string;
   os_version: string;
+  last_update: Date;
 }
 
 interface Fans {
