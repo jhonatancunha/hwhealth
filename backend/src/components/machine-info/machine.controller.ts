@@ -25,7 +25,7 @@ export default class MachineController {
   })
   @Post()
   @UseGuards(JwtAuthGuard)
-  create(@Request() req, @Body() createMachineDto: CreateMachineDto) {
+  create(@Request() req, @Body() createMachineDto: CreateMachineDto): Promise<MachineInfo> {
     const token = req.headers.authorization.replace('Bearer ', '');
     const { id } = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString('utf-8'));
 

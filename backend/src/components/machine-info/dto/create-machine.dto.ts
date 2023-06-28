@@ -1,11 +1,12 @@
+/* eslint-disable max-classes-per-file */
 import { ApiProperty } from '@nestjs/swagger';
 
-export default class MachineDataDto {
+class UserInfoDto {
   @ApiProperty({ type: String })
     username: string;
 
-  @ApiProperty({ type: String })
-    user_uuid: string;
+  @ApiProperty({ type: Number })
+    uuid: number;
 
   @ApiProperty({ type: String })
     os_name: string;
@@ -18,72 +19,132 @@ export default class MachineDataDto {
 
   @ApiProperty({ type: String })
     os_version: string;
+}
 
+class FansDto {
+  @ApiProperty({ type: Number })
+    size_fans: number;
+
+  @ApiProperty({ type: [String] })
+    array_fans: string[];
+}
+
+class CpuDto {
   @ApiProperty({ type: Number })
     cpu_count: number;
 
+  @ApiProperty({ type: Number })
+    cpu_mean_percentage: number;
+
   @ApiProperty({ type: [Number] })
     cpu_percentage: number[];
+
+  @ApiProperty({ type: [Number] })
+    history_cpu_percentage: number[][];
+
+  @ApiProperty({ type: [Date] })
+    time_labels_cpu_percentage: Date[];
 
   @ApiProperty({ type: String })
     temperature_unit: string;
 
   @ApiProperty({ type: Number })
-    cpu_mean_temperature:number;
+    cpu_mean_temperature: number;
 
   @ApiProperty({ type: [Number] })
-    cpu_temperature: number[];
+    history_cpu_temperature: number[];
+
+  @ApiProperty({ type: [Date] })
+    time_labels_cpu_temperature: Date[];
+}
+
+class MemoryRamDto {
+  @ApiProperty({ type: String })
+    total: string;
 
   @ApiProperty({ type: String })
-    total_ram: string;
-
-  @ApiProperty({ type: String })
-    available_ram: string;
+    available: string;
 
   @ApiProperty({ type: Number })
-    ram_percent: number;
+    percent: number;
 
   @ApiProperty({ type: String })
-    used_ram: string;
+    used: string;
 
   @ApiProperty({ type: String })
-    free_ram: string;
+    free: string;
+
+  @ApiProperty({ type: [Number] })
+    history_percent: number[];
+
+  @ApiProperty({ type: [Date] })
+    time_labels_history_percent: Date[];
+}
+
+class SwapMemoryDto {
+  @ApiProperty({ type: String })
+    total: string;
 
   @ApiProperty({ type: String })
-    total_swap: string;
+    used: string;
 
   @ApiProperty({ type: String })
-    used_swap: string;
-
-  @ApiProperty({ type: String })
-    free_swap: string;
+    free: string;
 
   @ApiProperty({ type: Number })
-    swap_percent: number;
+    percent: number;
 
-  @ApiProperty({ type: String })
-    total_disk: string;
+  @ApiProperty({ type: [Number] })
+    history_percent: number[];
 
-  @ApiProperty({ type: String })
-    used_disk: string;
+  @ApiProperty({ type: [Date] })
+    time_labels_history_percent: Date[];
+}
 
+class DiskDto {
   @ApiProperty({ type: String })
-    free_disk: string;
+    free: string;
 
   @ApiProperty({ type: Number })
-    disk_percent: number;
+    percent: number;
 
-  @ApiProperty({ type: Number })
-    bytes_sent: number;
+  @ApiProperty({ type: String })
+    total: string;
 
-  @ApiProperty({ type: Number })
-    bytes_received: number;
+  @ApiProperty({ type: String })
+    used: string;
+
+  @ApiProperty({ type: [Number] })
+    history_percent: number[];
+
+  @ApiProperty({ type: [Date] })
+    time_labels_history_percent: Date[];
+}
+
+class NetworkDto {
+  @ApiProperty({ type: String })
+    bytes_sent: string;
+
+  @ApiProperty({ type: String })
+    bytes_received: string;
 
   @ApiProperty({ type: Number })
     packets_sent: number;
 
   @ApiProperty({ type: Number })
     packets_received: number;
+
+  @ApiProperty({ type: [Number] })
+    history_packets_sent: number[];
+
+  @ApiProperty({ type: [Date] })
+    time_labels_history_packets_sent: Date[];
+
+  @ApiProperty({ type: [Number] })
+    history_packets_received: number[];
+
+  @ApiProperty({ type: [Date] })
+    time_labels_history_packets_received: Date[];
 
   @ApiProperty({ type: Number })
     error_in: number;
@@ -96,13 +157,53 @@ export default class MachineDataDto {
 
   @ApiProperty({ type: Number })
     drop_out: number;
+}
 
+class BatteryDto {
   @ApiProperty({ type: Number })
-    battery_charge: number;
+    charge: number;
+
+  @ApiProperty({ type: [Number] })
+    history_charge: number[];
+
+  @ApiProperty({ type: [Date] })
+    time_labels_history_charge: Date[];
 
   @ApiProperty({ type: String })
-    battery_time_left: string;
+    time_left: string;
 
   @ApiProperty({ type: Boolean })
-    battery_power_plugged: boolean;
+    power_plugged: boolean;
+}
+
+export default class MachineInfoDto {
+  @ApiProperty({ type: String })
+    name: string;
+
+  @ApiProperty({ type: Number })
+    uuid: number;
+
+  @ApiProperty({ type: UserInfoDto })
+    user_info: UserInfoDto;
+
+  @ApiProperty({ type: FansDto })
+    fans: FansDto;
+
+  @ApiProperty({ type: CpuDto })
+    cpu: CpuDto;
+
+  @ApiProperty({ type: MemoryRamDto })
+    memory_ram: MemoryRamDto;
+
+  @ApiProperty({ type: SwapMemoryDto })
+    swap_memory: SwapMemoryDto;
+
+  @ApiProperty({ type: DiskDto })
+    disk: DiskDto;
+
+  @ApiProperty({ type: NetworkDto })
+    network: NetworkDto;
+
+  @ApiProperty({ type: BatteryDto })
+    battery: BatteryDto;
 }

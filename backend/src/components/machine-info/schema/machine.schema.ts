@@ -1,28 +1,14 @@
 // eslint-disable-next-line max-classes-per-file
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ApiExtraModels } from '@nestjs/swagger';
-import { ObjectId } from 'mongodb';
 import { Document, SchemaTypes } from 'mongoose';
 
-@Schema()
-export class UserInfo {
-  @Prop({ type: SchemaTypes.String })
-    username: string;
-
-  @Prop({ type: SchemaTypes.Number })
-    uuid: number;
-
-  @Prop({ type: SchemaTypes.String })
-    os_name: string;
-
-  @Prop({ type: SchemaTypes.String })
-    os_release: string;
-
-  @Prop({ type: SchemaTypes.String })
-    os_architecture: string;
-
-  @Prop({ type: SchemaTypes.String })
-    os_version: string;
+interface UserInfo {
+  username: string;
+  uuid: number;
+  os_name: string;
+  os_release: string;
+  os_architecture: string;
+  os_version: string;
 }
 
 interface Fans {
@@ -95,28 +81,28 @@ export class MachineInfo {
   @Prop({ type: SchemaTypes.String })
     user_id: string;
 
-  @Prop({ type: () => UserInfo, required: true })
+  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
     user_info: UserInfo;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
     fans: Fans;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
     cpu: Cpu;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
     memory_ram: MemoryRAM;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
     swap_memory: SwapMemory;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
     disk: Disk;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
     network: Network;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }] })
+  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
     battery: Battery;
 }
 

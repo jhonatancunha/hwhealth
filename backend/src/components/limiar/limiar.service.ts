@@ -31,6 +31,6 @@ export default class LimiarService {
 
     const createdObjectId = new mongoose.Schema.Types.ObjectId(foundedLimiar._id.toString());
 
-    return this.LimiarModel.updateOne(createdObjectId, updateLimiar, { new: true }).exec();
+    return this.LimiarModel.updateOne(createdObjectId, updateLimiar, { new: true });
   }
 }
