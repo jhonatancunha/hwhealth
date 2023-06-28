@@ -46,7 +46,7 @@ export default class LimiarController {
   @ApiInternalServerErrorResponse({ description: '500. Internal Server Error' })
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') machineId: string, @Body() updateLimiarDto: UpdateLimiarDto) {
+  update(@Param('id') machineId: string, @Body() updateLimiarDto: UpdateLimiarDto): Promise<void> {
     return this.limiarService.update(machineId, updateLimiarDto);
   }
 }

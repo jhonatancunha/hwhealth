@@ -22,15 +22,22 @@ export default class LimiarService {
     return this.LimiarModel.findOne({ machine_id: machineId });
   }
 
-  async update(machineId: string, updateLimiar: UpdateLimiarDto) {
-    const foundedLimiar = await this.LimiarModel.findOne({ machine_id: machineId });
+  async update(
+    machineId: string,
+    updateLimiar: UpdateLimiarDto,
+  ): Promise<void> {
+    const foundedLimiar = await this.LimiarModel.findOne({
+      machine_id: machineId,
+    });
 
     if (!foundedLimiar) {
       throw new BadGatewayException('Limiar not founded');
     }
 
-    const createdObjectId = new mongoose.Schema.Types.ObjectId(foundedLimiar._id.toString());
+    const result = await foundedLimiar.updateOne(updateLimiar).exec();
 
-    return this.LimiarModel.updateOne(createdObjectId, updateLimiar, { new: true });
+    if (!result.acknowledged) {
+      throw new Error('Update not acknowledged');
+    }
   }
 }
