@@ -90,7 +90,6 @@ export default class AuthController {
   @ApiOkResponse({ description: '200, returns new jwt tokens' })
   @ApiUnauthorizedResponse({ description: '401. Token has been expired' })
   @ApiInternalServerErrorResponse({ description: '500. InternalServerError ' })
-  @ApiBearerAuth()
   @Post('refreshToken')
   async refreshToken(
     @Body() refreshTokenDto: RefreshTokenDto,
@@ -111,6 +110,7 @@ export default class AuthController {
     const payload = {
       id: verifiedUser.id,
       email: verifiedUser.email,
+      password: verifiedUser.password,
     };
 
     const newTokens = await this.authService.login(payload);
