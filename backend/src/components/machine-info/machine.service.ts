@@ -25,146 +25,143 @@ export default class MachineService {
       user_info, cpu, memory_ram, swap_memory, disk, network, battery,
     } = createMachineDto;
 
+    const MAX_HISTORY = 5;
+
     let machine = await this.MachineInfoModel.findOne({
       'user_info.uuid': user_info.uuid,
     });
 
-    if (machine) {
-      await machine.updateOne({
-        $push: {
-          ...createMachineDto,
+    if (!machine) {
+      const newCreateMachineDto = {
+        ...createMachineDto,
+        cpu: {
+          ...createMachineDto.cpu,
+          history_cpu_percentage: [],
+          time_labels_cpu_percentage: [],
+          history_cpu_temperature: [],
+          time_labels_cpu_temperature: [],
         },
+        memory_ram: {
+          ...createMachineDto.memory_ram,
+          history_percent: [],
+          time_labels_history_percent: [],
+        },
+        swap_memory: {
+          ...createMachineDto.swap_memory,
+          history_percent: [],
+          time_labels_history_percent: [],
+        },
+        disk: {
+          ...createMachineDto.disk,
+          history_percent: [],
+          time_labels_history_percent: [],
+        },
+        network: {
+          ...createMachineDto.network,
+          history_packets_sent: [],
+          time_labels_history_packets_sent: [],
+          history_packets_received: [],
+          time_labels_history_packets_received: [],
+        },
+        battery: {
+          ...createMachineDto.battery,
+          history_charge: [],
+          time_labels_history_charge: [],
+        },
+      };
+
+      machine = await this.MachineInfoModel.create(newCreateMachineDto);
+
+      const createdLimiar = await this.limiarService.create({
+        machine_id: new Types.ObjectId(machine._id).toString(),
+        battery_percentage: 15,
+        cpu_temperature: 90,
+        disk_storage: 95,
+        ram_memory_use: 95,
+        swap_memory_use: 95,
       });
 
-      if (machine.cpu[0].history_cpu_percentage.length === 5) {
-        machine.cpu[0].history_cpu_percentage.pop();
-      }
-      machine.cpu[0].history_cpu_percentage.push(cpu.cpu_percentage);
-
-      if (machine.cpu[0].history_cpu_temperature.length === 5) {
-        machine.cpu[0].history_cpu_temperature.pop();
-      }
-      machine.cpu[0].history_cpu_temperature.push(cpu.cpu_mean_temperature);
-
-      if (machine.cpu[0].time_labels_cpu_percentage.length === 5) {
-        machine.cpu[0].time_labels_cpu_percentage.pop();
-      }
-      machine.cpu[0].time_labels_cpu_percentage.push(new Date());
-
-      if (machine.cpu[0].time_labels_cpu_temperature.length === 5) {
-        machine.cpu[0].time_labels_cpu_temperature.pop();
-      }
-      machine.cpu[0].time_labels_cpu_temperature.push(new Date());
-
-      if (machine.memory_ram[0].history_percent.length === 5) {
-        machine.memory_ram.history_percent.pop();
-      }
-      machine.memory_ram[0].history_percent.push(memory_ram.percent);
-
-      if (machine.memory_ram[0].time_labels_history_percent.length === 5) {
-        machine.memory_ram.time_labels_history_percent.pop();
-      }
-      machine.memory_ram[0].time_labels_history_percent.push(new Date());
-
-      if (machine.swap_memory[0].history_percent.length === 5) {
-        machine.swap_memory[0].history_percent.pop();
-      }
-      machine.swap_memory[0].history_percent.push(swap_memory.percent);
-
-      if (machine.swap_memory[0].time_labels_history_percent.length === 5) {
-        machine.swap_memory[0].time_labels_history_percent.pop();
-      }
-      machine.swap_memory[0].time_labels_history_percent.push(new Date());
-
-      if (machine.disk[0].history_percent.length === 5) {
-        machine.disk[0].history_percent.pop();
-      }
-      machine.disk[0].history_percent.push(disk.percent);
-
-      if (machine.disk[0].time_labels_history_percent.length === 5) {
-        machine.disk[0].time_labels_history_percent.pop();
-      }
-      machine.disk[0].time_labels_history_percent.push(new Date());
-
-      if (machine.network[0].history_packets_sent.length === 5) {
-        machine.network[0].history_packets_sent.pop();
-      }
-      machine.network[0].history_packets_sent.push(network.packets_sent);
-
-      if (machine.network[0].time_labels_history_packets_sent.length === 5) {
-        machine.network[0].time_labels_history_packets_sent.pop();
-      }
-      machine.network[0].time_labels_history_packets_sent.push(new Date());
-
-      if (machine.network[0].history_packets_received.length === 5) {
-        machine.network[0].history_packets_received.pop();
-      }
-      machine.network[0].history_packets_received.push(network.packets_received);
-
-      if (machine.network[0].time_labels_history_packets_received.length === 5) {
-        machine.network[0].time_labels_history_packets_received.pop();
-      }
-      machine.network[0].time_labels_history_packets_received.push(new Date());
-
-      if (machine.battery[0].history_charge.length === 5) {
-        machine.battery[0].history_charge.pop();
-      }
-      machine.battery[0].history_charge.push(battery.charge);
-
-      if (machine.battery[0].time_labels_history_charge.length === 5) {
-        machine.battery[0].time_labels_history_charge.pop();
-      }
-      machine.battery[0].time_labels_history_charge.push(new Date());
-    } else {
-      machine = new this.MachineInfoModel(createMachineDto);
-
-      machine.cpu = {
-        ...machine.cpu,
-        history_cpu_percentage: [cpu.cpu_percentage],
-        time_labels_cpu_percentage: [new Date()],
-        history_cpu_temperature: [cpu.cpu_mean_temperature],
-        time_labels_cpu_temperature: [new Date()],
-      };
-
-      machine.memory_ram = {
-        ...machine.memory_ram,
-        history_percent: [memory_ram.percent],
-        time_labels_history_percent: [new Date()],
-      };
-      machine.swap_memory = {
-        ...machine.swap_memory,
-        history_percent: [swap_memory.percent],
-        time_labels_history_percent: [new Date()],
-      };
-      machine.disk = {
-        ...machine.disk,
-        history_percent: [disk.percent],
-        time_labels_history_percent: [new Date()],
-      };
-      machine.network = {
-        ...machine.network,
-        history_packets_sent: [network.packets_sent],
-        time_labels_history_packets_sent: [new Date()],
-        history_packets_received: [network.packets_received],
-        time_labels_history_packets_received: [new Date()],
-      };
-      machine.battery = {
-        ...machine.battery,
-        history_charge: [battery.charge],
-        time_labels_history_charge: [new Date()],
-      };
+      createdLimiar.save();
     }
 
-    const createdLimiar = await this.limiarService.create({
-      machine_id: new Types.ObjectId(machine._id).toString(),
-      battery_percentage: 15,
-      cpu_temperature: 90,
-      disk_storage: 95,
-      ram_memory_use: 95,
-      swap_memory_use: 95,
+    const TODAY = new Date().toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
     });
 
-    createdLimiar.save();
+    machine.cpu = {
+      ...machine.cpu,
+      history_cpu_percentage: [...machine.cpu.history_cpu_percentage, cpu.cpu_mean_percentage],
+      time_labels_cpu_percentage: [...machine.cpu.time_labels_cpu_percentage, TODAY],
+      history_cpu_temperature: [...machine.cpu.history_cpu_temperature, cpu.cpu_mean_temperature],
+      time_labels_cpu_temperature: [...machine.cpu.time_labels_cpu_temperature, TODAY],
+    };
+
+    if (machine.cpu.history_cpu_percentage.length > MAX_HISTORY) {
+      machine.cpu.history_cpu_percentage.shift();
+      machine.cpu.time_labels_cpu_percentage.shift();
+      machine.cpu.history_cpu_temperature.shift();
+      machine.cpu.time_labels_cpu_temperature.shift();
+    }
+
+    machine.memory_ram = {
+      ...machine.memory_ram,
+      history_percent: [...machine.memory_ram.history_percent, memory_ram.percent],
+      time_labels_history_percent: [...machine.memory_ram.time_labels_history_percent, TODAY],
+    };
+
+    if (machine.memory_ram.history_percent.length > MAX_HISTORY) {
+      machine.memory_ram.history_percent.shift();
+      machine.memory_ram.time_labels_history_percent.shift();
+    }
+
+    machine.swap_memory = {
+      ...machine.swap_memory,
+      history_percent: [...machine.swap_memory.history_percent, swap_memory.percent],
+      time_labels_history_percent: [...machine.swap_memory.time_labels_history_percent, TODAY],
+    };
+
+    if (machine.swap_memory.history_percent.length > MAX_HISTORY) {
+      machine.swap_memory.history_percent.shift();
+      machine.swap_memory.time_labels_history_percent.shift();
+    }
+
+    machine.disk = {
+      ...machine.disk,
+      history_percent: [...machine.disk.history_percent, disk.percent],
+      time_labels_history_percent: [...machine.disk.time_labels_history_percent, TODAY],
+    };
+
+    if (machine.disk.history_percent.length > MAX_HISTORY) {
+      machine.disk.history_percent.shift();
+      machine.disk.time_labels_history_percent.shift();
+    }
+
+    machine.network = {
+      ...machine.network,
+      history_packets_sent: [...machine.network.history_packets_sent, network.packets_sent],
+      time_labels_history_packets_sent: [...machine.network.time_labels_history_packets_sent, TODAY],
+      history_packets_received: [...machine.network.history_packets_received, network.packets_received],
+      time_labels_history_packets_received: [...machine.network.time_labels_history_packets_received, TODAY],
+    };
+
+    if (machine.network.history_packets_sent.length > MAX_HISTORY) {
+      machine.network.history_packets_sent.shift();
+      machine.network.time_labels_history_packets_sent.shift();
+      machine.network.history_packets_received.shift();
+      machine.network.time_labels_history_packets_received.shift();
+    }
+
+    machine.battery = {
+      ...machine.battery,
+      history_charge: [...machine.battery.history_charge, battery.charge],
+      time_labels_history_charge: [...machine.battery.time_labels_history_charge, TODAY],
+    };
+
+    if (machine.battery.history_charge.length > MAX_HISTORY) {
+      machine.battery.history_charge.shift();
+      machine.battery.time_labels_history_charge.shift();
+    }
 
     machine.user_id = userId;
 

@@ -19,12 +19,12 @@ interface Fans {
 interface Cpu {
   cpu_count: number;
   cpu_mean_percentage: number;
-  history_cpu_percentage: number[][];
-  time_labels_cpu_percentage: Date[];
+  history_cpu_percentage: number[];
+  time_labels_cpu_percentage: string[];
   temperature_unit: string;
   cpu_mean_temperature: number;
   history_cpu_temperature: number[];
-  time_labels_cpu_temperature: Date[];
+  time_labels_cpu_temperature: string[];
 }
 
 interface MemoryRAM {
@@ -34,7 +34,7 @@ interface MemoryRAM {
   used: string;
   free: string;
   history_percent: number[];
-  time_labels_history_percent: Date[];
+  time_labels_history_percent: string[];
 }
 
 interface SwapMemory {
@@ -43,7 +43,7 @@ interface SwapMemory {
   free: string;
   percent: number;
   history_percent: number[];
-  time_labels_history_percent: Date[];
+  time_labels_history_percent: string[];
 }
 
 interface Disk {
@@ -52,16 +52,16 @@ interface Disk {
   total: string;
   used: string;
   history_percent: number[];
-  time_labels_history_percent: Date[];
+  time_labels_history_percent: string[];
 }
 
 interface Network {
   bytes_sent: string;
   bytes_received: string;
   history_packets_sent: number[];
-  time_labels_history_packets_sent: Date[];
+  time_labels_history_packets_sent: string[];
   history_packets_received: number[];
-  time_labels_history_packets_received: Date[];
+  time_labels_history_packets_received: string[];
   error_in: number;
   error_out: number;
   drop_in: number;
@@ -71,7 +71,7 @@ interface Network {
 export interface Battery {
   charge: number;
   history_charge: number[];
-  time_labels_history_charge: Date[];
+  time_labels_history_charge: string[];
   time_left: string;
   power_plugged: string;
 }
@@ -81,28 +81,28 @@ export class MachineInfo {
   @Prop({ type: SchemaTypes.String })
     user_id: string;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
+  @Prop({ type: SchemaTypes.Mixed, required: true })
     user_info: UserInfo;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
+  @Prop({ type: SchemaTypes.Mixed, required: true })
     fans: Fans;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
+  @Prop({ type: SchemaTypes.Mixed, required: true })
     cpu: Cpu;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
+  @Prop({ type: SchemaTypes.Mixed, required: true })
     memory_ram: MemoryRAM;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
+  @Prop({ type: SchemaTypes.Mixed, required: true })
     swap_memory: SwapMemory;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
+  @Prop({ type: SchemaTypes.Mixed, required: true })
     disk: Disk;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
+  @Prop({ type: SchemaTypes.Mixed, required: true })
     network: Network;
 
-  @Prop({ type: [{ type: SchemaTypes.Mixed }], required: true })
+  @Prop({ type: SchemaTypes.Mixed, required: true })
     battery: Battery;
 }
 

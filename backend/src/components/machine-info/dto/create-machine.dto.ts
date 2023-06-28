@@ -40,7 +40,7 @@ class CpuDto {
     cpu_percentage: number[];
 
   @ApiProperty({ type: [Number] })
-    history_cpu_percentage: number[][];
+    history_cpu_percentage: number[];
 
   @ApiProperty({ type: [Date] })
     time_labels_cpu_percentage: Date[];
