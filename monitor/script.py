@@ -200,7 +200,6 @@ def login():
 
 def main():
     success = login()
-    send_info()
     if success == True:
         scheduler = sched.scheduler(time.time, time.sleep)
 
