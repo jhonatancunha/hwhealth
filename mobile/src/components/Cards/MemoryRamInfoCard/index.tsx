@@ -58,7 +58,9 @@ export const MemoryRamInfoCard = ({
                     </View>
                     <View style={styles.infoWrapper}>
                         <Text style={styles.text}>Porcentagem de uso: </Text>
-                        <Text style={styles.infoValue}>{percent}%</Text>
+                        <Text style={styles.infoValue}>
+                            {percent.toFixed(2)}%
+                        </Text>
                     </View>
 
                     <LineGraph

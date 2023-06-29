@@ -1,16 +1,16 @@
 /* eslint-disable camelcase */
+import LimiarService from '@components/limiar/limiar.service';
+import NotificationService from '@components/notification/notification.service';
+import UsersService from '@components/users/users.service';
+import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
-import LimiarService from '@components/limiar/limiar.service';
-import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import { Redis, RedisKey } from 'ioredis';
+import { Model, Types } from 'mongoose';
 import { OneSignalService } from 'onesignal-api-client-nest';
-import UsersService from '@components/users/users.service';
-import NotificationService from '@components/notification/notification.service';
-import { MachineInfo } from './schema/machine.schema';
 import CreateMachineDto from './dto/create-machine.dto';
 import UpdateMachineDto from './dto/update-machine.dto';
+import { MachineInfo } from './schema/machine.schema';
 
 @Injectable()
 export default class MachineService {
