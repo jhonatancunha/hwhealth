@@ -9,6 +9,7 @@ import LimiarModule from '@components/limiar/limiar.module';
 import { OneSignalModule } from 'onesignal-api-client-nest';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import UsersModule from '@components/users/users.module';
+import NotificationModule from '@components/notification/notification.module';
 import { MachineInfo, MachineInfoSchema } from './schema/machine.schema';
 import MachineController from './machine.controller';
 import MachineService from './machine.service';
@@ -34,6 +35,7 @@ import MachineService from './machine.service';
     LimiarModule,
     UsersModule,
     ConfigModule,
+    NotificationModule,
   ],
   controllers: [MachineController],
   providers: [MachineService, JwtStrategy],

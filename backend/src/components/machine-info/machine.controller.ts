@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import JwtAuthGuard from '@guards/jwtAuth.guard';
 import {
-  ApiBearerAuth, ApiOkResponse, ApiTags, ApiUnauthorizedResponse,
+  ApiBearerAuth, ApiInternalServerErrorResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import MachineService from './machine.service';
 import CreateMachineDto from './dto/create-machine.dto';
@@ -38,6 +38,9 @@ export default class MachineController {
   })
   @ApiUnauthorizedResponse({
     description: '401. UnauthorizedException.',
+  })
+  @ApiInternalServerErrorResponse({
+    description: '500. Internal Server Error.',
   })
   @UseGuards(JwtAuthGuard)
   @Get()

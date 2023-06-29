@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import MachineModule from '@components/machine-info/machine.module';
 import LimiarModule from '@components/limiar/limiar.module';
+import NotificationModule from '@components/notification/notification.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import LimiarModule from '@components/limiar/limiar.module';
     UsersModule,
     MachineModule,
     LimiarModule,
+    NotificationModule,
   ],
   controllers: [],
   providers: [],

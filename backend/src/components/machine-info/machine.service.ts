@@ -7,7 +7,7 @@ import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import { Redis, RedisKey } from 'ioredis';
 import { OneSignalService } from 'onesignal-api-client-nest';
 import UsersService from '@components/users/users.service';
-import { ConfigService } from '@nestjs/config';
+import NotificationService from '@components/notification/notification.service';
 import { MachineInfo } from './schema/machine.schema';
 import CreateMachineDto from './dto/create-machine.dto';
 import UpdateMachineDto from './dto/update-machine.dto';
@@ -20,8 +20,8 @@ export default class MachineService {
     private readonly userService: UsersService,
     private readonly limiarService: LimiarService,
     private readonly oneSignalService: OneSignalService,
+    private readonly notificationService: NotificationService,
     @InjectRedis() private readonly redisClient: Redis,
-    private configService: ConfigService,
   ) {}
 
   async notify(title: string, message: string, user_one_signal_id: string) {
@@ -46,44 +46,78 @@ export default class MachineService {
     const foundedLimiar = await this.limiarService.findOne(machineInfo._id);
     const foundedUser = await this.userService.getById(machineInfo.user_id);
 
+    let title: string;
+    let message: string;
+
     if (machineInfo.cpu.cpu_mean_temperature >= foundedLimiar.cpu_temperature) {
+      title = 'Atenção com a CPU';
+      message = `A temperatura média do CPU excedeu o limiar definido, chegando a ${machineInfo.cpu.cpu_mean_temperature} graus celsius`;
       await this.notify(
-        'Atenção com a CPU',
-        `A temperatura média do CPU excedeu o limiar definido, chegando a ${machineInfo.cpu.cpu_mean_temperature} graus celsius`,
+        title,
+        message,
         foundedUser.user_one_signal_id,
       );
+
+      await this.notificationService.create({
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+      });
     }
 
     if (machineInfo.memory_ram.percent >= foundedLimiar.ram_memory_use) {
-      this.notify(
-        'Atenção com a Memória RAM',
-        `Memória RAM excedeu o limiar de uso, chegando a ${machineInfo.memory_ram.percent}%`,
+      title = 'Atenção com a Memória RAM';
+      message = `Memória RAM excedeu o limiar de uso, chegando a ${machineInfo.memory_ram.percent}%`;
+      await this.notify(
+        title,
+        message,
         foundedUser.user_one_signal_id,
       );
+
+      await this.notificationService.create({
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+      });
     }
 
     if (machineInfo.swap_memory.percent >= foundedLimiar.swap_memory_use) {
-      this.notify(
-        'Atenção com a Memória SWAP',
-        `Memória SWAP excedeu o limiar de uso, chegando a ${machineInfo.swap_memory.percent}%`,
+      title = 'Atenção com a Memória SWAP';
+      message = `Memória SWAP excedeu o limiar de uso, chegando a ${machineInfo.swap_memory.percent}%`;
+      await this.notify(
+        title,
+        message,
         foundedUser.user_one_signal_id,
       );
+
+      await this.notificationService.create({
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+      });
     }
 
     if (machineInfo.disk.percent >= foundedLimiar.disk_storage) {
-      this.notify(
-        'Atenção com o Disco Rígido',
-        `O espaço usado no disco excedeu o limiar, chegando a ${machineInfo.disk.percent}%`,
+      title = 'Atenção com o Disco Rígido';
+      message = `O espaço usado no disco excedeu o limiar, chegando a ${machineInfo.disk.percent}%`;
+      await this.notify(
+        title,
+        message,
         foundedUser.user_one_signal_id,
       );
+
+      await this.notificationService.create({
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+      });
     }
 
     if (machineInfo.battery.charge <= foundedLimiar.battery_percentage) {
-      this.notify(
-        'Atenção com a Bateria',
-        `Bateria está com menos de ${foundedLimiar.battery_percentage}% de carga restante`,
+      title = 'Atenção com a Bateria';
+      message = `Bateria está com menos de ${foundedLimiar.battery_percentage}% de carga restante`;
+
+      await this.notify(
+        title,
+        message,
         foundedUser.user_one_signal_id,
       );
+
+      await this.notificationService.create({
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+      });
     }
   }
 
