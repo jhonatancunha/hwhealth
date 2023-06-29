@@ -288,8 +288,8 @@ export default class MachineService {
     return machine.save();
   }
 
-  async findAll() {
-    return this.MachineInfoModel.find();
+  async findAll(userId: string) {
+    return this.MachineInfoModel.find({ user_id: userId });
   }
 
   async getMachineInfo(machine_id: String) {
