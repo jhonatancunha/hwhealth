@@ -157,7 +157,7 @@ export const MachineConfigurationScreen = ({ route }) => {
                     render={({ field }) => (
                         <InputSlider
                             {...field}
-                            minimumValue={50}
+                            minimumValue={20}
                             maximumValue={100}
                             label="Limiar bateria (%)"
                             sufix="%"

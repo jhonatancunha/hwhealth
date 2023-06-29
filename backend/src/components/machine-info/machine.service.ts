@@ -7,6 +7,7 @@ import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import { Redis, RedisKey } from 'ioredis';
 import { OneSignalService } from 'onesignal-api-client-nest';
 import UsersService from '@components/users/users.service';
+import { ConfigService } from '@nestjs/config';
 import { MachineInfo } from './schema/machine.schema';
 import CreateMachineDto from './dto/create-machine.dto';
 import UpdateMachineDto from './dto/update-machine.dto';
@@ -20,24 +21,25 @@ export default class MachineService {
     private readonly limiarService: LimiarService,
     private readonly oneSignalService: OneSignalService,
     @InjectRedis() private readonly redisClient: Redis,
+    private configService: ConfigService,
   ) {}
 
-  async notify(message: string, user_one_signal_id: string) {
-    try {
-      const notification = {
-        contents: {
-          pt: message,
-        },
-        include_player_ids: [user_one_signal_id],
-      };
+  async notify(title: string, message: string, user_one_signal_id: string) {
+    const notification = {
+      contents: {
+        pt: message,
+        en: message,
+      },
+      headings: {
+        pt: title,
+        en: title,
+      },
+      include_player_ids: [user_one_signal_id],
+    };
 
-      const response = await this.oneSignalService.createNotification(
-        notification,
-      );
-      console.log('Notification successfuly sended', response);
-    } catch (e) {
-      console.error('Error when sending notification');
-    }
+    await this.oneSignalService.createNotification(
+      notification,
+    );
   }
 
   async verifyIfLimiarIsExceeded(machineInfo) {
@@ -46,25 +48,42 @@ export default class MachineService {
 
     if (machineInfo.cpu.cpu_mean_temperature >= foundedLimiar.cpu_temperature) {
       await this.notify(
+        'Atenção com a CPU',
         `A temperatura média do CPU excedeu o limiar definido, chegando a ${machineInfo.cpu.cpu_mean_temperature} graus celsius`,
         foundedUser.user_one_signal_id,
       );
     }
 
     if (machineInfo.memory_ram.percent >= foundedLimiar.ram_memory_use) {
-      this.notify(`Memória RAM excedeu o limiar de uso, chegando a ${machineInfo.memory_ram.percent}%`, foundedUser.user_one_signal_id);
+      this.notify(
+        'Atenção com a Memória RAM',
+        `Memória RAM excedeu o limiar de uso, chegando a ${machineInfo.memory_ram.percent}%`,
+        foundedUser.user_one_signal_id,
+      );
     }
 
     if (machineInfo.swap_memory.percent >= foundedLimiar.swap_memory_use) {
-      this.notify(`Memória SWAP excedeu o limiar de uso, chegando a ${machineInfo.swap_memory.percent}%`, foundedUser.user_one_signal_id);
+      this.notify(
+        'Atenção com a Memória SWAP',
+        `Memória SWAP excedeu o limiar de uso, chegando a ${machineInfo.swap_memory.percent}%`,
+        foundedUser.user_one_signal_id,
+      );
     }
 
     if (machineInfo.disk.percent >= foundedLimiar.disk_storage) {
-      this.notify(`O espaço usado no disco excedeu o limiar, chegando a ${machineInfo.disk.percent}%`, foundedUser.user_one_signal_id);
+      this.notify(
+        'Atenção com o Disco Rígido',
+        `O espaço usado no disco excedeu o limiar, chegando a ${machineInfo.disk.percent}%`,
+        foundedUser.user_one_signal_id,
+      );
     }
 
     if (machineInfo.battery.charge <= foundedLimiar.battery_percentage) {
-      this.notify(`Bateria está com menos de ${foundedLimiar.battery_percentage}% de carga restante`, foundedUser.user_one_signal_id);
+      this.notify(
+        'Atenção com a Bateria',
+        `Bateria está com menos de ${foundedLimiar.battery_percentage}% de carga restante`,
+        foundedUser.user_one_signal_id,
+      );
     }
   }
 
@@ -263,7 +282,7 @@ export default class MachineService {
 
     machine.user_id = userId;
 
-    this.verifyIfLimiarIsExceeded(machine);
+    await this.verifyIfLimiarIsExceeded(machine);
 
     await this.redisClient.del(machine._id.toString() as RedisKey);
     return machine.save();

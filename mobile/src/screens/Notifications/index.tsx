@@ -27,14 +27,15 @@ export const NotificationScreen = () => {
         [tabBarHeight],
     );
 
-    const getNotifications = async () => {
+    const getNotifications = useCallback(async () => {
         try {
             const data = await NotificationHelper.getItem('1');
+
             setNotifications(data);
         } catch (error) {
-            console.log('Erro ao buscar notificações!');
+            console.log('Erro ao buscar notificações!', { ...error });
         }
-    };
+    }, []);
 
     const closeModal = () => {
         setModalVisibility(false);
@@ -52,7 +53,7 @@ export const NotificationScreen = () => {
     useFocusEffect(
         useCallback(() => {
             getNotifications();
-        }, []),
+        }, [getNotifications]),
     );
 
     return (
