@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 import { OSNotification } from 'react-native-onesignal';
 import { colors } from '../../theme/colors';
+import { INotification } from '../../screens/Notifications';
+import { Button } from '../Button';
+import { useNavigation } from '@react-navigation/native';
 
 interface IModal {
     visible: boolean;
     closeModal: () => void;
-    modalInfo: OSNotification | null;
+    modalInfo: INotification | null;
 }
 
 export const NotificationModalComponent = ({
@@ -22,14 +25,16 @@ export const NotificationModalComponent = ({
     closeModal,
     modalInfo,
 }: IModal) => {
-    const image = useMemo(
-        () => ({
-            uri: modalInfo?.bigPicture,
-        }),
-        [modalInfo],
-    );
+    const navigation = useNavigation();
 
     if (!modalInfo) return;
+
+    const handleNavigateMachine = () => {
+        closeModal();
+        navigation.navigate('MachineInfo', {
+            machine_id: modalInfo.machine_id,
+        });
+    };
 
     return (
         <View style={styles.centeredView}>
@@ -44,10 +49,12 @@ export const NotificationModalComponent = ({
                         contentContainerStyle={styles.scrollModal}>
                         <View style={styles.modalView}>
                             <Text style={styles.title}>{modalInfo.title}</Text>
-                            {modalInfo?.bigPicture ? (
-                                <Image style={styles.image} source={image} />
-                            ) : null}
-                            <Text style={styles.text}>{modalInfo.body}</Text>
+
+                            <Text style={styles.text}>{modalInfo.message}</Text>
+                            <Button
+                                onPress={handleNavigateMachine}
+                                label="Ver máquina"
+                            />
                         </View>
                     </ScrollView>
                 </Pressable>
@@ -78,6 +85,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
+        gap: 10,
     },
     image: {
         height: 150,
@@ -91,6 +99,7 @@ const styles = StyleSheet.create({
     text: {
         color: colors.black,
         fontFamily: 'Inter-Regular',
+        textAlign: 'center',
     },
     scrollModal: {
         flexGrow: 1,

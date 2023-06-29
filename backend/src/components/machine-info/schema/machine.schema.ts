@@ -74,7 +74,7 @@ export interface Battery {
   history_charge: number[];
   time_labels_history_charge: string[];
   time_left: string;
-  power_plugged: string;
+  power_plugged: boolean;
 }
 
 @Schema()

@@ -2,10 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { OSNotification } from 'react-native-onesignal';
 import { colors } from '../../../theme/colors';
+import { INotification } from '../../../screens/Notifications';
 
 interface INotificationCard {
-    data: OSNotification;
-    onPress: (notification: OSNotification) => void;
+    data: INotification;
+    onPress: (notification: INotification) => void;
 }
 
 export const NotificationCard = ({
@@ -22,13 +23,9 @@ export const NotificationCard = ({
                 <View style={styles.cardHeader}>
                     <Text style={styles.infoValue}>{data.title}</Text>
                 </View>
-                {data?.subtitle ? (
-                    <View style={styles.cardHeader}>
-                        <Text style={styles.infoValue}>{data.subtitle}</Text>
-                    </View>
-                ) : null}
+
                 <View style={styles.cardContentWrapper}>
-                    <Text style={styles.text}>{data.body}</Text>
+                    <Text style={styles.text}>{data.message}</Text>
                 </View>
             </View>
         </TouchableOpacity>

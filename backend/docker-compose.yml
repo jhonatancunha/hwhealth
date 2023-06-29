@@ -1,17 +1,17 @@
 version: '3'
 services:
-  app:
-    image: node:18.16.0
-    container_name: app
-    command: bash -c "npm run start:dev"
-    working_dir: /var/www/app
-    volumes:
-      - ./:/var/www/app:cached
-    restart: always
-    ports:
-      - 3000:3000
-    links:
-      - mongodb
+  # app:
+  #   image: node:18.16.0
+  #   container_name: app
+  #   command: bash -c "npm run start:dev"
+  #   working_dir: /var/www/app
+  #   volumes:
+  #     - ./:/var/www/app:cached
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   links:
+  #     - mongodb
 
   mongodb:
     container_name: mongodb
@@ -20,7 +20,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - mongodb-volume:/data/db
+      - ./mongodb_volume:/data/mongo
 
   redis:
     image: redis:6
@@ -29,7 +29,7 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - redis-volume:/data
+      - ./redis_volume:/data/redis
 
   mongo-express:
     image: mongo-express:latest
@@ -52,9 +52,5 @@ services:
     ports:
       - 8001:8001
     volumes:
-      - redisinsight-volume:/db
+      - ./redisinsight_volume:/db/redisinsight
 
-volumes:
-  mongodb-volume:
-  redis-volume:
-  redisinsight-volume:

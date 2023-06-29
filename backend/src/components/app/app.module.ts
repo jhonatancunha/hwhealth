@@ -14,10 +14,10 @@ import NotificationModule from '@components/notification/notification.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://mongodb:27017/app'),
+    MongooseModule.forRoot('mongodb://localhost:27017/app'),
     RedisModule.forRoot({
       config: {
-        host: 'redis',
+        host: 'localhost',
         port: 6379,
       },
     }),

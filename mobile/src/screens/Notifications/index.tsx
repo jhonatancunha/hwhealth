@@ -2,18 +2,25 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { OSNotification } from 'react-native-onesignal';
 import { NotificationCard } from '../../components/Cards/NotificationCard';
 import { NotificationModalComponent } from '../../components/Modal/notification';
-import { NotificationHelper } from '../../helper/notification-helper';
+import { api } from '../../services/axios';
+
+export interface INotification {
+    _id: string;
+    user_id: string;
+    machine_id: string;
+    title: string;
+    message: string;
+}
 
 export const NotificationScreen = () => {
-    const [notifications, setNotifications] = useState<OSNotification[] | []>(
+    const [notifications, setNotifications] = useState<INotification[] | []>(
         [],
     );
 
     const [modalVisible, setModalVisibility] = useState<boolean>(false);
-    const [modalInfo, setModalInfo] = useState<OSNotification | null>(null);
+    const [modalInfo, setModalInfo] = useState<INotification | null>(null);
 
     const tabBarHeight = useBottomTabBarHeight();
 
@@ -29,7 +36,7 @@ export const NotificationScreen = () => {
 
     const getNotifications = useCallback(async () => {
         try {
-            const data = await NotificationHelper.getItem('1');
+            const { data } = await api.get('/notification');
 
             setNotifications(data);
         } catch (error) {
@@ -45,7 +52,7 @@ export const NotificationScreen = () => {
         setModalVisibility(true);
     };
 
-    const handlePressNotificationCard = (data: OSNotification) => {
+    const handlePressNotificationCard = (data: INotification) => {
         setModalInfo(data);
         openModal();
     };
@@ -72,7 +79,7 @@ export const NotificationScreen = () => {
                         onPress={handlePressNotificationCard}
                     />
                 )}
-                keyExtractor={(item: OSNotification) => item.notificationId}
+                keyExtractor={(item: INotification) => item._id}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
                 ListHeaderComponent={() => <View style={styles.separator} />}
                 ListFooterComponent={() => <View style={styles.separator} />}

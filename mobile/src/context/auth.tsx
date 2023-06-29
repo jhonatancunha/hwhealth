@@ -85,6 +85,8 @@ export const AuthProvider = ({ children }: IAuth) => {
 
                 // setInfo({accessToken});
             } catch (error) {
+                console.log('error', error.response.data);
+
                 if (error?.response?.data.statusCode === 400) {
                     Alert.alert(
                         'E-mail já utilizado.',
@@ -95,7 +97,7 @@ export const AuthProvider = ({ children }: IAuth) => {
                 throw error;
             }
         },
-        [updateInfo],
+        [updateInfo, userOneSignalInfo?.userId],
     );
 
     const login = useCallback(

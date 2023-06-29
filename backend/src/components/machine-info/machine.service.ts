@@ -178,7 +178,7 @@ export default class MachineService {
 
       const createdLimiar = await this.limiarService.create({
         machine_id: new Types.ObjectId(machine._id).toString(),
-        battery_percentage: 15,
+        battery_percentage: 30,
         cpu_temperature: 90,
         disk_storage: 95,
         ram_memory_use: 95,
@@ -199,7 +199,7 @@ export default class MachineService {
     };
 
     machine.cpu = {
-      ...machine.cpu,
+      ...cpu,
       history_cpu_percentage: [
         ...machine.cpu.history_cpu_percentage,
         cpu.cpu_mean_percentage,
@@ -226,7 +226,7 @@ export default class MachineService {
     }
 
     machine.memory_ram = {
-      ...machine.memory_ram,
+      ...memory_ram,
       history_percent: [
         ...machine.memory_ram.history_percent,
         memory_ram.percent,
@@ -243,7 +243,7 @@ export default class MachineService {
     }
 
     machine.swap_memory = {
-      ...machine.swap_memory,
+      ...swap_memory,
       history_percent: [
         ...machine.swap_memory.history_percent,
         swap_memory.percent,
@@ -260,7 +260,7 @@ export default class MachineService {
     }
 
     machine.disk = {
-      ...machine.disk,
+      ...disk,
       history_percent: [...machine.disk.history_percent, disk.percent],
       time_labels_history_percent: [
         ...machine.disk.time_labels_history_percent,
@@ -274,7 +274,7 @@ export default class MachineService {
     }
 
     machine.network = {
-      ...machine.network,
+      ...network,
       history_packets_sent: [
         ...machine.network.history_packets_sent,
         network.packets_sent,
@@ -301,7 +301,7 @@ export default class MachineService {
     }
 
     machine.battery = {
-      ...machine.battery,
+      ...battery,
       history_charge: [...machine.battery.history_charge, battery.charge],
       time_labels_history_charge: [
         ...machine.battery.time_labels_history_charge,

@@ -836,11 +836,6 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@nestjs/axios@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/axios/-/axios-3.0.0.tgz#a2e70b118e3058f3d4b9c3deacd496ec4e3ee69e"
-  integrity sha512-ULdH03jDWkS5dy9X69XbUVbhC+0pVnrRcj7bIK/ytTZ76w7CgvTZDJqsIyisg3kNOiljRW/4NIjSf3j6YGvl+g==
-
 "@nestjs/cli@^10.0.5":
   version "10.0.5"
   resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-10.0.5.tgz#eeff9e6e54eedea2927bd4a83993b59d2557ec13"
@@ -977,9 +972,9 @@
     pluralize "8.0.0"
 
 "@nestjs/swagger@^7.0.6":
-  version "7.0.11"
-  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-7.0.11.tgz#02f6789369eb0c7f9c9f1a8c434e7c3b2a74d3af"
-  integrity sha512-SYZzugAgQtBu4/qxQsCyspt4EJ/E2BQfGr0M7ZchJ1elWy7iKspKNsgV73QLLjwqqc19nQMqW0BDR2onXMYgAg==
+  version "7.0.12"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-7.0.12.tgz#2e90f4c4bdbe3be2e84f162b57cb076c2e5e396f"
+  integrity sha512-GOUc/WvDVzKyAwPe4P+Mds1xSvw9pxWOlIkOO0udjj2uQsOLizDBfmOVquZt3stTcdfu1CPVJAXxUHXgz51/EA==
   dependencies:
     "@nestjs/mapped-types" "2.0.2"
     js-yaml "4.1.0"
@@ -2126,7 +2121,7 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-axios@1.4.0, axios@^1.2.3:
+axios@^1.2.3:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
   integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
