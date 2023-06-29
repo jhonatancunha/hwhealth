@@ -7,6 +7,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import AppModule from './components/app/app.module';
 import AllExceptionsFilter from './filters/allExceptions.filter';
+import AppClusterService from './app.cluster.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -19,8 +20,8 @@ async function bootstrap() {
   const port = process.env.SERVER_PORT || 3000;
 
   const options = new DocumentBuilder()
-    .setTitle('Api v1')
-    .setDescription('The boilerplate API for nestjs devs')
+    .setTitle('HWHealth API')
+    .setDescription('Serviço de monitoramento de métricas de máquinas')
     .setVersion('1.0')
     .addBearerAuth({ in: 'header', type: 'http' })
     .build();
@@ -30,4 +31,5 @@ async function bootstrap() {
 
   await app.listen(port, () => console.log(`The server is running on ${port} port`));
 }
-bootstrap();
+// bootstrap();
+AppClusterService.clusterize(bootstrap);
