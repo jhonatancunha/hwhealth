@@ -41,8 +41,11 @@ export default class MachineController {
   })
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
-    return this.machineService.findAll();
+  findAll(@Request() req) {
+    const token = req.headers.authorization.replace('Bearer ', '');
+    const { id } = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString('utf-8'));
+
+    return this.machineService.findAll(id);
   }
 
   @ApiOkResponse({

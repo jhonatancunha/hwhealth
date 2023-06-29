@@ -72,8 +72,6 @@ export default class AuthService {
       id: foundedUser.id,
     };
 
-    console.log('\n\nTESTE', payload);
-
     if (!foundedUser) {
       throw new NotFoundException('User does not exist');
     }
