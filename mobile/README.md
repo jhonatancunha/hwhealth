@@ -31,10 +31,10 @@ cd hwhealth
 cp .env.example .env
 ```
 
-```json
-// Insira a api do OneSignal
+```bash
+# Insira a api do OneSignal
 ONESIGN_APPID=
-// Insira a URL do servidor backend
+# Insira a URL do servidor backend
 API_URL=
 ```
 
