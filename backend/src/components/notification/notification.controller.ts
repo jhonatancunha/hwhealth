@@ -15,11 +15,6 @@ import { Notification } from './schema/notification.entity';
 export default class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
-  @Post()
-  async create(@Body() createNotificationDto: CreateNotificationDto) {
-    return this.notificationService.create(createNotificationDto);
-  }
-
   @ApiOkResponse({
     type: Notification,
     description: '200. Returns all notifications from a user',
