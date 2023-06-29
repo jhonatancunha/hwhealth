@@ -14,7 +14,7 @@ import { api } from '../../services/axios';
 interface IMachineInfo {
     user_info: {
         uuid: number,
-        username: string,
+        name: string,
         os_name: string,
         os_release: string,
         os_architecture: string,
@@ -116,7 +116,7 @@ export const MachineInfo = ({ route }) => {
             style={styles.scrollView}
             contentContainerStyle={styles.container}>
             <UserInfoCard
-                name={machineInfo.user_info.username}
+                name={machineInfo.user_info.name}
                 uuid={machineInfo.user_info.uuid}
                 osName={machineInfo.user_info.os_name}
                 osRelease={machineInfo.user_info.os_release}

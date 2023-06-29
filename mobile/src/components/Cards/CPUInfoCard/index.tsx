@@ -51,7 +51,7 @@ export const CPUInfoCard = ({
             {open ? (
                 <View style={styles.content}>
                     <View style={styles.infoWrapper}>
-                        <Text style={styles.text}>Temperatura média: </Text>
+                        <Text style={styles.text}>Temperatura atual: </Text>
                         <Text style={styles.infoValue}>
                             {cpuMeanTemperature.toFixed(2)}°C
                         </Text>
