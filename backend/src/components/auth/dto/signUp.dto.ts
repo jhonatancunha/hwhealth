@@ -18,6 +18,13 @@ export default class CreateUserDto {
   })
   @IsNotEmpty()
   @IsString()
+  readonly user_one_signal_id: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  @IsNotEmpty()
+  @IsString()
   @MinLength(1)
   readonly password: string;
 }

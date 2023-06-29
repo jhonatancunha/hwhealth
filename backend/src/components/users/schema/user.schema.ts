@@ -27,6 +27,10 @@ export class User {
   @Prop()
     verified: boolean;
 
+  @ApiProperty({ type: String })
+  @Prop()
+    user_one_signal_id:string;
+
   @ApiProperty({ type: String, enum: EProviders })
   @Prop({ enum: EProviders })
     provider: EProviders;

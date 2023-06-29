@@ -1,9 +1,9 @@
 import { BadGatewayException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import UpdateLimiarDto from './dto/update-limiar.dto';
 import CreateLimiarDto from './dto/create-limiar.dto';
-import Limiar, { LimiarSchema } from './schema/limiar.schema';
+import Limiar from './schema/limiar.schema';
 
 @Injectable()
 export default class LimiarService {

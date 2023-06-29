@@ -26,6 +26,7 @@ export default class UsersService {
       password: hashedPassword,
       email: user.email,
       verified: false,
+      user_one_signal_id: user.user_one_signal_id,
     });
 
     return newUser.save();
@@ -45,10 +46,9 @@ export default class UsersService {
     });
   }
 
-  getById(id: ObjectId, verified = true): Promise<User> {
+  getById(id: ObjectId): Promise<User> {
     return this.UserModel.findOne({
       _id: id,
-      verified,
     });
   }
 
