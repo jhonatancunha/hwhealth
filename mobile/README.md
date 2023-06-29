@@ -32,7 +32,7 @@ cp .env.example .env
 ```
 
 ```bash
-# Insira a api do OneSignal
+# Insira o ID da api do OneSignal
 ONESIGN_APPID=
 # Insira a URL do servidor backend
 API_URL=
