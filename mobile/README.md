@@ -22,7 +22,7 @@ Caso deseje configurar o ambiente de desenvolvimento localmente, siga as etapas 
 
 ```bash
 git clone https://github.com/jhonatancunha/hwhealth.git
-cd hwhealth
+cd hwhealth/mobile
 ```
 
 3. Configure as variáveis de ambiente:
