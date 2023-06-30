@@ -83,13 +83,13 @@ yarn start:dev
 - **nest-cli.json**: arquivo de configura do NestJS.
 - **package.json**: arquivo que especifica os scripts que podem ser executados, bem como as dependências do projeto.
 - **src**: diretório em que a implementação das funcionalidades do proejto fica armazenada.
-- **componentes**: os componentes (funcionalidades) que a aplicação possui.
-- **app**: componente central da aplicação.
-- **auth**: componente que implementa os métodos de autenticação.
-- **limiar**: componente que implementa os métodos de manipulação do limiar.
-- **machine-info**: componente que implementa os métodos de manipulação dos dados das máquinas.
-- **notification**: componente que implementa os métodos de manipulação das notificações que são enviadas quando a máquina excede os limiares definidos pelo usuário.
-- **users**: componente que implementa os métodos de manipulação dos dados de usuário.
+   - **componentes**: os componentes (funcionalidades) que a aplicação possui.
+      - **app**: componente central da aplicação.
+      - **auth**: componente que implementa os métodos de autenticação.
+      - **limiar**: componente que implementa os métodos de manipulação do limiar.
+      - **machine-info**: componente que implementa os métodos de manipulação dos dados das máquinas.
+      - **notification**: componente que implementa os métodos de manipulação das notificações que são enviadas quando a máquina excede os limiares definidos pelo usuário.
+      - **users**: componente que implementa os métodos de manipulação dos dados de usuário.
 - **tsconfig.build.json**: É um arquivo de configuração do TypeScript usado durante o processo de compilação para a geração de artefatos de produção.
 - **tsconfig.json**: É o arquivo de configuração principal do TypeScript na aplicação NEST.
 - **yarn.lock**: É um arquivo gerado automaticamente pelo gerenciador de pacotes Yarn. Ele garante a reprodutibilidade das dependências do projeto, registrando as versões exatas dos pacotes instalados.
