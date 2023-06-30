@@ -1,6 +1,6 @@
-# HWHealth
+# HWHealth API
 
-HWHealth é um aplicativo desenvolvido em React Native que permite aos usuários visualizarem os dados capturados de suas máquinas de forma simples e intuitiva. Com o HWHealth, os usuários podem monitorar várias métricas importantes, como temperatura da CPU, uso da CPU, uso de memória RAM, uso de memória swap, uso de disco e muito mais.
+HWHealth é um servço desenvolvido com NestJS que permite aos usuários visualizarem os dados capturados de suas máquinas de forma simples e intuitiva. Com o HWHealth, os usuários podem monitorar várias métricas importantes, como temperatura da CPU, uso da CPU, uso de memória RAM, uso de memória swap, uso de disco e muito mais.
 
 O objetivo principal do HWHealth é fornecer aos usuários uma maneira conveniente de acompanhar o desempenho de suas máquinas em tempo real e receber notificações personalizadas quando alguma métrica ultrapassar um limite configurado.
 
@@ -43,13 +43,17 @@ REST_API_KEY=''
 
 4. Instale as dependências do projeto usando o yarn:
 
-Certifique-se de estar usando o node na versão 18.16.0
-
 ```bash
 yarn
 ```
 
-5. Após a conclusão da instalação das dependências, você pode executar o aplicativo no ambiente de desenvolvimento usando o seguinte comando:
+5. Execute o docker compose para subir o redis e o mongo:
+
+```bash
+docker compose up -d
+```
+
+6. Após a conclusão da instalação das dependências, você pode executar o aplicativo no ambiente de desenvolvimento usando o seguinte comando:
 
 ```bash
 yarn start:dev
