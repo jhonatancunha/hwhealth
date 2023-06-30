@@ -6,8 +6,13 @@
 
 - O usuário poderá criar sua conta ou realizar login.
 - Autenticação via HTTP.
-- Tela para configurar limiar de cada máquina.
-- Sistema de push notificacation para alerta de métricas acima do limiar.
+- Sistema de push notification para alerta de métricas acima do limiar.
+- Tela de login.
+- Tela de cadastro.
+- Tela de listagem de máquinas.
+- Tela de visualização de informações de uma máquina específica.
+- Tela para configurar o limiar de cada máquina.
+- Tela de listagem de notificações.
 
 ## Servidor (NestJS)
 
