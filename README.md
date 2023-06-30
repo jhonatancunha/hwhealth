@@ -2,6 +2,10 @@
 
 ![Arquitetura](arq.png)
 
+## Swagger
+
+Acesso a versão estática da documentação OpenAPI pelo seguinte link: https://hwhealth-swagger.netlify.app/
+
 ## Aplicativo (React Native)
 
 - O usuário poderá criar sua conta ou realizar login.
