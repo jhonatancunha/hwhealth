@@ -1,144 +1,122 @@
-# Nest.js boilerplate
+# HWHealth
+
+HWHealth é um aplicativo desenvolvido em React Native que permite aos usuários visualizarem os dados capturados de suas máquinas de forma simples e intuitiva. Com o HWHealth, os usuários podem monitorar várias métricas importantes, como temperatura da CPU, uso da CPU, uso de memória RAM, uso de memória swap, uso de disco e muito mais.
+
+O objetivo principal do HWHealth é fornecer aos usuários uma maneira conveniente de acompanhar o desempenho de suas máquinas em tempo real e receber notificações personalizadas quando alguma métrica ultrapassar um limite configurado.
+
+## Recursos Principais
+
+- **Monitoramento de Métricas**: Os usuários podem visualizar informações detalhadas sobre o desempenho de suas máquinas, incluindo temperatura da CPU, uso da CPU, uso de memória RAM, uso de memória swap, uso de disco e outras métricas relevantes.
+
+- **Notificações Personalizadas**: O HWHealth permite que os usuários definam limites para cada métrica monitorada. Quando uma métrica ultrapassa o limite configurado, o aplicativo envia notificações push para alertar o usuário sobre a situação atual.
+
+- **Interface Intuitiva**: A interface do usuário do HWHealth é projetada para ser amigável e fácil de usar. Os usuários podem navegar pelas diferentes métricas e visualizar gráficos e estatísticas para entender o desempenho de suas máquinas de forma clara e concisa.
 
 
-![onix](https://img.shields.io/badge/onix-systems-blue.svg)
+## Configuração do Desenvolvimento
 
-> Node.js Nest.js API with TypeScript 5. Supports MongoDB, Redis, Passport, Swagger and more.
+Caso deseje configurar o ambiente de desenvolvimento localmente, siga as etapas abaixo:
 
-## Description
-This Template will help you to build your own Nest.js Mongodb API using TypeScript 5.
-skip the boiler plate and start creating you rproject
-
-
-### Project Introduction
-- Support ES6/ES7 features
-- Using Eslint followed [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
-- Husky
-- Commitizen
-- MIT license and Code of conduct
-- Docker
-- Prettier
-- Jest because testing matters
-- Typescript for coding with static type checking
-- Mongodb And Redis admin panel
-
-## Features
-##### Authentication:
-- passport local strategy
-- jwt authentication
-- passport google 2.0 strategy
-##### Session Storage:
-- MongoDB
-- Redis
-##### Integration testing
-- mocha
-- chai
-- supertest
-
-## Requirements
-
-- node >= 18
-- yarn >= 1.22
-- mongodb >= 4.0
-- typescript >= 5.0
-
-## Installation
-
-First, install [Yeoman](http://yeoman.io) and generator-nest-js-boilerplate using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+1. Certifique-se de ter o Node.js instalado em sua máquina. Você pode baixar o `Node.js v18.16.0` em https://nodejs.org.
+2. Clone o repositório do HWHealth do GitHub:
 
 ```bash
-npm install -g yo
-npm install -g generator-nest-js-boilerplate
+git clone https://github.com/jhonatancunha/hwhealth.git
+cd hwhealth
+cd backend
 ```
 
-Then generate your new project:
+3. Configure as variáveis de ambiente:
 
 ```bash
-yo nest-js-boilerplate
+cp .env.example .env
 ```
 
-App Skeleton
-
-```
-├── src
-│├── components
-││├── app
-│││   └── ...
-││├── auth
-│││   └── ...
-││└── users
-││    └── ...
-│├── dto
-││└── ...
-│├── filters
-││└── ...
-│├── guards
-││└── ...
-│├── main.ts
-│└── pipes
-│    └── ...
-├── docker-compose.yml
-├── index.js
-├── nest-cli.json
-├── package.json
-├── package-lock.json
-├── README.md
-├── tsconfig.build.json
-└── tsconfig.json
-
+```bash
+# Insira a porta em que o servidor irá executar
+SERVER_PORT=3000
+# Insira o ID da api do OneSignal: https://documentation.onesignal.com/docs/keys-and-ids
+APP_ID=''
+# Insira a chave da api do OneSignal: https://documentation.onesignal.com/docs/keys-and-ids
+REST_API_KEY=''
 ```
 
-## Running the API
-### Development
-To start the application in development mode, run:
+4. Instale as dependências do projeto usando o yarn:
+
+Certifique-se de estar usando o node na versão 18.16.0
+
+```bash
+yarn
+```
+
+5. Após a conclusão da instalação das dependências, você pode executar o aplicativo no ambiente de desenvolvimento usando o seguinte comando:
 
 ```bash
 yarn start:dev
 ```
 
-Start the application in production env:
+## Estrutura de Diretório
 
-Install ts pm2 and typescript compiler:
-```
-yarn add pm2 --global
-yarn add typescript
+```.
+├── docker-compose.yml
+├── index.js
+├── nest-cli.json
+├── package.json
+├── README.md
+├── src
+│   ├── components
+│   │   ├── app
+│   │   ├── auth
+│   │   ├── limiar
+│   │   ├── machine-info
+│   │   ├── notification
+│   │   └── users
+├── tsconfig.build.json
+├── tsconfig.json
+└── yarn.lock
 ```
 
-example start with scale on 2 core:
-```
-pm2 start ./dist/main.js -i 2 --no-daemon
-```
+### Explicação de cada diretório
 
-Express server listening on http://localhost:3000/, in development mode
-The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
+- **docker-compose.yml**: Arquivo que especifica os serviços que serão executados em um container docker (mongodb e redis).
+- **index.js**: "ponto de entrada" da aplicação.
+- **nest-cli.json**: arquivo de configura do NestJS.
+- **package.json**: arquivo que especifica os scripts que podem ser executados, bem como as dependências do projeto.
+- **src**: diretório em que a implementação das funcionalidades do proejto fica armazenada.
+- **componentes**: os componentes (funcionalidades) que a aplicação possui.
+- **app**: componente central da aplicação.
+- **auth**: componente que implementa os métodos de autenticação.
+- **limiar**: componente que implementa os métodos de manipulação do limiar.
+- **machine-info**: componente que implementa os métodos de manipulação dos dados das máquinas.
+- **notification**: componente que implementa os métodos de manipulação das notificações que são enviadas quando a máquina excede os limiares definidos pelo usuário.
+- **users**: componente que implementa os métodos de manipulação dos dados de usuário.
+- **tsconfig.build.json**: É um arquivo de configuração do TypeScript usado durante o processo de compilação para a geração de artefatos de produção.
+- **tsconfig.json**: É o arquivo de configuração principal do TypeScript na aplicação NEST.
+- **yarn.lock**: É um arquivo gerado automaticamente pelo gerenciador de pacotes Yarn. Ele garante a reprodutibilidade das dependências do projeto, registrando as versões exatas dos pacotes instalados.
 
-### Testing
-To run integration tests:
+## Contribuição
+
+Contribuições para o HWHealth são bem-vindas! Se você deseja contribuir para o projeto, siga as etapas abaixo:
+
+1. Faça um fork do repositório do HWHealth.
+2. Clone o seu fork para o seu ambiente de desenvolvimento local.
+3. Crie uma branch para as suas alterações:
+
 ```bash
-yarn test
+git checkout -b minha-branch
 ```
-
-### Docker
-
- * [Install Docker](https://docs.docker.com/get-docker/)
- * [Install docker-compose](https://docs.docker.com/compose/install/)
-
- To run your app in docker containers choose "Yes" when the generator asks you about docker.
- 
- #### Now, lift up your app in docker 
-``` 
-  docker-compose up -d
-```
-  
-## Set up environment
-In root folder you can find `.env`. You can use this config or change it for your purposes.
-
-## Swagger
-Swagger documentation will be available on route:
+4. Faça as alterações desejadas e commit-as:
+   
 ```bash
-http://localhost:3000/api
+git commit -m "Minhas alterações"
 ```
-![Alt Text1](https://media.giphy.com/media/XEUyeEL03IcaZYw6SB/giphy.gif)
 
-### Jwt auth
-![Alt Text2](https://media.giphy.com/media/QUKuolFMyd0WsNFIUH/giphy.gif)
+5. Faça o push das alterações para o seu fork:
+
+```bash
+git push origin minha-branch
+```
+
+6. Abra um pull request no repositório do HWHealth original.
+
+Agradecemos antecipadamente suas contribuições!
