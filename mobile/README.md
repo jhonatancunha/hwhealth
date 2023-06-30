@@ -32,7 +32,7 @@ cp .env.example .env
 ```
 
 ```bash
-# Insira o ID da api do OneSignal
+# Insira o ID da api do OneSignal: https://documentation.onesignal.com/docs/keys-and-ids
 ONESIGN_APPID=
 # Insira a URL do servidor backend
 API_URL=
@@ -52,6 +52,75 @@ yarn start
 ```
 
 Certifique-se de ter um emulador Android/iOS configurado ou um dispositivo físico conectado para executar o aplicativo.
+
+
+## Estrutura de Diretório
+
+```
+├── android
+├── app.json
+├── babel.config.js
+├── Gemfile
+├── index.js
+├── ios
+├── metro.config.js
+├── package.json
+├── react-native.config.js
+├── src
+│   ├── App.tsx
+│   ├── assets
+│   ├── components
+│   ├── context
+│   ├── helper
+│   ├── hooks
+│   ├── routes
+│   ├── screens
+│   │   ├── Login
+│   │   ├── MachineConfiguration
+│   │   ├── MachineInfo
+│   │   ├── Machines
+│   │   ├── Notifications
+│   │   └── Register
+│   ├── services
+│   │   └── axios.ts
+│   └── theme
+│       └── colors.ts
+└── tsconfig.json
+```
+
+### Explicação de cada diretório
+
+
+- **android**: Esta pasta contém os arquivos relacionados à construção do aplicativo para a plataforma Android.
+- **app.json**: É um arquivo de configuração usado pelo React Native para armazenar informações sobre o aplicativo.
+
+- **babel.config.js**: Este arquivo é usado para configurar o Babel, que é uma ferramenta de compilação usada para converter o código JavaScript moderno.
+
+- **Gemfile**: O Gemfile é usado no desenvolvimento Ruby e Ruby on Rails.
+
+- **index.js**: Este é o ponto de entrada principal do aplicativo React Native.
+
+- **ios**: Esta pasta contém os arquivos relacionados à construção do aplicativo para a plataforma iOS.
+
+- **metro.config.js**: É um arquivo de configuração usado pelo Metro Bundler, que é uma ferramenta usada pelo React Native.
+
+- **package.json**: É o arquivo de manifesto do projeto, onde estão listadas as dependências do projeto e outras informações relevantes.
+
+- **react-native.config.js**: Este arquivo é usado para configurar certos aspectos do React Native CLI.
+
+- **src**: Esta pasta contém o código-fonte do aplicativo React Native.
+  - **App.tsx**: O componente raiz do aplicativo.
+  - **assets**: Esta pasta contém recursos estáticos, como imagens e fontes.
+  - **components**: Esta pasta contém componentes reutilizáveis.
+  - **context**: Esta pasta contém arquivos relacionados ao uso do Context API.
+  - **helper**: Esta pasta contém funções auxiliares ou utilitárias.
+  - **hooks**: Esta pasta contém hooks personalizados.
+  - **routes**: Esta pasta contém arquivos relacionados à configuração e gerenciamento de rotas.
+  - **screens**: Esta pasta contém os componentes de tela do aplicativo.
+  - **services**: Esta pasta contém arquivos relacionados a serviços externos.
+  - **theme**: Esta pasta contém arquivos relacionados à definição de temas.
+
+- **tsconfig.json**: Este é o arquivo de configuração do TypeScript.
 
 ## Contribuição
 
