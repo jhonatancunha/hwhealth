@@ -14,6 +14,9 @@ export class Notification {
 
   @Prop({ type: SchemaTypes.String })
     message: string;
+
+  @Prop({ type: SchemaTypes.Date })
+    created_at: Date;
 }
 
 export type NotificationDocument = Notification & Document;

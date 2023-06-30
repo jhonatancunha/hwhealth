@@ -59,7 +59,7 @@ export default class MachineService {
       );
 
       await this.notificationService.create({
-        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message, created_at: new Date(),
       });
     }
 
@@ -73,7 +73,7 @@ export default class MachineService {
       );
 
       await this.notificationService.create({
-        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message, created_at: new Date(),
       });
     }
 
@@ -87,7 +87,7 @@ export default class MachineService {
       );
 
       await this.notificationService.create({
-        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message, created_at: new Date(),
       });
     }
 
@@ -101,7 +101,7 @@ export default class MachineService {
       );
 
       await this.notificationService.create({
-        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message, created_at: new Date(),
       });
     }
 
@@ -116,7 +116,7 @@ export default class MachineService {
       );
 
       await this.notificationService.create({
-        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message,
+        user_id: machineInfo.user_id, machine_id: machineInfo._id, title, message, created_at: new Date(),
       });
     }
   }

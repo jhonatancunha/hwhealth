@@ -12,4 +12,7 @@ export default class CreateNotificationDto {
 
   @ApiProperty({ type: String })
     message: string;
+
+  @ApiProperty({ type: Date })
+    created_at: Date;
 }
