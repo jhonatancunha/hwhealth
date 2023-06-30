@@ -142,8 +142,3 @@ http://localhost:3000/api
 
 ### Jwt auth
 ![Alt Text2](https://media.giphy.com/media/QUKuolFMyd0WsNFIUH/giphy.gif)
-
-### Oauth2 auth
-![Alt Text3](https://media.giphy.com/media/RiWDyLQwXaJXu972SM/giphy.gif)
-- update the .env file with your googel keys
-- go to http://localhost:3000/auth/google route, google'll ask you to authorize into your account. After successfully sign in to your account you will be redirected to http://localhost:3000/auth/google/redirect route
