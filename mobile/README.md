@@ -122,6 +122,33 @@ Certifique-se de ter um emulador Android/iOS configurado ou um dispositivo físi
 
 - **tsconfig.json**: Este é o arquivo de configuração do TypeScript.
 
+
+## Principais Tecnologias
+
+As principais tecnologias presentes são:
+
+Dependencies (dependências):
+- **@miblanchard/react-native-slider**: versão 2.3.1
+- **@react-native-masked-view/masked-view**: versão 0.2.9
+- **@react-navigation/bottom-tabs**: versão 6.5.7
+- **@react-navigation/drawer**: versão 6.6.3
+- **@react-navigation/native**: versão 6.1.6
+- **@react-navigation/stack**: versão 6.3.16
+- **axios**: versão 1.4.0
+- **lodash**: versão 4.17.21
+- **moment**: versão 2.29.4
+- **react**: versão 18.2.0
+- **react-hook-form**: versão 7.45.0
+- **react-native**: versão 0.71.8
+- **react-native-chart-kit**: versão 6.12.0
+- **react-native-dotenv**: versão 3.4.9
+- **react-native-onesignal**: versão 4.5.1
+- **react-native-safe-area-context**: versão 4.5.3
+- **react-native-screens**: versão 3.20.0
+- **react-native-svg**: versão 13.9.0
+- **react-native-vector-icons**: versão 9.2.0
+- **zod**: versão 3.21.4
+
 ## Contribuição
 
 Contribuições para o HWHealth são bem-vindas! Se você deseja contribuir para o projeto, siga as etapas abaixo:
