@@ -43,7 +43,6 @@ O código utiliza as seguintes tecnologias e bibliotecas:
 - platform: Biblioteca Python para obter informações sobre o sistema operacional.
 - sched: Biblioteca Python para agendamento de tarefas.
 - time: Biblioteca Python para trabalhar com tempo.
-- threading: Biblioteca Python para suporte a threads.
 - logging: Biblioteca Python para registro de logs.
 - requests: Biblioteca Python para fazer requisições HTTP.
 - argparse: Biblioteca Python para análise de argumentos da linha de comando.
