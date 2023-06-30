@@ -94,6 +94,15 @@ yarn start:dev
 - **tsconfig.json**: É o arquivo de configuração principal do TypeScript na aplicação NEST.
 - **yarn.lock**: É um arquivo gerado automaticamente pelo gerenciador de pacotes Yarn. Ele garante a reprodutibilidade das dependências do projeto, registrando as versões exatas dos pacotes instalados.
 
+## Principais tecnologias utilizadas
+
+- NEST
+- TypeScript
+- Redis
+- MongoDB
+- Passport
+- Swagger
+  
 ## Contribuição
 
 Contribuições para o HWHealth são bem-vindas! Se você deseja contribuir para o projeto, siga as etapas abaixo:
