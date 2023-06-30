@@ -55,7 +55,7 @@ yarn
 yarn start:dev
 ```
 
-## Estrutura de Diretório
+## Estrutura de Diretórios
 
 ```.
 ├── docker-compose.yml
