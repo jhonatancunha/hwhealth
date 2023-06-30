@@ -127,7 +127,6 @@ Certifique-se de ter um emulador Android/iOS configurado ou um dispositivo físi
 
 As principais tecnologias presentes são:
 
-Dependencies (dependências):
 - **@miblanchard/react-native-slider**: versão 2.3.1
 - **@react-native-masked-view/masked-view**: versão 0.2.9
 - **@react-navigation/bottom-tabs**: versão 6.5.7
