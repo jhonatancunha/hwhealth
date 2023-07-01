@@ -1,15 +1,27 @@
 # 🔍️🚑️ HWHealth - Serviço de monitoramento de métricas
 
+**Apresentação:** https://www.youtube.com/watch?v=9rOWEh5Qm-w
+
+
 ![Arquitetura](arq.png)
 
-## Aplicativo (React Native)
+## Swagger
+
+Acesso a versão estática da documentação OpenAPI pelo seguinte link: https://hwhealth-swagger.netlify.app/
+
+## Aplicativo (React Native) [Saiba mais...](https://github.com/jhonatancunha/hwhealth/blob/main/mobile/README.md)
 
 - O usuário poderá criar sua conta ou realizar login.
 - Autenticação via HTTP.
-- Tela para configurar limiar de cada máquina.
-- Sistema de push notificacation para alerta de métricas acima do limiar.
+- Sistema de push notification para alerta de métricas acima do limiar.
+- Tela de login.
+- Tela de cadastro.
+- Tela de listagem de máquinas.
+- Tela de visualização de informações de uma máquina específica.
+- Tela para configurar o limiar de cada máquina.
+- Tela de listagem de notificações.
 
-## Servidor (NestJS)
+## Servidor (NestJS) [Saiba mais...](https://github.com/jhonatancunha/hwhealth/blob/main/backend/README.md)
 
 
 - Sistema de cache das estatísticas de cada computador utilizando REDIS
@@ -17,7 +29,7 @@
 - Envia notificação ao aplicativo do usuário caso alguma métrica for acima do limiar estabelecido. O envio será efetuado via o serviço Onesignal.
 - Implementar replicação de instâncias do servidor.
 
-## Algoritmo de monitoramento (Python)
+## Algoritmo de monitoramento (Python) [Saiba mais...](https://github.com/jhonatancunha/hwhealth/blob/main/monitor/README.md)
 
 - Envia as estatísticas periodicamente para o servidor armazenar.
 - Quando o usuário rodar o script de monitoramento na máquina alvo.
