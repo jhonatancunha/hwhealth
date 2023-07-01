@@ -75,6 +75,7 @@ yarn start:dev
 │   │   ├── machine-info
 │   │   ├── notification
 │   │   └── users
+│   └── app.cluster.service.ts
 ├── tsconfig.build.json
 ├── tsconfig.json
 └── yarn.lock
@@ -94,6 +95,7 @@ yarn start:dev
       - **machine-info**: componente que implementa os métodos de manipulação dos dados das máquinas.
       - **notification**: componente que implementa os métodos de manipulação das notificações que são enviadas quando a máquina excede os limiares definidos pelo usuário.
       - **users**: componente que implementa os métodos de manipulação dos dados de usuário.
+   - **app.cluster.service.ts**: clusteriza a aplicação NestJS, permitindo a execução simultânea de múltiplos processos em paralelo.
 - **tsconfig.build.json**: É um arquivo de configuração do TypeScript usado durante o processo de compilação para a geração de artefatos de produção.
 - **tsconfig.json**: É o arquivo de configuração principal do TypeScript na aplicação NEST.
 - **yarn.lock**: É um arquivo gerado automaticamente pelo gerenciador de pacotes Yarn. Ele garante a reprodutibilidade das dependências do projeto, registrando as versões exatas dos pacotes instalados.
