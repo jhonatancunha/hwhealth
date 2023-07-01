@@ -1,5 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { Document, SchemaTypes } from 'mongoose';
 
 interface UserInfo {
@@ -79,30 +80,39 @@ export interface Battery {
 
 @Schema()
 export class MachineInfo {
+  @ApiProperty({ type: String })
   @Prop({ type: SchemaTypes.String })
     user_id: string;
 
+  @ApiProperty({ type: SchemaTypes.Mixed })
   @Prop({ type: SchemaTypes.Mixed, required: true })
     user_info: UserInfo;
 
+  @ApiProperty({ type: SchemaTypes.Mixed })
   @Prop({ type: SchemaTypes.Mixed, required: true })
     fans: Fans;
 
+  @ApiProperty({ type: SchemaTypes.Mixed })
   @Prop({ type: SchemaTypes.Mixed, required: true })
     cpu: Cpu;
 
+  @ApiProperty({ type: SchemaTypes.Mixed })
   @Prop({ type: SchemaTypes.Mixed, required: true })
     memory_ram: MemoryRAM;
 
+  @ApiProperty({ type: SchemaTypes.Mixed })
   @Prop({ type: SchemaTypes.Mixed, required: true })
     swap_memory: SwapMemory;
 
+  @ApiProperty({ type: SchemaTypes.Mixed })
   @Prop({ type: SchemaTypes.Mixed, required: true })
     disk: Disk;
 
+  @ApiProperty({ type: SchemaTypes.Mixed })
   @Prop({ type: SchemaTypes.Mixed, required: true })
     network: Network;
 
+  @ApiProperty({ type: SchemaTypes.Mixed })
   @Prop({ type: SchemaTypes.Mixed, required: true })
     battery: Battery;
 }

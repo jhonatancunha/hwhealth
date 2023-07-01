@@ -25,6 +25,14 @@ export default class AuthService {
     this.redisClient = redisService.getClient();
   }
 
+  /**
+   * Valida um usuário pelo email e senha.
+   *
+   * @param {string} email - O email do usuário.
+   * @param {string} password - A senha do usuário.
+   * @return {Promise<null | IAuthValidateUserOutput>} - As informações do usuário validado ou null se a validação falhar.
+   * @throws {NotFoundException} - Se o usuário não for encontrado.
+   */
   async validateUser(
     email: string,
     password: string,
@@ -47,6 +55,14 @@ export default class AuthService {
     return null;
   }
 
+  /**
+   * Valida um usuário pelo email e provedor.
+   *
+   * @param {string} email - O email do usuário.
+   * @param {EProviders} provider - O provedor do usuário.
+   * @return {Promise<null | IAuthValidateUserOutput>} - As informações do usuário validado ou null se a validação falhar.
+   * @throws {NotFoundException} - Se o usuário não for encontrado.
+   */
   async validateUserByProvider(
     email: string,
     provider: EProviders,
@@ -63,6 +79,13 @@ export default class AuthService {
     };
   }
 
+  /**
+   * Realiza o login do usuário.
+   *
+   * @param {IAuthLoginInput} data - Os dados de login do usuário.
+   * @return {Promise<IAuthLoginOutput>} - O resultado do login contendo os tokens de acesso e atualização.
+   * @throws {NotFoundException} - Se o usuário não existir.
+   */
   async login(data: IAuthLoginInput): Promise<IAuthLoginOutput> {
     const foundedUser = await this.validateUser(data.email, data.password);
 
@@ -91,14 +114,31 @@ export default class AuthService {
     };
   }
 
+  /**
+   * Obtém o token de atualização de um usuário pelo email.
+   *
+   * @param {string} email - O email do usuário.
+   * @return {Promise<string>} - O token de atualização.
+   */
   getRefreshTokenByEmail(email: string): Promise<string> {
     return this.redisClient.get(email);
   }
 
+  /**
+   * Exclui o token de um usuário pelo email.
+   *
+   * @param {string} email - O email do usuário.
+   * @return {Promise<number>} - O número de tokens excluídos.
+   */
   deleteTokenByEmail(email: string): Promise<number> {
     return this.redisClient.del(email);
   }
 
+  /**
+   * Exclui todos os tokens armazenados.
+   *
+   * @return {Promise<string>} - O resultado da operação.
+   */
   deleteAllTokens(): Promise<string> {
     return this.redisClient.flushall();
   }

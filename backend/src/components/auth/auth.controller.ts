@@ -3,14 +3,9 @@ import {
   Controller,
   HttpCode,
   Post,
-  Delete,
-  Param,
   Request,
   UnauthorizedException,
-  UseGuards,
   NotFoundException,
-  Req,
-  Get,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -18,7 +13,6 @@ import {
   ApiOkResponse,
   ApiInternalServerErrorResponse,
   ApiUnauthorizedResponse,
-  ApiBearerAuth,
   ApiNotFoundResponse,
   ApiBadRequestResponse,
 } from '@nestjs/swagger';
@@ -26,17 +20,14 @@ import { JwtService } from '@nestjs/jwt';
 
 import UsersService from '@components/users/users.service';
 import { User } from '@components/users/schema/user.schema';
-import JwtAuthGuard from '@guards/jwtAuth.guard';
 
 import OkResponseDto from '@dto/okResponse.dto';
 import { IAuthLoginOutput } from './interfaces/IAuthLoginOutput.interface';
-import LocalAuthGuard from './guards/localAuth.guard';
 import AuthService from './auth.service';
 import RefreshTokenDto from './dto/refreshToken.dto';
 import SignInDto from './dto/signIn.dto';
 import SignUpDto from './dto/signUp.dto';
 import VerifyUserDto from './dto/verifyUser.dto';
-import GoogleAuthGuard from './guards/googleAuth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -70,21 +61,6 @@ export default class AuthController {
     return {
       message: 'The item was created successfully',
     };
-  }
-
-  @ApiBody({})
-  @ApiOkResponse({ description: 'Success, redirect' })
-  @ApiInternalServerErrorResponse({ description: '500. InternalServerError' })
-  @Get('google')
-  @UseGuards(GoogleAuthGuard)
-  async googleAuth(@Req() req) { }
-
-  @ApiOkResponse({ description: 'Success, redirect' })
-  @ApiInternalServerErrorResponse({ description: '500. InternalServerError' })
-  @Get('google/redirect')
-  @UseGuards(GoogleAuthGuard)
-  async googleAuthRedirect(@Req() req) {
-    return this.authService.login(req.user);
   }
 
   @ApiOkResponse({ description: '200, returns new jwt tokens' })
@@ -141,32 +117,5 @@ export default class AuthController {
     await this.usersService.update(foundUser._id, { verified: true });
 
     return true;
-  }
-
-  @ApiOkResponse({ description: '200, returns new jwt tokens' })
-  @ApiUnauthorizedResponse({ description: '401. Token has been expired' })
-  @ApiInternalServerErrorResponse({ description: '500. InternalServerError ' })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Delete('logout/:token')
-  @HttpCode(204)
-  async logout(@Param('token') token: string): Promise<void | never> {
-    const { email } = this.jwtService.verify(token);
-
-    const deletedUserCount = await this.authService.deleteTokenByEmail(email);
-
-    if (deletedUserCount === 0) {
-      throw new NotFoundException('The item does not exist');
-    }
-  }
-
-  @ApiOkResponse({ description: '200, returns new jwt tokens' })
-  @ApiInternalServerErrorResponse({ description: '500. InternalServerError' })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Delete('logoutAll')
-  @HttpCode(204)
-  async logoutAll(): Promise<void> {
-    await this.authService.deleteAllTokens();
   }
 }
